@@ -8,20 +8,21 @@ This is my own implementation of the Blowfish encryption algorithm in ECB and
 CBC mode. It's a simple to use package and runs at an excellent speed, around
 40 Mb/s with the Hotspot Server VM of the JDK 1.4 on a P4/1700. The code
 actually comes very close to the limits what is possible with Java. The latest
-JDK it was tested on is 1.4.2. Stream and string encryption solutions are
-compatible to Blowfish.NET (a C# implementation), allowing an easy data
+JDK it was tested on is 1.4.2_05-b04. Stream and string encryption solutions
+are compatible to Blowfish.NET (a C# implementation), allowing an easy data
 exchange between Java and the Microsoft.NET platform.
 
-Next to the original sources this software also includes stream classes
+Next to the original sources this software also includes streaming classes
 originally contributed by Dale Anson <danson@germane-software.com>.
 
 For one of the real world application using BlowfishJ please check out John's
 Zaurus JCryptPad at 
 
-    http://mywebpages.comcast.net/sl5500/
+    http://www.wallacesoftware.com/zaurus/
     
 Thanks to Siegfried Goeschl <siegfried.goeschl@it20one.at> BlowfishJ became an
-official project at Sourceforge. You can find it at:
+official project at Sourceforge and is buildable via Maven/Ant. You can find
+our project at:
 
 	http://sourceforge.net/projects/blowfishj/
 
@@ -42,7 +43,7 @@ VERSION HISTORY
 
 - root package names changed to (test.)net.sourceforge.blowfishj
 - project is now hosted at Sourceforge, see above
-- updated to the Apache License 2.0
+- updated to Apache License 2.0
 
 2.13
 
