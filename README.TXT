@@ -24,7 +24,7 @@ Thanks to Siegfried Goeschl <siegfried.goeschl@it20one.at> BlowfishJ became an
 official project at Sourceforge and is buildable via Maven/Ant. You can find
 our project at:
 
-	http://sourceforge.net/projects/blowfishj/
+    http://sourceforge.net/projects/blowfishj/
 
  
 COPYRIGHT AND WARRANTY
@@ -44,6 +44,7 @@ VERSION HISTORY
 - root package names changed to (test.)net.sourceforge.blowfishj
 - project is now hosted at Sourceforge, see above
 - updated to Apache License 2.0
+- added Maven build
 
 2.13
 
