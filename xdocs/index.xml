@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>BlowfishJ</title>
+    <author email="siegfried.goeschl@it20one.at">Siegfried Goeschl</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+
+      <p>
+        The Blowfish implementation in Java, very fast ECB and CBC encryption. 
+        Comes with the BlowfishEasy class for simple string encryption, plus a 
+        solution for streaming. Additionally this package includes a 100% compatible 
+        C++ equivalent for cross architecture data exchange. All sources included, 
+        and so are test applications. Now released under the Apache 2.0 licence
+      </p>
+
+    </section>
+
+  </body>
+
+</document>
