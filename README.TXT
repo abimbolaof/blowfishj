@@ -1,5 +1,5 @@
  
-BlowfishJ v2.14 (12/05/2004)
+BlowfishJ v2.14 (12/07/2004)
 
 
 WHAT IS BLOWFISHJ?
@@ -19,13 +19,18 @@ For one of the real world application using BlowfishJ please check out John's
 Zaurus JCryptPad at 
 
     http://mywebpages.comcast.net/sl5500/
+    
+Thanks to Siegfried Goeschl <siegfried.goeschl@it20one.at> BlowfishJ became an
+official project at Sourceforge. You can find it at:
+
+	http://sourceforge.net/projects/blowfishj/
 
  
 COPYRIGHT AND WARRANTY
 
 This software is open source, which means that you can use it in your own
 applets and applications without any license fees. The license model chosen is 
-the Apache License 1.1, for more information check out the file LICENSE.TXT.
+the Apache License 2.0, for more information check out the file LICENSE.TXT.
 Additionally to that it would be appreciated that the usage is mentioned
 somewhere in the documentation and that feedback is sent back to the author,
 yet both is optional and not a must.
@@ -35,8 +40,9 @@ VERSION HISTORY
 
 2.14
 
-- root package name changed to net.sourceforge.blowfishj
-- project is now hosted at <http://sourceforge.net/projects/blowfishj/>
+- root package names changed to (test.)net.sourceforge.blowfishj
+- project is now hosted at Sourceforge, see above
+- updated to the Apache License 2.0
 
 2.13
 
@@ -52,7 +58,7 @@ VERSION HISTORY
 - added known weak key test
 - added demo code for BlowfishEasy
 - added compatibility tests for data exchange with Blowfish.NET
-- removed the C++ sources (this project fell behind its expections)
+- removed the C++ sources (this project fell behind its expectations)
 
 2.11
 

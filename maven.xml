@@ -9,7 +9,6 @@
     <delete file="./velocity.log"/>   
   </goal>
 
-
   <goal name="custom-site">     
 
     <echo>Generating JUNIT report</echo>
@@ -42,7 +41,6 @@
   
   <preGoal name="site:generate">
     <attainGoal name="custom-site"/>
-    
   </preGoal>
   
 </project>
