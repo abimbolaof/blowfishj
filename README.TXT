@@ -33,6 +33,11 @@ yet both is optional and not a must.
 
 VERSION HISTORY 
 
+2.14
+
+- root package name changed to net.sourceforge.blowfishj
+- project is now hosted at <http://sourceforge.net/projects/blowfishj/>
+
 2.13
 
 - fixed a bug in the key setup of BlowfishECB, if keys were passed with an

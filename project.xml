@@ -5,7 +5,7 @@
   <version>3</version>
   <id>blowfishj</id>
   <name>blowfishj</name>
-  <currentVersion>2.12</currentVersion>
+  <currentVersion>2.14</currentVersion>
 
   <organization>
     <name>Sourceforge</name>
@@ -33,7 +33,7 @@
     <developer>
       <name>Markus Hahn</name>
       <id></id>
-      <email>maakus@earthlink.net</email>
+      <email>maakus@hotpixel.net</email>
       <organization></organization>
       <roles>
         <role>Developer</role>
