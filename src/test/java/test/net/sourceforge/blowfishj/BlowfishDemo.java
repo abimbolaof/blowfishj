@@ -151,7 +151,8 @@ public class BlowfishDemo
 		}
 		catch (Throwable err)
 		{
-		};
+		    // nothing to do
+		}
 
 		try
 		{
