@@ -46,7 +46,7 @@ public class BlowfishECB
 	final int[] m_sbox4 = (int[]) sbox_init_4.clone();
 
 	// object local block cache to speed up integer and long buffer handling
-	byte[] m_blockBuf = new byte[BLOCKSIZE];;
+	byte[] m_blockBuf = new byte[BLOCKSIZE];
 
 	// weak key indicator
 	int m_nWeakKey;
