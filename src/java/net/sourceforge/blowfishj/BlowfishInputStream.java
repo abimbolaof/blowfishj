@@ -17,7 +17,10 @@
 
 package net.sourceforge.blowfishj;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PushbackInputStream;
 
 /**
  * An input stream that reads from a file created an instance of the

@@ -17,8 +17,8 @@
 
 package net.sourceforge.blowfishj;
 
-import java.util.*;
-import java.security.*;
+import java.security.SecureRandom;
+import java.util.Random;
 
 /**
  * Support class for easy string encryption with the Blowfish algorithm. Works
