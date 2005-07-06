@@ -178,6 +178,10 @@ public class BlowfishOutputStream extends OutputStream
 	{
 		byte nPadVal;
 
+		if (null == m_os)
+		{
+			return;
+		}
 
 		// This output stream always writes out even blocks of 8 bytes. If it
 		// happens that the last block does not have 8 bytes, then the block
@@ -210,9 +214,9 @@ public class BlowfishOutputStream extends OutputStream
 			m_bufOut.length);
 
 		m_os.close();
+		m_os = null;
+		
 		m_bfc.cleanUp();
-
-		return;
 	}
 
 	///////////////////////////////////////////////////////////////////////////

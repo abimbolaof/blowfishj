@@ -226,7 +226,10 @@ public class BlowfishInputStream extends InputStream
 	 */
 	public void close() throws IOException
 	{
-		m_is.close();
-		return;
+		if (null != m_is)
+		{
+			m_is.close();
+			m_is = null;
+		}
 	}
 }

@@ -42,6 +42,7 @@ VERSION HISTORY
 2.15
 
 - removed unused local variables, which were detected by the JDK 1.5 compiler
+- streams can now be closed multiple times without causing problems
 - some copyright/comment and demo code adjustments
 - verified to compile and run in the new Eclipse 3.1 IDE
 

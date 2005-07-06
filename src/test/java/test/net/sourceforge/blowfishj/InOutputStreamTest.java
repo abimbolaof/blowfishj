@@ -78,6 +78,7 @@ public class InOutputStreamTest extends TestCase
 
 				bfos.write(plain);
 				bfos.close();
+				bfos.close();
 
 				enc = baos.toByteArray();
 
@@ -101,6 +102,7 @@ public class InOutputStreamTest extends TestCase
 				}
 				assertTrue(-1 == bfis.read());
 
+				bfis.close();
 				bfis.close();
 			}
 		}
