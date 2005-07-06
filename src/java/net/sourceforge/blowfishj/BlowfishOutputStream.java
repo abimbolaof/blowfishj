@@ -1,6 +1,6 @@
 
 /*
- * Copyright 2004 Markus Hahn 
+ * Copyright 1997-2005 Markus Hahn 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -46,7 +46,6 @@ public class BlowfishOutputStream extends OutputStream
 		OutputStream os) throws IOException
 	{
 		byte[] ckey;
-		long iv;
 		SHA1 sh;
 		SecureRandom srnd;
 
@@ -143,10 +142,6 @@ public class BlowfishOutputStream extends OutputStream
 	public void write(
 		int nByte) throws IOException
 	{
-		int nI;
-		byte[] iv;
-
-
 		// if buffer isn't full, just store the input
 		++m_nBytesInBuf;
 		if (m_nBytesInBuf < m_bufIn.length)
@@ -181,7 +176,6 @@ public class BlowfishOutputStream extends OutputStream
 	 */
 	public void close() throws IOException
 	{
-		int nI;
 		byte nPadVal;
 
 

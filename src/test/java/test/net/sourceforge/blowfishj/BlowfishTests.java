@@ -1,6 +1,6 @@
 
 /*
- * Copyright 2004 Markus Hahn 
+ * Copyright 1997-2005 Markus Hahn 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -190,7 +190,7 @@ public class BlowfishTests extends TestCase
 	public void testBlowfishEasy()
 	{
 		int nI, nJ;
-		String sPlain, sCipher, sPlain2, sPlain3, sKey;
+		String sPlain, sCipher, sPlain2, sKey;
 		StringBuffer sbuf = new StringBuffer();
 		BlowfishEasy bfes;
 

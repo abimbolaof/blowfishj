@@ -1,6 +1,6 @@
 
 /*
- * Copyright 2004 Markus Hahn 
+ * Copyright 1997-2005 Markus Hahn 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -67,12 +67,12 @@ public class BlowfishDemo
 	public static void main(
 		String args[])
 	{
-		int nI, nJ;
+		int nI;
 		int nRest, nMsgSize, nLnBrkLen;
 		long lTm, lRate;
 		double dAmount, dTime, dRate;
-		String sEnc, sDec;
 		byte[] testKey, tempBuf, cpyBuf, msgBuf, showIV;
+		String sEnc;
 		BlowfishECB bfe;
 		BlowfishCBC bfc;
 		BlowfishEasy bfes;
@@ -179,7 +179,10 @@ public class BlowfishDemo
 
 			for (nI = nMsgSize; nI < msgBuf.length; nI++)
 			{
-				msgBuf[nI] = 0;
+				// pad with spaces; zeros are a better solution when you need
+				// to actually strip of the padding data later on (in our case
+				// it wouldn't be printable though)
+				msgBuf[nI] = ' ';	
 			}
 
 			System.out.println(

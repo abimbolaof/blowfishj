@@ -1,6 +1,6 @@
 
 /*
- * Copyright 2004 Markus Hahn 
+ * Copyright 1997-2005 Markus Hahn 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -328,8 +328,6 @@ public class BlowfishECB
 		int nLen)
 	{
 		nLen -= nLen % BLOCKSIZE;
-
-		long lTemp;
 
 		int nC = nInPos + nLen;
 

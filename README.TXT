@@ -1,5 +1,5 @@
  
-BlowfishJ v2.14 (12/07/2004)
+BlowfishJ v2.15 (07/05/2005)
 
 
 WHAT IS BLOWFISHJ?
@@ -24,7 +24,7 @@ Thanks to Siegfried Goeschl <siegfried.goeschl@it20one.at> BlowfishJ became an
 official project at Sourceforge and is buildable via Maven/Ant. You can find
 our project at:
 
-    http://sourceforge.net/projects/blowfishj/
+    http://blowfishj.sf.net/
 
  
 COPYRIGHT AND WARRANTY
@@ -38,6 +38,12 @@ yet both is optional and not a must.
 
 
 VERSION HISTORY 
+
+2.15
+
+- removed unused local variables, which were detected by the JDK 1.5 compiler
+- some copyright/comment and demo code adjustments
+- verified to compile and run in the new Eclipse 3.1 IDE
 
 2.14
 
@@ -119,4 +125,4 @@ VERSION HISTORY
 
 
 --
-Copyright (c) 1997-2004 Markus Hahn <maakus@hotpixel.net>
+Copyright (c) 1997-2005 Markus Hahn <mhahn@cruzio.com>
