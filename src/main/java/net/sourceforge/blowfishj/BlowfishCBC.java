@@ -164,7 +164,7 @@ public class BlowfishCBC extends BlowfishECB
         int nInPos1 = nInPos;
         int nC = nInPos1 + nLen;
 
-        int[] pbox = m_pbox;
+        int[] pbox = this.getPbox();
         int nPBox00 = pbox[0];
         int nPBox01 = pbox[1];
         int nPBox02 = pbox[2];
@@ -184,10 +184,10 @@ public class BlowfishCBC extends BlowfishECB
         int nPBox16 = pbox[16];
         int nPBox17 = pbox[17];
 
-        int[] sbox1 = m_sbox1;
-        int[] sbox2 = m_sbox2;
-        int[] sbox3 = m_sbox3;
-        int[] sbox4 = m_sbox4;
+        int[] sbox1 = this.getSbox1();
+        int[] sbox2 = this.getSbox2();
+        int[] sbox3 = this.getSbox3();
+        int[] sbox4 = this.getSbox4();
 
         int nIVHi = m_nIVHi;
         int nIVLo = m_nIVLo;
@@ -266,13 +266,13 @@ public class BlowfishCBC extends BlowfishECB
         int nC = nInPos1 + nLen;
 
         while (nInPos1 < nC) {
-            BinConverter.intToByteArray(inBuf[nInPos1++], m_blockBuf, 0);
-            BinConverter.intToByteArray(inBuf[nInPos1++], m_blockBuf, 4);
+            BinConverter.intToByteArray(inBuf[nInPos1++], blockBuf, 0);
+            BinConverter.intToByteArray(inBuf[nInPos1++], blockBuf, 4);
 
-            encrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
+            encrypt(blockBuf, 0, blockBuf, 0, blockBuf.length);
 
-            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-            outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(blockBuf, 0);
+            outBuf[nOutPos1] = BinConverter.byteArrayToInt(blockBuf, 4);
             nOutPos1++;
         }
     }
@@ -291,11 +291,11 @@ public class BlowfishCBC extends BlowfishECB
         int nC = nInPos1 + nLen;
 
         while (nInPos1 < nC) {
-            BinConverter.longToByteArray(inBuf[nInPos1++], m_blockBuf, 0);
+            BinConverter.longToByteArray(inBuf[nInPos1++], blockBuf, 0);
 
-            encrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
+            encrypt(blockBuf, 0, blockBuf, 0, blockBuf.length);
 
-            outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+            outBuf[nOutPos1] = BinConverter.byteArrayToInt(blockBuf, 0);
             nOutPos1++;
         }
     }
@@ -314,7 +314,7 @@ public class BlowfishCBC extends BlowfishECB
         int nInPos1 = nInPos;
         int nC = nInPos1 + nLen;
 
-        int[] pbox = m_pbox;
+        int[] pbox = this.getPbox();
         int nPBox00 = pbox[0];
         int nPBox01 = pbox[1];
         int nPBox02 = pbox[2];
@@ -334,10 +334,10 @@ public class BlowfishCBC extends BlowfishECB
         int nPBox16 = pbox[16];
         int nPBox17 = pbox[17];
 
-        int[] sbox1 = m_sbox1;
-        int[] sbox2 = m_sbox2;
-        int[] sbox3 = m_sbox3;
-        int[] sbox4 = m_sbox4;
+        int[] sbox1 = this.getSbox1();
+        int[] sbox2 = this.getSbox2();
+        int[] sbox3 = this.getSbox3();
+        int[] sbox4 = this.getSbox4();
 
         int nIVHi = m_nIVHi;
         int nIVLo = m_nIVLo;
@@ -419,13 +419,13 @@ public class BlowfishCBC extends BlowfishECB
         int nC = nInPos1 + nLen;
 
         while (nInPos1 < nC) {
-            BinConverter.intToByteArray(inBuf[nInPos1++], m_blockBuf, 0);
-            BinConverter.intToByteArray(inBuf[nInPos1++], m_blockBuf, 4);
+            BinConverter.intToByteArray(inBuf[nInPos1++], blockBuf, 0);
+            BinConverter.intToByteArray(inBuf[nInPos1++], blockBuf, 4);
 
-            decrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
+            decrypt(blockBuf, 0, blockBuf, 0, blockBuf.length);
 
-            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-            outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(blockBuf, 0);
+            outBuf[nOutPos1] = BinConverter.byteArrayToInt(blockBuf, 4);
             nOutPos1++;
         }
     }
@@ -444,11 +444,11 @@ public class BlowfishCBC extends BlowfishECB
         int nC = nInPos1 + nLen;
 
         while (nInPos1 < nC) {
-            BinConverter.longToByteArray(inBuf[nInPos1++], m_blockBuf, 0);
+            BinConverter.longToByteArray(inBuf[nInPos1++], blockBuf, 0);
 
-            decrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
+            decrypt(blockBuf, 0, blockBuf, 0, blockBuf.length);
 
-            outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+            outBuf[nOutPos1] = BinConverter.byteArrayToInt(blockBuf, 0);
             nOutPos1++;
         }
     }
