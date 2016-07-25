@@ -18,7 +18,6 @@
 package net.sourceforge.blowfishj;
 
 import junit.framework.TestCase;
-import net.sourceforge.blowfishj.crypt.BlowfishCBC;
 import net.sourceforge.blowfishj.crypt.BlowfishECB;
 import net.sourceforge.blowfishj.streams.BlowfishInputStream;
 import net.sourceforge.blowfishj.streams.BlowfishOutputStream;
@@ -29,31 +28,28 @@ import java.io.IOException;
 
 /**
  * Simple tests for the BlowfishInputStream and BlowfishOutputStream.
+ *
  * @author original version by Dale Anson <danson@germane-software.com>
  */
-public class InOutputStreamTest extends TestCase
-{
-	private static final int[] SIZES =
-	{
-		0, 1, 3, 5, 8, 9, 15, 16, 17, 24, 64, 1024, 65537
-	};
+public class InOutputStreamTest extends TestCase {
+    private static final int[] SIZES =
+            {
+                    0, 1, 3, 5, 8, 9, 15, 16, 17, 24, 64, 1024, 65537
+            };
 
-	public void testStreams() throws IOException
-	{
+    public void testStreams() throws IOException {
 
 
-		// many sizes, many keys
+        // many sizes, many keys
 
-		byte[] key = new byte[1000];
+        byte[] key = new byte[1000];
 
-		int nI;
-		for (nI = 0; nI < key.length; nI++)
-		{
-			key[nI] = (byte)nI;
-		}
+        int nI;
+        for (nI = 0; nI < key.length; nI++) {
+            key[nI] = (byte) nI;
+        }
 
-		for (nI = 0; nI < key.length; nI += nI + 1 - (nI & 1))
-		{
+        for (nI = 0; nI < key.length; nI += nI + 1 - (nI & 1)) {
             for (int SIZE : SIZES) {
                 byte[] plain = new byte[SIZE];
 
@@ -64,15 +60,9 @@ public class InOutputStreamTest extends TestCase
 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-                BlowfishOutputStream bfos = new BlowfishOutputStream(
-                        key,
-                        nI,
-                        key.length - nI,
-                        baos);
-
-                bfos.write(plain);
-                bfos.close();
-                bfos.close();
+                try (BlowfishOutputStream bfos = new BlowfishOutputStream(key, nI, key.length - nI, baos)) {
+                    bfos.write(plain);
+                }
 
                 byte[] enc = baos.toByteArray();
 
@@ -83,32 +73,24 @@ public class InOutputStreamTest extends TestCase
 
                 ByteArrayInputStream bais = new ByteArrayInputStream(enc);
 
-                BlowfishInputStream bfis = new BlowfishInputStream(
-                        key,
-                        nI,
-                        key.length - nI,
-                        bais);
-
-                for (nJ = 0; nJ < plain.length; nJ++) {
-                    int nDec;
-                    assertTrue((nDec = bfis.read()) != -1);
-                    assertTrue(plain[nJ] == (byte) nDec);
+                try (BlowfishInputStream bfis = new BlowfishInputStream(key, nI, key.length - nI, bais)) {
+                    for (nJ = 0; nJ < plain.length; nJ++) {
+                        int nDec;
+                        assertTrue((nDec = bfis.read()) != -1);
+                        assertTrue(plain[nJ] == (byte) nDec);
+                    }
+                    assertTrue(bfis.read() == -1);
                 }
-                assertTrue(bfis.read() == -1);
-
-                bfis.close();
-                bfis.close();
             }
-		}
-	}
+        }
+    }
 
 
+    // (this reference data was produced in C# with Blowfish.NET, its main
+    // purpose is to test cross-platform compatibility)
 
-	// (this reference data was produced in C# with Blowfish.NET, its main
-	// purpose is to test cross-platform compatibility)
-
-	private static final byte[] BFS_REF_KEY = { 0,1,2,3,4,5,6,7,8,9,10 };
-	private static final int BFS_REF_PLAIN_LEN = 117;
+    private static final byte[] BFS_REF_KEY = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    private static final int BFS_REF_PLAIN_LEN = 117;
 
     private static final byte[] BFS_REF_ENC_DATA =
             {
@@ -136,23 +118,12 @@ public class InOutputStreamTest extends TestCase
                     (byte) 0x6a, (byte) 0x84
             };
 
-	public void testRefStream() throws IOException
-	{
+    public void testRefStream() throws IOException {
 
 
-		BlowfishInputStream bfis = new BlowfishInputStream(
-				BFS_REF_KEY,
-				0,
-				BFS_REF_KEY.length,
-				new ByteArrayInputStream(BFS_REF_ENC_DATA));
-
-		for (int nI = 0; nI < BFS_REF_PLAIN_LEN; nI++)
-		{
-			assertTrue((nI & 0x0ff) == bfis.read());
-		}
-
-		assertTrue(bfis.read() == -1);
-
-		bfis.close();
-	}
+        try (BlowfishInputStream bfis = new BlowfishInputStream(BFS_REF_KEY, 0, BFS_REF_KEY.length, new ByteArrayInputStream(BFS_REF_ENC_DATA))) {
+            for (int nI = 0; nI < BFS_REF_PLAIN_LEN; nI++) assertTrue((nI & 0x0ff) == bfis.read());
+            assertTrue(bfis.read() == -1);
+        }
+    }
 }

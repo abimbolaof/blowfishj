@@ -29,252 +29,235 @@ import java.io.IOException;
 /**
  * Demonstrating the Blowfish encryption algorithm classes.
  */
-public class BlowfishDemo
-{
-	// max. size of message to encrypt
+public class BlowfishDemo {
+    // max. size of message to encrypt
 
-	private static final int MAX_MESS_SIZE = 64;
+    private static final int MAX_MESS_SIZE = 64;
 
-	// benchmark settings
+    // benchmark settings
 
-	private static final int TESTBUFSIZE = 100000;
-	private static final int TESTLOOPS = 10000;
+    private static final int TESTBUFSIZE = 100000;
+    private static final int TESTLOOPS = 10000;
 
-	// BlowfishEasy reference
+    // BlowfishEasy reference
 
-	private static final String BFEASY_REF_PASSW = "secret";
-	private static final String BFEASY_REF_TEXT = "Protect me.";
+    private static final String BFEASY_REF_PASSW = "secret";
+    private static final String BFEASY_REF_TEXT = "Protect me.";
 
-	// startup CBC IV
+    // startup CBC IV
 
-	private static final long CBCIV_START = 0x0102030405060708L;
+    private static final long CBCIV_START = 0x0102030405060708L;
 
-	// things necessary for compatibility testing
+    // things necessary for compatibility testing
 
-	private static final byte[] XCHG_KEY =
-	{
-		(byte)0xaa, (byte)0xbb, (byte)0xcc, 0x00, 0x42, 0x33
-	};
-	private static final int XCHG_DATA_SIZE = 111;
+    private static final byte[] XCHG_KEY =
+            {
+                    (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, 0x00, 0x42, 0x33
+            };
+    private static final int XCHG_DATA_SIZE = 111;
 
 
-	/**
-	 * the application entry point
-	 * @param args (command line) parameters
-	 */
-	public static void main(
-			String... args) throws IOException {
+    /**
+     * the application entry point
+     *
+     * @param args (command line) parameters
+     */
+    public static void main(
+            String... args) throws IOException {
 
-		// create our test key
+        // create our test key
 
-		byte[] testKey = new byte[5];
-		int nI;
-		for (nI = 0; nI < testKey.length; nI++)
-		{
-			testKey[nI] = (byte) (nI + 1);
-		}
+        byte[] testKey = new byte[5];
+        int nI;
+        for (nI = 0; nI < testKey.length; nI++) {
+            testKey[nI] = (byte) (nI + 1);
+        }
 
-		// do the key setups and check for weaknesses
+        // do the key setups and check for weaknesses
 
-		System.out.print("setting up Blowfish keys...");
+        System.out.print("setting up Blowfish keys...");
 
-		BlowfishECB bfe = new BlowfishECB(testKey, 0, testKey.length);
+        BlowfishECB bfe = new BlowfishECB(testKey, 0, testKey.length);
 
-		BlowfishCBC bfc = new BlowfishCBC(
-				testKey,
-				0,
-				testKey.length,
-				CBCIV_START);
+        BlowfishCBC bfc = new BlowfishCBC(
+                testKey,
+                0,
+                testKey.length,
+                CBCIV_START);
 
-		System.out.println(", done.");
+        System.out.println(", done.");
 
-		if (bfe.weakKeyCheck())
-		{
-			System.out.println("ECB key is weak!");
-		}
-		else
-		{
-			System.out.println("ECB key OK");
-		}
+        if (bfe.weakKeyCheck()) {
+            System.out.println("ECB key is weak!");
+        } else {
+            System.out.println("ECB key OK");
+        }
 
-		if (bfc.weakKeyCheck())
-		{
-			System.out.println("CBC key is weak!");
-		}
-		else
-		{
-			System.out.println("CBC key OK");
-		}
+        if (bfc.weakKeyCheck()) {
+            System.out.println("CBC key is weak!");
+        } else {
+            System.out.println("CBC key OK");
+        }
 
-		// get a message
+        // get a message
 
-		System.out.print("something to encrypt please >");
-		System.out.flush();
+        System.out.print("something to encrypt please >");
+        System.out.flush();
 
-		byte[] tempBuf = new byte[MAX_MESS_SIZE];
+        byte[] tempBuf = new byte[MAX_MESS_SIZE];
 
-		int nMsgSize;
-		int nLnBrkLen;
+        int nMsgSize;
+        int nLnBrkLen;
 
-		nLnBrkLen = System.getProperty("line.separator").length();
+        nLnBrkLen = System.getProperty("line.separator").length();
 
-		// (cut off the line break)
-		nMsgSize = System.in.read(tempBuf) - nLnBrkLen;
-		byte[] cpyBuf = new byte[nMsgSize];
-		System.arraycopy(tempBuf, 0, cpyBuf, 0, nMsgSize);
-		tempBuf = cpyBuf;
+        // (cut off the line break)
+        nMsgSize = System.in.read(tempBuf) - nLnBrkLen;
+        byte[] cpyBuf = new byte[nMsgSize];
+        System.arraycopy(tempBuf, 0, cpyBuf, 0, nMsgSize);
+        tempBuf = cpyBuf;
 
-		// align to the next 8 byte border
+        // align to the next 8 byte border
 
-		int nRest = nMsgSize & 7;
+        int nRest = nMsgSize & 7;
 
-		byte[] msgBuf;
-		if (nRest == 0) {
-			msgBuf = new byte[nMsgSize];
+        byte[] msgBuf;
+        if (nRest == 0) {
+            msgBuf = new byte[nMsgSize];
 
-			System.arraycopy(tempBuf, 0, msgBuf, 0, nMsgSize);
-		} else {
-			msgBuf = new byte[(nMsgSize & ~7) + 8];
+            System.arraycopy(tempBuf, 0, msgBuf, 0, nMsgSize);
+        } else {
+            msgBuf = new byte[(nMsgSize & ~7) + 8];
 
-			System.arraycopy(tempBuf, 0, msgBuf, 0, nMsgSize);
+            System.arraycopy(tempBuf, 0, msgBuf, 0, nMsgSize);
 
-			for (nI = nMsgSize; nI < msgBuf.length; nI++) {
-				// pad with spaces; zeros are a better solution when you need
-				// to actually strip of the padding data later on (in our case
-				// it wouldn't be printable though)
-				msgBuf[nI] = ' ';
-			}
+            for (nI = nMsgSize; nI < msgBuf.length; nI++) {
+                // pad with spaces; zeros are a better solution when you need
+                // to actually strip of the padding data later on (in our case
+                // it wouldn't be printable though)
+                msgBuf[nI] = ' ';
+            }
 
-			System.out.println(
-					"message with "
-							+ nMsgSize
-							+ " bytes aligned to "
-							+ msgBuf.length
-							+ " bytes");
-		}
+            System.out.println(
+                    "message with "
+                            + nMsgSize
+                            + " bytes aligned to "
+                            + msgBuf.length
+                            + " bytes");
+        }
 
-		System.out.println(
-			"aligned data : " + BinConverter.bytesToHexStr(msgBuf));
+        System.out.println(
+                "aligned data : " + BinConverter.bytesToHexStr(msgBuf));
 
-		// ECB encryption/decryption test
+        // ECB encryption/decryption test
 
-		bfe.encrypt(msgBuf, 0, msgBuf, 0, msgBuf.length);
+        bfe.encrypt(msgBuf, 0, msgBuf, 0, msgBuf.length);
 
-		// show the result
+        // show the result
 
-		System.out.println(
-			"ECB encrypted: " + BinConverter.bytesToHexStr(msgBuf));
+        System.out.println(
+                "ECB encrypted: " + BinConverter.bytesToHexStr(msgBuf));
 
-		bfe.decrypt(msgBuf, 0, msgBuf, 0, msgBuf.length);
+        bfe.decrypt(msgBuf, 0, msgBuf, 0, msgBuf.length);
 
-		System.out.println("ECB decrypted: >>>" + new String(msgBuf) + "<<<");
+        System.out.println("ECB decrypted: >>>" + new String(msgBuf) + "<<<");
 
-		// CBC encryption/decryption test
+        // CBC encryption/decryption test
 
-		byte[] showIV = new byte[BlowfishECB.BLOCKSIZE];
+        byte[] showIV = new byte[BlowfishECB.BLOCKSIZE];
 
-		bfc.getCBCIV(showIV, 0);
+        bfc.getCBCIV(showIV, 0);
 
-		System.out.println("CBC IV: " + BinConverter.bytesToHexStr(showIV));
+        System.out.println("CBC IV: " + BinConverter.bytesToHexStr(showIV));
 
-		bfc.encrypt(msgBuf, 0, msgBuf, 0, msgBuf.length);
+        bfc.encrypt(msgBuf, 0, msgBuf, 0, msgBuf.length);
 
-		// show the result
+        // show the result
 
-		System.out.println(
-			"CBC encrypted: " + BinConverter.bytesToHexStr(msgBuf));
+        System.out.println(
+                "CBC encrypted: " + BinConverter.bytesToHexStr(msgBuf));
 
-		bfc.setCBCIV(CBCIV_START);
-		bfc.decrypt(msgBuf, 0, msgBuf, 0, msgBuf.length);
+        bfc.setCBCIV(CBCIV_START);
+        bfc.decrypt(msgBuf, 0, msgBuf, 0, msgBuf.length);
 
-		System.out.println("CBC decrypted: >>>" + new String(msgBuf) + "<<<");
+        System.out.println("CBC decrypted: >>>" + new String(msgBuf) + "<<<");
 
-		System.out.println("tests done.");
+        System.out.println("tests done.");
 
-		// demonstrate easy encryption
+        // demonstrate easy encryption
 
-		BlowfishEasy bfes = new BlowfishEasy(BFEASY_REF_PASSW.toCharArray());
+        BlowfishEasy bfes = new BlowfishEasy(BFEASY_REF_PASSW.toCharArray());
 
-		String sEnc;
-		System.out.println(sEnc = bfes.encryptString(BFEASY_REF_TEXT));
-		System.out.println(bfes.decryptString(sEnc));
+        String sEnc;
+        System.out.println(sEnc = bfes.encryptString(BFEASY_REF_TEXT));
+        System.out.println(bfes.decryptString(sEnc));
 
-		// show stream handling
+        // show stream handling
 
-		try
-		{
-			ByteArrayOutputStream baos;
-			BlowfishOutputStream bfos = new BlowfishOutputStream(
-					XCHG_KEY,
-					0,
-					XCHG_KEY.length,
-					baos = new ByteArrayOutputStream());
+        try {
+            try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); BlowfishOutputStream bfos = new BlowfishOutputStream(
+                    XCHG_KEY,
+                    0,
+                    XCHG_KEY.length,
+                    baos)) {
 
-			for (nI = 0; nI < XCHG_DATA_SIZE; nI++)
-			{
-				bfos.write(nI);
-			}
+                for (nI = 0; nI < XCHG_DATA_SIZE; nI++) {
+                    bfos.write(nI);
+                }
 
-			bfos.close();
+                tempBuf = baos.toByteArray();
+            }
 
-			tempBuf = baos.toByteArray();
+            System.out.println(BinConverter.bytesToHexStr(tempBuf));
 
-			System.out.println(BinConverter.bytesToHexStr(tempBuf));
+            try (BlowfishInputStream bfis = new BlowfishInputStream(
+                    XCHG_KEY,
+                    0,
+                    XCHG_KEY.length,
+                    new ByteArrayInputStream(tempBuf))) {
 
-			BlowfishInputStream bfis = new BlowfishInputStream(
-					XCHG_KEY,
-					0,
-					XCHG_KEY.length,
-					new ByteArrayInputStream(tempBuf));
+                for (nI = 0; nI < XCHG_DATA_SIZE; nI++) {
+                    if ((nI & 0x0ff) != bfis.read()) {
+                        System.out.println(
+                                "corrupted data at position " + nI);
+                    }
+                }
 
-			for (nI = 0; nI < XCHG_DATA_SIZE; nI++)
-			{
-				if ((nI & 0x0ff) != bfis.read())
-				{
-					System.out.println(
-						"corrupted data at position " + nI);
-				}
-			}
+            }
+        } catch (IOException ie) {
+            ie.printStackTrace();
+        }
 
-			bfis.close();
-		}
-		catch (IOException ie)
-		{
-			ie.printStackTrace();
-		}
+        // benchmark
 
-		// benchmark
+        System.out.println("\nrunning benchmark (CBC)...");
 
-		System.out.println("\nrunning benchmark (CBC)...");
+        long lTm = System.currentTimeMillis();
 
-		long lTm = System.currentTimeMillis();
+        tempBuf = new byte[TESTBUFSIZE];
 
-		tempBuf = new byte[TESTBUFSIZE];
+        for (nI = 0; nI < TESTLOOPS; nI++) {
+            bfc.encrypt(tempBuf, 0, tempBuf, 0, tempBuf.length);
 
-		for (nI = 0; nI < TESTLOOPS; nI++)
-		{
-			bfc.encrypt(tempBuf, 0, tempBuf, 0, tempBuf.length);
+            if (nI % (TESTLOOPS / 40) == 0) {
+                System.out.print("#");
+                System.out.flush();
+            }
+        }
 
-			if (nI % (TESTLOOPS / 40) == 0)
-			{
-				System.out.print("#");
-				System.out.flush();
-			}
-		}
+        lTm = System.currentTimeMillis() - lTm;
 
-		lTm = System.currentTimeMillis() - lTm;
+        System.out.println();
 
-		System.out.println();
+        double dAmount = TESTBUFSIZE * TESTLOOPS;
+        double dTime = lTm;
+        double dRate = dAmount * 1000 / dTime;
+        long lRate = (long) dRate;
 
-		double dAmount = TESTBUFSIZE * TESTLOOPS;
-		double dTime = lTm;
-		double dRate = dAmount * 1000 / dTime;
-		long lRate = (long) dRate;
+        System.out.println(lRate + " bytes/sec");
 
-		System.out.println(lRate + " bytes/sec");
-
-		bfe.cleanUp();
-		bfc.cleanUp();
-	}
+        bfe.cleanUp();
+        bfc.cleanUp();
+    }
 
 }

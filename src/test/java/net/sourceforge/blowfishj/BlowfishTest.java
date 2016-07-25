@@ -213,7 +213,7 @@ public class BlowfishTest extends TestCase
 	{
 
 
-		byte[] key = (byte[]) KNOWN_WEAK_KEY.clone();
+		byte[] key = KNOWN_WEAK_KEY.clone();
 
 		BlowfishECB bfe = new BlowfishECB(key, 0, key.length);
 		assertTrue(bfe.weakKeyCheck());
