@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package test.net.sourceforge.blowfishj;
+package net.sourceforge.blowfishj;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

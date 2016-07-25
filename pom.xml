@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>blowfishj</groupId>
+    <artifactId>blowfishj</artifactId>
+    <version>2.16-SNAPSHOT</version>
+    <name>blowfishj</name>
+    <description>Implementation of Blowfish for Java</description>
+    <url>http://sourceforge.net/projects/blowfishj/</url>
+    <inceptionYear>2004</inceptionYear>
+    <organization>
+        <name>Sourceforge</name>
+        <url>http://www.sourceforge.net/</url>
+    </organization>
+    <developers>
+        <developer>
+            <id>markus_hahn</id>
+            <name>Markus Hahn</name>
+            <email>mhahn ad cruzio.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>wdsgoe</id>
+            <name>Siegfried Goeschl</name>
+            <email>siegfried dot goeschl ad it20one.at</email>
+            <organization>IT20one</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/blowfishj:blowfishj</connection>
+        <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/blowfishj/</url>
+    </scm>
+    <issueManagement>
+        <url>http://sourceforge.net/projects/blowfishj/</url>
+    </issueManagement>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package test.net.sourceforge.blowfishj;
+package net.sourceforge.blowfishj;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
