@@ -26,9 +26,9 @@ public class AllTests
 	public static Test suite()
 	{
 		TestSuite suite = new TestSuite("AllTests");
-		suite.addTest(new TestSuite(TestVectors.class));
+		suite.addTest(new TestSuite(VectorsTest.class));
 		suite.addTest(new TestSuite(BinConverterTest.class));
-		suite.addTest(new TestSuite(BlowfishTests.class));
+		suite.addTest(new TestSuite(BlowfishTest.class));
 		suite.addTest(new TestSuite(InOutputStreamTest.class));
 		return suite;
 	}
