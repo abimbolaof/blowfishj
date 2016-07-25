@@ -29,7 +29,7 @@ public class BlowfishEasy
 {
 	BlowfishCBC m_bfc;
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	static SecureRandom _srnd;
 
@@ -43,7 +43,7 @@ public class BlowfishEasy
 		_srnd = new SecureRandom();
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Constructor to set up a string as the key.
@@ -75,7 +75,7 @@ public class BlowfishEasy
 		m_bfc = new BlowfishCBC(hash, 0, hash.length, 0);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Constructor to use string data as the key.
@@ -109,7 +109,7 @@ public class BlowfishEasy
 		m_bfc = new BlowfishCBC(hash, 0, hash.length, 0);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Encrypts a string (treated in Unicode) using the internal random
@@ -131,7 +131,7 @@ public class BlowfishEasy
 		return encStr(sPlainText, lCBCIV);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Encrypts a string (in Unicode).
@@ -147,7 +147,7 @@ public class BlowfishEasy
 		return encStr(sPlainText, rndGen.nextLong());
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	// internal routine for string encryption
 
@@ -194,7 +194,7 @@ public class BlowfishEasy
 			 + BinConverter.bytesToHexStr(buf, 0, buf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Decrypts a hexbin string (handling is case sensitive).
@@ -272,7 +272,7 @@ public class BlowfishEasy
 		return BinConverter.byteArrayToStr(buf, 0, nNumOfBytes);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Destroys (clears) the encryption engine, after that the instance is not

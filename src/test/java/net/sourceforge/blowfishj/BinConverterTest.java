@@ -36,7 +36,7 @@ public class BinConverterTest extends TestCase
 		assertTrue(0xccaf431e == BinConverter.byteArrayToInt(dat, 1));
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final public void testIntToByteArray()
 	{
@@ -57,7 +57,7 @@ public class BinConverterTest extends TestCase
 		assertTrue((byte)0xef == testb[4]);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final public void testByteArrayToLong()
 	{
@@ -72,7 +72,7 @@ public class BinConverterTest extends TestCase
 		assertTrue(0x23456789abcdefccL == BinConverter.byteArrayToLong(dat, 1));
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final public void testLongToByteArray()
 	{
@@ -101,7 +101,7 @@ public class BinConverterTest extends TestCase
 		assertTrue((byte)0xef == testb[8]);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final public void testIntArrayToLong()
 	{
@@ -114,7 +114,7 @@ public class BinConverterTest extends TestCase
 		assertTrue(0x89abcdefcc01aa02L == BinConverter.intArrayToLong(dat, 1));
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final public void testLongToIntArray()
 	{
@@ -131,7 +131,7 @@ public class BinConverterTest extends TestCase
 		assertTrue(0x89abcdef == testn[2]);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final public void testMakeLong()
 	{
@@ -139,21 +139,21 @@ public class BinConverterTest extends TestCase
 			BinConverter.makeLong(0x89abcdef, 0x01234567));
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final public void testLongLo32()
 	{
 		assertTrue(0x89abcdef == BinConverter.longLo32(0x0123456789abcdefL));
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final public void testLongHi32()
 	{
 		assertTrue(0x01234567 == BinConverter.longHi32(0x0123456789abcdefL));
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final public void testBytesToHexStr()
 	{
@@ -172,7 +172,7 @@ public class BinConverterTest extends TestCase
 		assertTrue(sHex.equals(BinConverter.bytesToHexStr(dat, 2, 5)));
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final public void testhexStrToBytes()
 	{
@@ -198,7 +198,7 @@ public class BinConverterTest extends TestCase
 		assertTrue((byte)0xcd == testb[5]);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final public void testByteArrayToStr()
 	{

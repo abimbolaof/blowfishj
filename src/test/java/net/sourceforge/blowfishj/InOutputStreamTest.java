@@ -108,7 +108,7 @@ public class InOutputStreamTest extends TestCase
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	// (this reference data was produced in C# with Blowfish.NET, its main
 	// purpose is to test cross-platform compatibility)

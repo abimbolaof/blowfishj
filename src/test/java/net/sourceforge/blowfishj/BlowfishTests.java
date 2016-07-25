@@ -155,7 +155,7 @@ public class BlowfishTests extends TestCase
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final static byte[] KNOWN_WEAK_KEY =
 	{
@@ -185,7 +185,7 @@ public class BlowfishTests extends TestCase
 		assertFalse(bfe.weakKeyCheck());
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	public void testBlowfishEasy()
 	{
@@ -234,7 +234,7 @@ public class BlowfishTests extends TestCase
 		}
 	}
 	
-	///////////////////////////////////////////////////////////////////////////
+
 	
 	static byte[] KEYSETUPBUG_K0 = { 0, 1, 2 };
 	static byte[] KEYSETUPBUG_K1 = { 1, 2 };

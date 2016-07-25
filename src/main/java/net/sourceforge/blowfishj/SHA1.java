@@ -28,7 +28,7 @@ public class SHA1
 	 */
 	public final static int DIGEST_SIZE = 20;
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	private int[] m_state;
 	private long m_lCount;
@@ -36,7 +36,7 @@ public class SHA1
 	private int[] m_block;
 	private int m_nBlockIndex;
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Default constructor.
@@ -49,7 +49,7 @@ public class SHA1
 		reset();
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Clears all data, use reset() to start again.
@@ -74,14 +74,14 @@ public class SHA1
 		m_nBlockIndex = 0;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final static int rol(int nValue, int nBits)
 	{
 		return ((nValue << nBits) | (nValue >>> (32 - nBits)));
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final int blk0(
 		int nI)
@@ -92,7 +92,7 @@ public class SHA1
 			    (rol(m_block[nI],  8) & 0x00ff00ff));
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final int blk(
 		int nI)
@@ -107,7 +107,7 @@ public class SHA1
 					1));
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	final void r0(int data[], int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
@@ -155,7 +155,7 @@ public class SHA1
 		data[nW] = rol(data[nW], 30);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	void transform()
 	{
@@ -253,7 +253,7 @@ public class SHA1
 		m_state[4] += dd[4];
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	  * Initializes (or resets) the hasher for a new session.
@@ -270,7 +270,7 @@ public class SHA1
 		m_nBlockIndex = 0;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Adds a single byte to the digest.
@@ -293,7 +293,7 @@ public class SHA1
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Adds a byte array to the digest.
@@ -306,7 +306,7 @@ public class SHA1
 		update(data, 0, data.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Adds a portion of a byte array to the digest.
@@ -323,7 +323,7 @@ public class SHA1
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Adds an ASCII string (8bit) to the digest.
@@ -341,7 +341,7 @@ public class SHA1
 
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Finalizes the digest.
@@ -375,7 +375,7 @@ public class SHA1
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Retrieves the digest.
@@ -388,7 +388,7 @@ public class SHA1
 		return result;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Retrieves the digest into an existing buffer.
@@ -404,7 +404,7 @@ public class SHA1
 		return DIGEST_SIZE;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	// we need this table for the following method
 	private final static String HEXTAB = "0123456789abcdef";
@@ -430,7 +430,7 @@ public class SHA1
 		return sbuf.toString();
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	// references for the selftest
 

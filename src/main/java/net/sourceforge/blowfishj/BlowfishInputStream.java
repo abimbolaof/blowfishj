@@ -37,7 +37,7 @@ public class BlowfishInputStream extends InputStream
 	int m_nBufPos;
 	int m_nBufCount;
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	void init(
 		byte[] key,
@@ -77,7 +77,7 @@ public class BlowfishInputStream extends InputStream
 		m_bfc.setCBCIV(m_buf, 0);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	void fillBuffer() throws IOException
 	{
@@ -140,7 +140,7 @@ public class BlowfishInputStream extends InputStream
 		m_nBufPos = 0;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Default constructor. The key material gets transformed to a final 160bit
@@ -160,7 +160,7 @@ public class BlowfishInputStream extends InputStream
 		init(key, nOfs, nLen, is);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Constructor using a string. The ASCII character values of the string are
@@ -189,7 +189,7 @@ public class BlowfishInputStream extends InputStream
 		init(key, 0, nC, is);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see java.io.InputStream#read()
@@ -221,7 +221,7 @@ public class BlowfishInputStream extends InputStream
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see java.io.InputStream#close()

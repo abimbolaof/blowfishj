@@ -39,7 +39,7 @@ public class BinConverter
 			| ( buf[nOfs + 3] & 0x0ff);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Converts an integer to bytes, which are put into an array.
@@ -58,7 +58,7 @@ public class BinConverter
 		buf[nOfs + 3] = (byte)  nValue;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Gets bytes from an array into a long.
@@ -83,7 +83,7 @@ public class BinConverter
 		            ( buf[nOfs + 7] & 0x0ff       )) & 0x0ffffffffL);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Converts a long to bytes, which are put into an array.
@@ -111,7 +111,7 @@ public class BinConverter
 		buf[nOfs + 7] = (byte)  nTmp;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Converts values from an integer array to a long.
@@ -127,7 +127,7 @@ public class BinConverter
 		       (((long) buf[nOfs + 1]) & 0x0ffffffffL);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Converts a long to integers which are put into an array.
@@ -144,7 +144,7 @@ public class BinConverter
 		buf[nOfs + 1] = (int) lValue;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Makes a long from two integers (treated unsigned).
@@ -160,7 +160,7 @@ public class BinConverter
 		        ((long) nLo & 0x00000000ffffffffL));
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Gets the lower 32 bits of a long.
@@ -173,7 +173,7 @@ public class BinConverter
 		return (int)lVal;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Gets the higher 32 bits of a long.
@@ -186,7 +186,7 @@ public class BinConverter
 		return (int)(lVal >>> 32);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	// our table for hex conversion
 	final static char[] HEXTAB =
@@ -206,7 +206,7 @@ public class BinConverter
 		return bytesToHexStr(data, 0, data.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Converts a byte array to a hex string.
@@ -241,7 +241,7 @@ public class BinConverter
 		return sbuf.toString();
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Converts a hex string back into a byte array (invalid codes will be
@@ -322,7 +322,7 @@ public class BinConverter
 		return (nDstOfs - nDstOfsBak);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Converts a byte array into a Unicode string.

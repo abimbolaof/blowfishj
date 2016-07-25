@@ -28,7 +28,7 @@ public class BlowfishCBC extends BlowfishECB
 	int m_nIVLo;
 	int m_nIVHi;
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Gets the current CBC IV.
@@ -39,7 +39,7 @@ public class BlowfishCBC extends BlowfishECB
 		return BinConverter.makeLong(m_nIVLo, m_nIVHi);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Gets a copy of the current CBC IV.
@@ -52,7 +52,7 @@ public class BlowfishCBC extends BlowfishECB
 		getCBCIV(dest, 0);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Gets a copy of the current CBC IV.
@@ -67,7 +67,7 @@ public class BlowfishCBC extends BlowfishECB
 		BinConverter.intToByteArray(m_nIVLo, dest, nOfs + 4);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Sets the current CBC IV (for cipher resets).
@@ -80,7 +80,7 @@ public class BlowfishCBC extends BlowfishECB
 		m_nIVLo = BinConverter.longLo32(lNewCBCIV);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Sets the current CBC IV (for cipher resets).
@@ -95,7 +95,7 @@ public class BlowfishCBC extends BlowfishECB
 		m_nIVLo = BinConverter.byteArrayToInt(newCBCIV, nOfs + 4);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Default constructor, uses a zero CBC IV.
@@ -110,7 +110,7 @@ public class BlowfishCBC extends BlowfishECB
 		m_nIVHi = m_nIVLo = 0;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Constructor, uses a zero CBC IV.
@@ -128,7 +128,7 @@ public class BlowfishCBC extends BlowfishECB
 		m_nIVHi = m_nIVLo = 0;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Constructor to define the CBC IV.
@@ -145,7 +145,7 @@ public class BlowfishCBC extends BlowfishECB
 		setCBCIV(lInitCBCIV);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Constructor to define the CBC IV.
@@ -165,7 +165,7 @@ public class BlowfishCBC extends BlowfishECB
 		setCBCIV(lInitCBCIV);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Constructor to define the CBC IV.
@@ -182,7 +182,7 @@ public class BlowfishCBC extends BlowfishECB
 		setCBCIV(initCBCIV, 0);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Constructor to define the CBC IV.
@@ -204,7 +204,7 @@ public class BlowfishCBC extends BlowfishECB
 		setCBCIV(initCBCIV, nIVOfs);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * see net.sourceforge.blowfishj.BlowfishECB#cleanUp()
@@ -215,7 +215,7 @@ public class BlowfishCBC extends BlowfishECB
 		super.cleanUp();
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
     /**
      * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(byte[], int, byte[], int, int)
@@ -322,7 +322,7 @@ public class BlowfishCBC extends BlowfishECB
         return nLen;
     }
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(byte[], byte[])
@@ -335,7 +335,7 @@ public class BlowfishCBC extends BlowfishECB
 		encrypt(inBuf, 0, outBuf, 0, outBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(byte[])
@@ -347,7 +347,7 @@ public class BlowfishCBC extends BlowfishECB
 		encrypt(buf, 0, buf, 0, buf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
     /**
      * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(int[], int, int[], int, int)
@@ -373,7 +373,7 @@ public class BlowfishCBC extends BlowfishECB
 		}
     }
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(int[], int[])
@@ -386,7 +386,7 @@ public class BlowfishCBC extends BlowfishECB
 		encrypt(inBuf, 0, outBuf, 0, inBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(int[])
@@ -399,7 +399,7 @@ public class BlowfishCBC extends BlowfishECB
 
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
     /**
      * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(long[], int, long[], int, int)
@@ -423,7 +423,7 @@ public class BlowfishCBC extends BlowfishECB
 		}
     }
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(long[], long[])
@@ -436,7 +436,7 @@ public class BlowfishCBC extends BlowfishECB
 		encrypt(inBuf, 0, outBuf, 0, inBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(long[])
@@ -448,7 +448,7 @@ public class BlowfishCBC extends BlowfishECB
 		encrypt(buf, 0, buf, 0, buf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
     /**
      * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(byte[], int, byte[], int, int)
@@ -558,7 +558,7 @@ public class BlowfishCBC extends BlowfishECB
         return nLen;
     }
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(byte[], byte[])
@@ -571,7 +571,7 @@ public class BlowfishCBC extends BlowfishECB
 		decrypt(inBuf, 0, outBuf, 0, outBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(byte[])
@@ -583,7 +583,7 @@ public class BlowfishCBC extends BlowfishECB
 		decrypt(buf, 0, buf, 0, buf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
     /**
      * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(int[], int, int[], int, int)
@@ -609,7 +609,7 @@ public class BlowfishCBC extends BlowfishECB
 		}
     }
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(int[], int[])
@@ -622,7 +622,7 @@ public class BlowfishCBC extends BlowfishECB
 		decrypt(inBuf, 0, outBuf, 0, inBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(int[])
@@ -635,7 +635,7 @@ public class BlowfishCBC extends BlowfishECB
 
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
     /**
      * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(long[], int, long[], int, int)
@@ -659,7 +659,7 @@ public class BlowfishCBC extends BlowfishECB
 		}
     }
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(long[], long[])
@@ -672,7 +672,7 @@ public class BlowfishCBC extends BlowfishECB
 		decrypt(inBuf, 0, outBuf, 0, inBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(long[])
