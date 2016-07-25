@@ -32,8 +32,8 @@ public class BinConverterTest extends TestCase
 			(byte)0x00, (byte)0xcc, (byte)0xaf, (byte)0x43, (byte)0x1e
 		};
 
-		assertTrue(0x00ccaf43 == BinConverter.byteArrayToInt(dat, 0));
-		assertTrue(0xccaf431e == BinConverter.byteArrayToInt(dat, 1));
+		assertTrue(BinConverter.byteArrayToInt(dat, 0) == 0x00ccaf43);
+		assertTrue(BinConverter.byteArrayToInt(dat, 1) == 0xccaf431e);
 	}
 
 
@@ -44,17 +44,17 @@ public class BinConverterTest extends TestCase
 
 		BinConverter.intToByteArray(0x01234567, testb, 0);
 
-		assertTrue(0x01 == testb[0]);
-		assertTrue(0x23 == testb[1]);
-		assertTrue(0x45 == testb[2]);
-		assertTrue(0x67 == testb[3]);
+		assertTrue(testb[0] == 0x01);
+		assertTrue(testb[1] == 0x23);
+		assertTrue(testb[2] == 0x45);
+		assertTrue(testb[3] == 0x67);
 
 		BinConverter.intToByteArray(0x89abcdef, testb, 1);
 
-		assertTrue((byte)0x89 == testb[1]);
-		assertTrue((byte)0xab == testb[2]);
-		assertTrue((byte)0xcd == testb[3]);
-		assertTrue((byte)0xef == testb[4]);
+		assertTrue(testb[1] == (byte) 0x89);
+		assertTrue(testb[2] == (byte) 0xab);
+		assertTrue(testb[3] == (byte) 0xcd);
+		assertTrue(testb[4] == (byte) 0xef);
 	}
 
 
@@ -68,8 +68,8 @@ public class BinConverterTest extends TestCase
 			(byte)0xcc
 		};
 
-		assertTrue(0x0123456789abcdefL == BinConverter.byteArrayToLong(dat, 0));
-		assertTrue(0x23456789abcdefccL == BinConverter.byteArrayToLong(dat, 1));
+		assertTrue(BinConverter.byteArrayToLong(dat, 0) == 0x0123456789abcdefL);
+		assertTrue(BinConverter.byteArrayToLong(dat, 1) == 0x23456789abcdefccL);
 	}
 
 
@@ -80,25 +80,25 @@ public class BinConverterTest extends TestCase
 
 		BinConverter.longToByteArray(0x0123456789abcdefL, testb, 0);
 
-		assertTrue((byte)0x01 == testb[0]);
-		assertTrue((byte)0x23 == testb[1]);
-		assertTrue((byte)0x45 == testb[2]);
-		assertTrue((byte)0x67 == testb[3]);
-		assertTrue((byte)0x89 == testb[4]);
-		assertTrue((byte)0xab == testb[5]);
-		assertTrue((byte)0xcd == testb[6]);
-		assertTrue((byte)0xef == testb[7]);
+		assertTrue(testb[0] == (byte) 0x01);
+		assertTrue(testb[1] == (byte) 0x23);
+		assertTrue(testb[2] == (byte) 0x45);
+		assertTrue(testb[3] == (byte) 0x67);
+		assertTrue(testb[4] == (byte) 0x89);
+		assertTrue(testb[5] == (byte) 0xab);
+		assertTrue(testb[6] == (byte) 0xcd);
+		assertTrue(testb[7] == (byte) 0xef);
 
 		BinConverter.longToByteArray(0x0123456789abcdefL, testb, 1);
 
-		assertTrue((byte)0x01 == testb[1]);
-		assertTrue((byte)0x23 == testb[2]);
-		assertTrue((byte)0x45 == testb[3]);
-		assertTrue((byte)0x67 == testb[4]);
-		assertTrue((byte)0x89 == testb[5]);
-		assertTrue((byte)0xab == testb[6]);
-		assertTrue((byte)0xcd == testb[7]);
-		assertTrue((byte)0xef == testb[8]);
+		assertTrue(testb[1] == (byte) 0x01);
+		assertTrue(testb[2] == (byte) 0x23);
+		assertTrue(testb[3] == (byte) 0x45);
+		assertTrue(testb[4] == (byte) 0x67);
+		assertTrue(testb[5] == (byte) 0x89);
+		assertTrue(testb[6] == (byte) 0xab);
+		assertTrue(testb[7] == (byte) 0xcd);
+		assertTrue(testb[8] == (byte) 0xef);
 	}
 
 
@@ -110,8 +110,8 @@ public class BinConverterTest extends TestCase
 			0x01234567, 0x89abcdef, 0xcc01aa02
 		};
 
-		assertTrue(0x0123456789abcdefL == BinConverter.intArrayToLong(dat, 0));
-		assertTrue(0x89abcdefcc01aa02L == BinConverter.intArrayToLong(dat, 1));
+		assertTrue(BinConverter.intArrayToLong(dat, 0) == 0x0123456789abcdefL);
+		assertTrue(BinConverter.intArrayToLong(dat, 1) == 0x89abcdefcc01aa02L);
 	}
 
 
@@ -122,35 +122,34 @@ public class BinConverterTest extends TestCase
 
 		BinConverter.longToIntArray(0x0123456789abcdefL, testn, 0);
 
-		assertTrue(0x01234567 == testn[0]);
-		assertTrue(0x89abcdef == testn[1]);
+		assertTrue(testn[0] == 0x01234567);
+		assertTrue(testn[1] == 0x89abcdef);
 
 		BinConverter.longToIntArray(0x0123456789abcdefL, testn, 1);
 
-		assertTrue(0x01234567 == testn[1]);
-		assertTrue(0x89abcdef == testn[2]);
+		assertTrue(testn[1] == 0x01234567);
+		assertTrue(testn[2] == 0x89abcdef);
 	}
 
 
 
 	final public void testMakeLong()
 	{
-		assertTrue(0x0123456789abcdefL ==
-			BinConverter.makeLong(0x89abcdef, 0x01234567));
+		assertTrue(BinConverter.makeLong(0x89abcdef, 0x01234567) == 0x0123456789abcdefL);
 	}
 
 
 
 	final public void testLongLo32()
 	{
-		assertTrue(0x89abcdef == BinConverter.longLo32(0x0123456789abcdefL));
+		assertTrue(BinConverter.longLo32(0x0123456789abcdefL) == 0x89abcdef);
 	}
 
 
 
 	final public void testLongHi32()
 	{
-		assertTrue(0x01234567 == BinConverter.longHi32(0x0123456789abcdefL));
+		assertTrue(BinConverter.longHi32(0x0123456789abcdefL) == 0x01234567);
 	}
 
 
@@ -180,22 +179,22 @@ public class BinConverterTest extends TestCase
 
 		BinConverter.hexStrToBytes("0123456789abcdef", testb, 0, 0, 8);
 
-		assertTrue((byte)0x01 == testb[0]);
-		assertTrue((byte)0x23 == testb[1]);
-		assertTrue((byte)0x45 == testb[2]);
-		assertTrue((byte)0x67 == testb[3]);
-		assertTrue((byte)0x89 == testb[4]);
-		assertTrue((byte)0xab == testb[5]);
-		assertTrue((byte)0xcd == testb[6]);
-		assertTrue((byte)0xef == testb[7]);
+		assertTrue(testb[0] == (byte) 0x01);
+		assertTrue(testb[1] == (byte) 0x23);
+		assertTrue(testb[2] == (byte) 0x45);
+		assertTrue(testb[3] == (byte) 0x67);
+		assertTrue(testb[4] == (byte) 0x89);
+		assertTrue(testb[5] == (byte) 0xab);
+		assertTrue(testb[6] == (byte) 0xcd);
+		assertTrue(testb[7] == (byte) 0xef);
 
 		BinConverter.hexStrToBytes("0123456789abcdef", testb, 4, 1, 5);
 
-		assertTrue((byte)0x45 == testb[1]);
-		assertTrue((byte)0x67 == testb[2]);
-		assertTrue((byte)0x89 == testb[3]);
-		assertTrue((byte)0xab == testb[4]);
-		assertTrue((byte)0xcd == testb[5]);
+		assertTrue(testb[1] == (byte) 0x45);
+		assertTrue(testb[2] == (byte) 0x67);
+		assertTrue(testb[3] == (byte) 0x89);
+		assertTrue(testb[4] == (byte) 0xab);
+		assertTrue(testb[5] == (byte) 0xcd);
 	}
 
 

@@ -147,7 +147,7 @@ public class BlowfishOutputStream extends OutputStream
 	{
 		byte nPadVal;
 
-		if (null == m_os)
+		if (m_os == null)
 		{
 			return;
 		}

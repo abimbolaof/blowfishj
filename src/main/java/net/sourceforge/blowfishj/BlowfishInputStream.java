@@ -67,7 +67,7 @@ public class BlowfishInputStream extends InputStream
 
 		for (nI = 0, nC = m_buf.length; nI < nC; nI++)
 		{
-			if (-1 == (nVal = m_is.read()))
+			if ((nVal = m_is.read()) == -1)
 			{
 				throw new IOException("truncated stream, IV is missing");
 			}
@@ -89,7 +89,7 @@ public class BlowfishInputStream extends InputStream
 
 		for (nI = 0, nC = m_buf.length; nI < nC; nI++)
 		{
-			if (-1 == (nVal = m_is.read()))
+			if ((nVal = m_is.read()) == -1)
 			{
 				throw new IOException("truncated stream, unexpected end");
 			}
@@ -101,7 +101,7 @@ public class BlowfishInputStream extends InputStream
 
 		// peek if this is the end of the stream
 
-		if (-1 == (nVal = m_is.read()))
+		if ((nVal = m_is.read()) == -1)
 		{
 			// this is the last block, so we can read out how much we actually
 			// got left
@@ -110,7 +110,7 @@ public class BlowfishInputStream extends InputStream
 
 			// validate the padding
 
-			if (nC > m_buf.length || 0 > nC)
+			if (nC > m_buf.length || nC < 0)
 			{
 				throw new IOException("unknown padding value detected");
 			}
@@ -172,7 +172,7 @@ public class BlowfishInputStream extends InputStream
 			{
 				// eos?
 
-				if (null == m_bfc)
+				if (m_bfc == null)
 				{
 					return -1;
 				}
@@ -197,7 +197,7 @@ public class BlowfishInputStream extends InputStream
 	 */
 	public void close() throws IOException
 	{
-		if (null != m_is)
+		if (m_is != null)
 		{
 			m_is.close();
 			m_is = null;

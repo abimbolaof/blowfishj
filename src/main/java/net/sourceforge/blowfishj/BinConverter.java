@@ -356,7 +356,7 @@ public class BinConverter
 
 		nSBufPos = 0;
 
-		while (0 < nLen)
+		while (nLen > 0)
 		{
 			sbuf.setCharAt(
                     nSBufPos,

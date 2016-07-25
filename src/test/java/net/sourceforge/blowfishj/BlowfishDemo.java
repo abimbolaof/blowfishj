@@ -277,7 +277,7 @@ public class BlowfishDemo
 		{
 			bfc.encrypt(tempBuf, 0, tempBuf, 0, tempBuf.length);
 
-			if (0 == (nI % (TESTLOOPS / 40)))
+			if ((nI % (TESTLOOPS / 40)) == 0)
 			{
 				System.out.print("#");
 				System.out.flush();

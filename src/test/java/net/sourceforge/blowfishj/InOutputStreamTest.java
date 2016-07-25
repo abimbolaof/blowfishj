@@ -97,10 +97,10 @@ public class InOutputStreamTest extends TestCase
 
 				for (nJ = 0; nJ < plain.length; nJ++)
 				{
-					assertTrue(-1 != (nDec = bfis.read()));
+					assertTrue((nDec = bfis.read()) != -1);
 					assertTrue(plain[nJ] == (byte)nDec);
 				}
-				assertTrue(-1 == bfis.read());
+				assertTrue(bfis.read() == -1);
 
 				bfis.close();
 				bfis.close();
@@ -159,7 +159,7 @@ public class InOutputStreamTest extends TestCase
 			assertTrue((nI & 0x0ff) == bfis.read());
 		}
 
-		assertTrue(-1 == bfis.read());
+		assertTrue(bfis.read() == -1);
 
 		bfis.close();
 	}

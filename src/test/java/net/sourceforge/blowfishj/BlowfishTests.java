@@ -163,7 +163,7 @@ public class BlowfishTests extends TestCase
 
 			// encrypt and decrypt
 
-			if (null == bfc)
+			if (bfc == null)
 			{
 				bfe.encrypt(plain, 0, cipher, 0, plain.length);
 				bfe.decrypt(cipher, 0, plain2, 0, plain.length);
@@ -173,7 +173,7 @@ public class BlowfishTests extends TestCase
 				cipherRef = null;
 
 				// first check of the IV was set correctly
-				assertTrue(0L == bfc.getCBCIV());
+				assertTrue(bfc.getCBCIV() == 0L);
 
 				bfc.encrypt(plain, 0, cipher, 0, plain.length);
 				bfc.setCBCIV(0L);
@@ -182,13 +182,13 @@ public class BlowfishTests extends TestCase
 
 			// check for overwrites
 
-			assertTrue((byte)0xcc == cipher[256]);
-			assertTrue((byte)0xcc == plain2[256]);
+			assertTrue(cipher[256] == (byte) 0xcc);
+			assertTrue(plain2[256] == (byte) 0xcc);
 
 			// verify that all encrypted results are equal,with the first one
 			// of each kind (ECB/CBC) setting the reference
 
-			if (null == cipherRef)
+			if (cipherRef == null)
 			{
 				cipherRef = new byte[cipher.length];
 				System.arraycopy(cipher, 0, cipherRef, 0, cipher.length);

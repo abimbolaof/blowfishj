@@ -177,7 +177,7 @@ public class BlowfishEasy
 
 		nLen = (sCipherText.length() >> 1) & ~7;
 
-		if (BlowfishECB.BLOCKSIZE > nLen)
+		if (nLen < BlowfishECB.BLOCKSIZE)
 		{
 			return null;
 		}
@@ -223,7 +223,7 @@ public class BlowfishEasy
 		nPadByte = buf[buf.length - 1] & 0x0ff;
 
 		// (try to get everything, even if the padding seem to be wrong)
-		if (BlowfishCBC.BLOCKSIZE < nPadByte)
+		if (nPadByte > BlowfishCBC.BLOCKSIZE)
 		{
 			nPadByte = 0;
 		}

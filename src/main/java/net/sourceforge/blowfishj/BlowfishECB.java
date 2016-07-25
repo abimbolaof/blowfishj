@@ -216,9 +216,9 @@ public class BlowfishECB
 		int nI, nJ;
 
 
-		if (-1 != m_nWeakKey)
+		if (m_nWeakKey != -1)
 		{
-			return (1 == m_nWeakKey);
+			return (m_nWeakKey == 1);
 		}
 
 		// a weak key is defined to create identical entries in
