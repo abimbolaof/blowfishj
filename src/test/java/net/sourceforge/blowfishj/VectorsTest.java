@@ -17,15 +17,17 @@
 
 package net.sourceforge.blowfishj;
 
-import junit.framework.TestCase;
 import net.sourceforge.blowfishj.crypt.BlowfishECB;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests the official vectors from the Counterpane website.
  */
-public class VectorsTest extends TestCase
+public class VectorsTest
 {
-	public void testAllVectors()
+    @Test public void testAllVectors()
 	{
 
 

@@ -17,22 +17,26 @@
 
 package net.sourceforge.blowfishj;
 
-import junit.framework.TestCase;
 import net.sourceforge.blowfishj.crypt.BlowfishCBC;
 import net.sourceforge.blowfishj.crypt.BlowfishECB;
+import org.junit.Test;
 
 import java.util.Arrays;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * All test cases for the blowfishj core classes.
  */
-public class BlowfishTest extends TestCase
+public class BlowfishTest
 {
 	/**
 	 * Selftest routine, for instance to check for a valid class file loading.
-	 * @return true: selftest passed / false: selftest failed
 	 */
-	private static boolean selfTest()
+	@Test
+	public void selfTest()
 	{
 		// test vector #1 (checking for the "signed bug")
 		byte[] testKey1 =
@@ -61,14 +65,14 @@ public class BlowfishTest extends TestCase
 
 		if (tv_t1[0] != tv_c1[0] || tv_t1[1] != tv_c1[1])
 		{
-			return false;
+			fail();
 		}
 
 		testbf1.decrypt(tv_t1, 0, tv_t1, 0, tv_t1.length);
 
 		if (tv_t1[0] != tv_p1[0] || tv_t1[1] != tv_p1[1])
 		{
-			return false;
+			fail();
 		}
 
 		BlowfishECB testbf2 = new BlowfishECB(testKey2, 0, testKey2.length);
@@ -78,22 +82,18 @@ public class BlowfishTest extends TestCase
 
 		if (tv_t2[0] != tv_c2[0] || tv_t2[1] != tv_c2[1])
 		{
-			return false;
+			fail();
 		}
 
 		testbf2.decrypt(tv_t2, 0, tv_t2, 0, tv_t2.length);
 
-		return !(tv_t2[0] != tv_p2[0] || tv_t2[1] != tv_p2[1]);
+		assertTrue(!(tv_t2[0] != tv_p2[0] || tv_t2[1] != tv_p2[1]));
 
 	}
 
-	public void testByteArrayHandling()
+    @Test public void testByteArrayHandling()
 	{
 		byte[] key = { 0x01, 0x02, 0x03, (byte)0xaa, (byte)0xee, (byte)0xff };
-
-
-		assertTrue(selfTest());
-		assertTrue(selfTest());
 
 		byte[] plain = new byte[256];
 		int nI;
@@ -209,7 +209,7 @@ public class BlowfishTest extends TestCase
 		(byte)0x11, (byte)0xa1, (byte)0x57, (byte)0x83
 	};
 
-	public void testWeakKey()
+    @Test public void testWeakKey()
 	{
 
 
@@ -226,7 +226,7 @@ public class BlowfishTest extends TestCase
 
 
 
-	public void testBlowfishEasy()
+    @Test public void testBlowfishEasy()
 	{
 		StringBuilder sbuf = new StringBuilder();
 
@@ -275,8 +275,8 @@ public class BlowfishTest extends TestCase
 	private static byte[] KEYSETUPBUG_K0 = { 0, 1, 2 };
 
 	private static byte[] KEYSETUPBUG_K1 = { 1, 2 };
-	
-	public void testKeySetupBug()
+
+    @Test public void testKeySetupBug()
 	{
 		// verify a bug in the key setup, which was fixed in 2.13
 

@@ -17,27 +17,29 @@
 
 package net.sourceforge.blowfishj;
 
-import junit.framework.TestCase;
 import net.sourceforge.blowfishj.crypt.BlowfishECB;
 import net.sourceforge.blowfishj.streams.BlowfishInputStream;
 import net.sourceforge.blowfishj.streams.BlowfishOutputStream;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Simple tests for the BlowfishInputStream and BlowfishOutputStream.
  *
  * @author original version by Dale Anson <danson@germane-software.com>
  */
-public class InOutputStreamTest extends TestCase {
+public class InOutputStreamTest {
     private static final int[] SIZES =
             {
                     0, 1, 3, 5, 8, 9, 15, 16, 17, 24, 64, 1024, 65537
             };
 
-    public void testStreams() throws IOException {
+    @Test public void testStreams() throws IOException {
 
 
         // many sizes, many keys
@@ -118,7 +120,7 @@ public class InOutputStreamTest extends TestCase {
                     (byte) 0x6a, (byte) 0x84
             };
 
-    public void testRefStream() throws IOException {
+    @Test public void testRefStream() throws IOException {
 
 
         try (BlowfishInputStream bfis = new BlowfishInputStream(BFS_REF_KEY, 0, BFS_REF_KEY.length, new ByteArrayInputStream(BFS_REF_ENC_DATA))) {

@@ -17,19 +17,17 @@
 
 package net.sourceforge.blowfishj;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+		VectorsTest.class,
+		BinConverterTest.class,
+		BlowfishTest.class,
+		InOutputStreamTest.class
+})
 public class AllTests
 {
 
-	public static Test suite()
-	{
-		TestSuite suite = new TestSuite("AllTests");
-		suite.addTest(new TestSuite(VectorsTest.class));
-		suite.addTest(new TestSuite(BinConverterTest.class));
-		suite.addTest(new TestSuite(BlowfishTest.class));
-		suite.addTest(new TestSuite(InOutputStreamTest.class));
-		return suite;
-	}
 }

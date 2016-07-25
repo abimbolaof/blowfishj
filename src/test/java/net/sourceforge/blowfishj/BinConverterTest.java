@@ -17,14 +17,18 @@
 
 package net.sourceforge.blowfishj;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test cases for the binary converters.
  */
-public class BinConverterTest extends TestCase
+public class BinConverterTest
 {
-	public final void testByteArrayToInt()
+	@Test
+    public final void testByteArrayToInt()
 	{
 		byte[] dat =
 		{
@@ -37,7 +41,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	public final void testIntToByteArray()
+    @Test public final void testIntToByteArray()
 	{
 		byte[] testb = new byte[5];
 
@@ -58,7 +62,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	public final void testByteArrayToLong()
+    @Test public final void testByteArrayToLong()
 	{
 		byte[] dat =
 		{
@@ -73,7 +77,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	public final void testLongToByteArray()
+    @Test public final void testLongToByteArray()
 	{
 		byte[] testb = new byte[9];
 
@@ -102,7 +106,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	public final void testIntArrayToLong()
+    @Test public final void testIntArrayToLong()
 	{
 		int[] dat =
 		{
@@ -115,7 +119,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	public final void testLongToIntArray()
+    @Test public final void testLongToIntArray()
 	{
 		int[] testn = new int[3];
 
@@ -132,28 +136,28 @@ public class BinConverterTest extends TestCase
 
 
 
-	public final void testMakeLong()
+    @Test public final void testMakeLong()
 	{
 		assertTrue(BinConverter.makeLong(0x89abcdef, 0x01234567) == 0x0123456789abcdefL);
 	}
 
 
 
-	public final void testLongLo32()
+    @Test public final void testLongLo32()
 	{
 		assertTrue(BinConverter.longLo32(0x0123456789abcdefL) == 0x89abcdef);
 	}
 
 
 
-	public final void testLongHi32()
+    @Test public final void testLongHi32()
 	{
 		assertTrue(BinConverter.longHi32(0x0123456789abcdefL) == 0x01234567);
 	}
 
 
 
-	public final void testBytesToHexStr()
+    @Test public final void testBytesToHexStr()
 	{
 		byte[] dat =
 		{
@@ -172,7 +176,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	public final void testhexStrToBytes()
+    @Test public final void testhexStrToBytes()
 	{
 		byte[] testb = new byte[9];
 
@@ -198,7 +202,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	public final void testByteArrayToStr()
+    @Test public final void testByteArrayToStr()
 	{
 		byte[] testb = new byte[52];
 
