@@ -141,27 +141,19 @@ public class BlowfishTests extends TestCase
 			switch(nI)
 			{
 				case 0:
-				{
 					bfe = new BlowfishECB();
 					bfe.initialize(key, 0, key.length);
 					break;
-				}
 				case 1:
-				{
 					bfe = new BlowfishECB(key, 0, key.length);
 					break;
-				}
 				case 2:
-				{
 					bfc = new BlowfishCBC(key, 0, key.length);
 					bfc.setCBCIV(zeroIV, 0);
 					break;
-				}
 				case 3:
-				{
 					bfc = new BlowfishCBC(key, 0, key.length);
 					break;
-				}
 			}
 
 			// encrypt and decrypt
