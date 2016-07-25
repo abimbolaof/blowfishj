@@ -256,97 +256,98 @@ public class BlowfishECB
 	// thanks to Java's special inheritance rules we need to have this internal
 	// method to avoid the BlowfishCBC class to interfer ...
 
-    protected int encryptPrv(
-            byte[] inBuf,
-            int nInPos,
-            byte[] outBuf,
-            int nOutPos,
-            int nLen) {
-        int nOutPos1 = nOutPos;
-        nLen -= nLen % BLOCKSIZE;
+	protected int encryptPrv(
+			byte[] inBuf,
+			int nInPos,
+			byte[] outBuf,
+			int nOutPos,
+			int nLen) {
+		int nInPos1 = nInPos;
+		int nOutPos1 = nOutPos;
+		nLen -= nLen % BLOCKSIZE;
 
-        int nC = nInPos + nLen;
+		int nC = nInPos1 + nLen;
 
-        // preload the pboxes into local variables, this should especially
-        // speed up on processors with lots of registers
+		// preload the pboxes into local variables, this should especially
+		// speed up on processors with lots of registers
 
-        int[] pbox = m_pbox;
-        int nPBox00 = pbox[0];
-        int nPBox01 = pbox[1];
-        int nPBox02 = pbox[2];
-        int nPBox03 = pbox[3];
-        int nPBox04 = pbox[4];
-        int nPBox05 = pbox[5];
-        int nPBox06 = pbox[6];
-        int nPBox07 = pbox[7];
-        int nPBox08 = pbox[8];
-        int nPBox09 = pbox[9];
-        int nPBox10 = pbox[10];
-        int nPBox11 = pbox[11];
-        int nPBox12 = pbox[12];
-        int nPBox13 = pbox[13];
-        int nPBox14 = pbox[14];
-        int nPBox15 = pbox[15];
-        int nPBox16 = pbox[16];
-        int nPBox17 = pbox[17];
+		int[] pbox = m_pbox;
+		int nPBox00 = pbox[0];
+		int nPBox01 = pbox[1];
+		int nPBox02 = pbox[2];
+		int nPBox03 = pbox[3];
+		int nPBox04 = pbox[4];
+		int nPBox05 = pbox[5];
+		int nPBox06 = pbox[6];
+		int nPBox07 = pbox[7];
+		int nPBox08 = pbox[8];
+		int nPBox09 = pbox[9];
+		int nPBox10 = pbox[10];
+		int nPBox11 = pbox[11];
+		int nPBox12 = pbox[12];
+		int nPBox13 = pbox[13];
+		int nPBox14 = pbox[14];
+		int nPBox15 = pbox[15];
+		int nPBox16 = pbox[16];
+		int nPBox17 = pbox[17];
 
-        // for sboxes we can do this with the array references
+		// for sboxes we can do this with the array references
 
-        int[] sbox1 = m_sbox1;
-        int[] sbox2 = m_sbox2;
-        int[] sbox3 = m_sbox3;
-        int[] sbox4 = m_sbox4;
+		int[] sbox1 = m_sbox1;
+		int[] sbox2 = m_sbox2;
+		int[] sbox3 = m_sbox3;
+		int[] sbox4 = m_sbox4;
 
-        int nHi;
+		int nHi;
 		int nLo;
 
-		while (nInPos < nC) {
-            // full speed here, so we don't use BinConverter
+		while (nInPos1 < nC) {
+			// full speed here, so we don't use BinConverter
 
-            nHi = inBuf[nInPos++] << 24;
-            nHi |= inBuf[nInPos++] << 16 & 0x0ff0000;
-            nHi |= inBuf[nInPos++] << 8 & 0x000ff00;
-            nHi |= inBuf[nInPos++] & 0x00000ff;
+			nHi = inBuf[nInPos1++] << 24;
+			nHi |= inBuf[nInPos1++] << 16 & 0x0ff0000;
+			nHi |= inBuf[nInPos1++] << 8 & 0x000ff00;
+			nHi |= inBuf[nInPos1++] & 0x00000ff;
 
-            nLo = inBuf[nInPos++] << 24;
-            nLo |= inBuf[nInPos++] << 16 & 0x0ff0000;
-            nLo |= inBuf[nInPos++] << 8 & 0x000ff00;
-            nLo |= inBuf[nInPos++] & 0x00000ff;
+			nLo = inBuf[nInPos1++] << 24;
+			nLo |= inBuf[nInPos1++] << 16 & 0x0ff0000;
+			nLo |= inBuf[nInPos1++] << 8 & 0x000ff00;
+			nLo |= inBuf[nInPos1++] & 0x00000ff;
 
-            nHi ^= nPBox00;
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox01;
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox02;
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox03;
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox04;
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox05;
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox06;
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox07;
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox08;
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox09;
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox10;
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox11;
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox12;
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox13;
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox14;
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox15;
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox16;
+			nHi ^= nPBox00;
+			nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox01;
+			nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox02;
+			nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox03;
+			nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox04;
+			nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox05;
+			nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox06;
+			nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox07;
+			nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox08;
+			nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox09;
+			nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox10;
+			nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox11;
+			nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox12;
+			nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox13;
+			nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox14;
+			nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox15;
+			nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox16;
 
-            nLo ^= nPBox17;
+			nLo ^= nPBox17;
 
-            outBuf[nOutPos1++] = (byte) (nLo >>> 24);
-            outBuf[nOutPos1++] = (byte) (nLo >>> 16);
-            outBuf[nOutPos1++] = (byte) (nLo >>> 8);
-            outBuf[nOutPos1++] = (byte) nLo;
+			outBuf[nOutPos1++] = (byte) (nLo >>> 24);
+			outBuf[nOutPos1++] = (byte) (nLo >>> 16);
+			outBuf[nOutPos1++] = (byte) (nLo >>> 8);
+			outBuf[nOutPos1++] = (byte) nLo;
 
-            outBuf[nOutPos1++] = (byte) (nHi >>> 24);
-            outBuf[nOutPos1++] = (byte) (nHi >>> 16);
-            outBuf[nOutPos1++] = (byte) (nHi >>> 8);
-            outBuf[nOutPos1] = (byte) nHi;
+			outBuf[nOutPos1++] = (byte) (nHi >>> 24);
+			outBuf[nOutPos1++] = (byte) (nHi >>> 16);
+			outBuf[nOutPos1++] = (byte) (nHi >>> 8);
+			outBuf[nOutPos1] = (byte) nHi;
 			nOutPos1++;
 		}
 
-        return nLen;
-    }
+		return nLen;
+	}
 
 
 
