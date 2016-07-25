@@ -18,7 +18,6 @@
 package net.sourceforge.blowfishj;
 
 import junit.framework.TestCase;
-import net.sourceforge.blowfishj.BlowfishECB;
 
 /**
  * Tests the official vectors from the Counterpane website.

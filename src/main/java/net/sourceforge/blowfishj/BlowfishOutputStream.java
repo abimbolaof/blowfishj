@@ -17,9 +17,11 @@
 
 package net.sourceforge.blowfishj;
 
-import java.io.*;
-import java.util.*;
-import java.security.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.security.SecureRandom;
+import java.util.Arrays;
 
 /**
  * An output stream that encrypts data using the Blowfish algorithm in CBC mode,
