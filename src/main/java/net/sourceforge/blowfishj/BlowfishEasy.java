@@ -27,11 +27,11 @@ import java.util.Random;
  */
 public class BlowfishEasy
 {
-	BlowfishCBC m_bfc;
+	private BlowfishCBC m_bfc;
 
 
 
-	static SecureRandom _srnd;
+	private static SecureRandom _srnd;
 
 	static
 	{

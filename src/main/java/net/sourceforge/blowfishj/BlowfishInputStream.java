@@ -29,21 +29,21 @@ import java.io.PushbackInputStream;
  */
 public class BlowfishInputStream extends InputStream
 {
-	PushbackInputStream m_is;
+	private PushbackInputStream m_is;
 
-	BlowfishCBC m_bfc;
+	private BlowfishCBC m_bfc;
 
-	byte[] m_buf;
-	int m_nBufPos;
-	int m_nBufCount;
+	private byte[] m_buf;
+	private int m_nBufPos;
+	private int m_nBufCount;
 
 
 
-	void init(
-		byte[] key,
-		int nOfs,
-		int nLen,
-		InputStream is) throws IOException
+	private void init(
+            byte[] key,
+            int nOfs,
+            int nLen,
+            InputStream is) throws IOException
 	{
 
 
@@ -79,7 +79,7 @@ public class BlowfishInputStream extends InputStream
 
 
 
-	void fillBuffer() throws IOException
+	private void fillBuffer() throws IOException
 	{
 		int nI;
 		int nC;

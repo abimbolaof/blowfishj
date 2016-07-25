@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 public class InOutputStreamTest extends TestCase
 {
-	static final int[] SIZES =
+	private static final int[] SIZES =
 	{
 		0, 1, 3, 5, 8, 9, 15, 16, 17, 24, 64, 1024, 65537
 	};
@@ -106,10 +106,10 @@ public class InOutputStreamTest extends TestCase
 	// (this reference data was produced in C# with Blowfish.NET, its main
 	// purpose is to test cross-platform compatibility)
 
-	static final byte[] BFS_REF_KEY = { 0,1,2,3,4,5,6,7,8,9,10 };
-	static final int BFS_REF_PLAIN_LEN = 117;
+	private static final byte[] BFS_REF_KEY = { 0,1,2,3,4,5,6,7,8,9,10 };
+	private static final int BFS_REF_PLAIN_LEN = 117;
 
-    static final byte[] BFS_REF_ENC_DATA =
+    private static final byte[] BFS_REF_ENC_DATA =
             {
                     (byte) 0x4f, (byte) 0x02, (byte) 0x16, (byte) 0x03, (byte) 0xc1, (byte) 0xe8,
                     (byte) 0x73, (byte) 0x3e, (byte) 0xa4, (byte) 0x80, (byte) 0xd8, (byte) 0x7a,

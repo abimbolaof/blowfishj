@@ -25,8 +25,8 @@ public class BlowfishCBC extends BlowfishECB
 
 	// the CBC IV
 
-	int m_nIVLo;
-	int m_nIVHi;
+	private int m_nIVLo;
+	private int m_nIVHi;
 
 
 

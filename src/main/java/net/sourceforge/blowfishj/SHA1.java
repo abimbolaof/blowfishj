@@ -76,15 +76,15 @@ public class SHA1
 
 
 
-	static final int rol(int nValue, int nBits)
+	private static int rol(int nValue, int nBits)
 	{
 		return nValue << nBits | nValue >>> 32 - nBits;
 	}
 
 
 
-	final int blk0(
-		int nI)
+	private int blk0(
+			int nI)
 	{
 		return
 			m_block[nI] =
@@ -94,8 +94,8 @@ public class SHA1
 
 
 
-	final int blk(
-		int nI)
+	private int blk(
+			int nI)
 	{
 		return m_block[nI & 15] =
             rol(
@@ -108,7 +108,7 @@ public class SHA1
 
 
 
-	final void r0(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
+	private void r0(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
 		data[nZ] += (data[nW] & (data[nX] ^ data[nY]) ^ data[nY])
 			+ blk0(nI)
@@ -117,7 +117,7 @@ public class SHA1
 		data[nW] = rol(data[nW], 30);
 	}
 
-	final void r1(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
+	private void r1(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
 		data[nZ] += (data[nW] & (data[nX] ^ data[nY]) ^ data[nY])
 			+ blk(nI)
@@ -126,7 +126,7 @@ public class SHA1
 		data[nW] = rol(data[nW], 30);
 	}
 
-	final void r2(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
+	private void r2(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
 		data[nZ] += (data[nW] ^ data[nX] ^ data[nY])
 			+ blk(nI)
@@ -135,7 +135,7 @@ public class SHA1
 		data[nW] = rol(data[nW], 30);
 	}
 
-	final void r3(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
+	private void r3(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
 		data[nZ]
 			+= ((data[nW] | data[nX]) & data[nY] | data[nW] & data[nX])
@@ -145,7 +145,7 @@ public class SHA1
 		data[nW] = rol(data[nW], 30);
 	}
 
-	final void r4(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
+	private void r4(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
 		data[nZ] += (data[nW] ^ data[nX] ^ data[nY])
 			+ blk(nI)
@@ -156,7 +156,7 @@ public class SHA1
 
 
 
-	void transform()
+	private void transform()
 	{
 
 		int[] dd = new int[5];
@@ -257,7 +257,7 @@ public class SHA1
 	/**
 	  * Initializes (or resets) the hasher for a new session.
 	  */
-	public void reset()
+	private void reset()
 	{
 
 		m_state[0] = 0x67452301;

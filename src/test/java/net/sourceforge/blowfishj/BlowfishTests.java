@@ -30,7 +30,7 @@ public class BlowfishTests extends TestCase
 	 * Selftest routine, for instance to check for a valid class file loading.
 	 * @return true: selftest passed / false: selftest failed
 	 */
-	public static boolean selfTest()
+	private static boolean selfTest()
 	{
 		// test vector #1 (checking for the "signed bug")
 		byte[] testKey1 =
@@ -199,7 +199,7 @@ public class BlowfishTests extends TestCase
 
 
 
-	static final byte[] KNOWN_WEAK_KEY =
+	private static final byte[] KNOWN_WEAK_KEY =
 	{
 		(byte)0xe4, (byte)0x19, (byte)0xbc, (byte)0xec, (byte)0x18, (byte)0x7b,
 		(byte)0x27, (byte)0x81, (byte)0x64, (byte)0x51,	(byte)0x54, (byte)0xe6,
@@ -273,8 +273,8 @@ public class BlowfishTests extends TestCase
 	
 
 	
-	static byte[] KEYSETUPBUG_K0 = { 0, 1, 2 };
-	static byte[] KEYSETUPBUG_K1 = { 1, 2 };
+	private static byte[] KEYSETUPBUG_K0 = { 0, 1, 2 };
+	private static byte[] KEYSETUPBUG_K1 = { 1, 2 };
 	
 	public void testKeySetupBug()
 	{

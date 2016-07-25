@@ -29,21 +29,21 @@ import java.security.*;
  */
 public class BlowfishOutputStream extends OutputStream
 {
-	OutputStream m_os;
+	private OutputStream m_os;
 
-	BlowfishCBC m_bfc;
+	private BlowfishCBC m_bfc;
 
-	byte[] m_bufIn;
-	byte[] m_bufOut;
-	int m_nBytesInBuf;
+	private byte[] m_bufIn;
+	private byte[] m_bufOut;
+	private int m_nBytesInBuf;
 
 
 
-	void init(
-		byte[] key,
-		int nOfs,
-		int nLen,
-		OutputStream os) throws IOException
+	private void init(
+			byte[] key,
+			int nOfs,
+			int nLen,
+			OutputStream os) throws IOException
 	{
 
 

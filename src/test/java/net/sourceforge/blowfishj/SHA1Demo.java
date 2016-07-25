@@ -106,7 +106,7 @@ public class SHA1Demo {
      *
      * @return true: selftest passed / false: selftest failed
      */
-    public static boolean selfTest() {
+    private static boolean selfTest() {
 
 
         SHA1 tester = new SHA1();
