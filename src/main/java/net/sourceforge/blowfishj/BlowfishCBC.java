@@ -230,110 +230,109 @@ public class BlowfishCBC extends BlowfishECB
 
 	///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(byte[], int, byte[], int, int)
-	 */
-	public int encrypt(
-		byte[] inBuf,
-		int nInPos,
-		byte[] outBuf,
-		int nOutPos,
-		int nLen)
-	{
-		// same speed tricks than in the ECB variant ...
+    /**
+     * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(byte[], int, byte[], int, int)
+     */
+    public int encrypt(
+            byte[] inBuf,
+            int nInPos,
+            byte[] outBuf,
+            int nOutPos,
+            int nLen) {
+        int nOutPos1 = nOutPos;
+        // same speed tricks than in the ECB variant ...
 
-		nLen -= nLen % BLOCKSIZE;
+        nLen -= nLen % BLOCKSIZE;
 
-		int nC = nInPos + nLen;
+        int nC = nInPos + nLen;
 
-		int[] pbox = m_pbox;
-		int nPBox00 = pbox[0];
-		int nPBox01 = pbox[1];
-		int nPBox02 = pbox[2];
-		int nPBox03 = pbox[3];
-		int nPBox04 = pbox[4];
-		int nPBox05 = pbox[5];
-		int nPBox06 = pbox[6];
-		int nPBox07 = pbox[7];
-		int nPBox08 = pbox[8];
-		int nPBox09 = pbox[9];
-		int nPBox10 = pbox[10];
-		int nPBox11 = pbox[11];
-		int nPBox12 = pbox[12];
-		int nPBox13 = pbox[13];
-		int nPBox14 = pbox[14];
-		int nPBox15 = pbox[15];
-		int nPBox16 = pbox[16];
-		int nPBox17 = pbox[17];
+        int[] pbox = m_pbox;
+        int nPBox00 = pbox[0];
+        int nPBox01 = pbox[1];
+        int nPBox02 = pbox[2];
+        int nPBox03 = pbox[3];
+        int nPBox04 = pbox[4];
+        int nPBox05 = pbox[5];
+        int nPBox06 = pbox[6];
+        int nPBox07 = pbox[7];
+        int nPBox08 = pbox[8];
+        int nPBox09 = pbox[9];
+        int nPBox10 = pbox[10];
+        int nPBox11 = pbox[11];
+        int nPBox12 = pbox[12];
+        int nPBox13 = pbox[13];
+        int nPBox14 = pbox[14];
+        int nPBox15 = pbox[15];
+        int nPBox16 = pbox[16];
+        int nPBox17 = pbox[17];
 
-		int[] sbox1 = m_sbox1;
-		int[] sbox2 = m_sbox2;
-		int[] sbox3 = m_sbox3;
-		int[] sbox4 = m_sbox4;
+        int[] sbox1 = m_sbox1;
+        int[] sbox2 = m_sbox2;
+        int[] sbox3 = m_sbox3;
+        int[] sbox4 = m_sbox4;
 
-		int nIVHi = m_nIVHi;
-		int nIVLo = m_nIVLo;
+        int nIVHi = m_nIVHi;
+        int nIVLo = m_nIVLo;
 
-		int nHi, nLo;
+        int nHi, nLo;
 
-		while (nInPos < nC)
-		{
-			nHi  =  inBuf[nInPos++] << 24;
-			nHi |= (inBuf[nInPos++] << 16) & 0x0ff0000;
-			nHi |= (inBuf[nInPos++] <<  8) & 0x000ff00;
-			nHi |=  inBuf[nInPos++]        & 0x00000ff;
+        while (nInPos < nC) {
+            nHi = inBuf[nInPos++] << 24;
+            nHi |= (inBuf[nInPos++] << 16) & 0x0ff0000;
+            nHi |= (inBuf[nInPos++] << 8) & 0x000ff00;
+            nHi |= inBuf[nInPos++] & 0x00000ff;
 
-			nLo  =  inBuf[nInPos++] << 24;
-			nLo |= (inBuf[nInPos++] << 16) & 0x0ff0000;
-			nLo |= (inBuf[nInPos++] <<  8) & 0x000ff00;
-			nLo |=  inBuf[nInPos++]        & 0x00000ff;
+            nLo = inBuf[nInPos++] << 24;
+            nLo |= (inBuf[nInPos++] << 16) & 0x0ff0000;
+            nLo |= (inBuf[nInPos++] << 8) & 0x000ff00;
+            nLo |= inBuf[nInPos++] & 0x00000ff;
 
-			// extra step: chain with IV
+            // extra step: chain with IV
 
-			nHi ^= nIVHi;
-			nLo ^= nIVLo;
+            nHi ^= nIVHi;
+            nLo ^= nIVLo;
 
-			nHi ^= nPBox00;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox01;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox02;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox03;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox04;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox05;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox06;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox07;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox08;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox09;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox10;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox11;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox12;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox13;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox14;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox15;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox16;
+            nHi ^= nPBox00;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox01;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox02;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox03;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox04;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox05;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox06;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox07;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox08;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox09;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox10;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox11;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox12;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox13;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox14;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox15;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox16;
 
-			nLo ^= nPBox17;
+            nLo ^= nPBox17;
 
-			outBuf[nOutPos++] = (byte)(nLo >>> 24);
-			outBuf[nOutPos++] = (byte)(nLo >>> 16);
-			outBuf[nOutPos++] = (byte)(nLo >>>  8);
-			outBuf[nOutPos++] = (byte) nLo;
+            outBuf[nOutPos1++] = (byte) (nLo >>> 24);
+            outBuf[nOutPos1++] = (byte) (nLo >>> 16);
+            outBuf[nOutPos1++] = (byte) (nLo >>> 8);
+            outBuf[nOutPos1++] = (byte) nLo;
 
-			outBuf[nOutPos++] = (byte)(nHi >>> 24);
-			outBuf[nOutPos++] = (byte)(nHi >>> 16);
-			outBuf[nOutPos++] = (byte)(nHi >>>  8);
-			outBuf[nOutPos++] = (byte) nHi;
+            outBuf[nOutPos1++] = (byte) (nHi >>> 24);
+            outBuf[nOutPos1++] = (byte) (nHi >>> 16);
+            outBuf[nOutPos1++] = (byte) (nHi >>> 8);
+            outBuf[nOutPos1++] = (byte) nHi;
 
-			// (the encrypted block becomes the new IV)
+            // (the encrypted block becomes the new IV)
 
-			nIVHi = nLo;
-			nIVLo = nHi;
-		}
+            nIVHi = nLo;
+            nIVLo = nHi;
+        }
 
-		m_nIVHi = nIVHi;
-		m_nIVLo = nIVLo;
+        m_nIVHi = nIVHi;
+        m_nIVLo = nIVLo;
 
-		return nLen;
-	}
+        return nLen;
+    }
 
 	///////////////////////////////////////////////////////////////////////////
 
@@ -362,29 +361,28 @@ public class BlowfishCBC extends BlowfishECB
 
 	///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(int[], int, int[], int, int)
-	 */
-	public void encrypt(
-		int[] inBuf,
-		int nInPos,
-		int[] outBuf,
-		int nOutPos,
-		int nLen)
-	{
-		int nC = nInPos + nLen;
+    /**
+     * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(int[], int, int[], int, int)
+     */
+    public void encrypt(
+            int[] inBuf,
+            int nInPos,
+            int[] outBuf,
+            int nOutPos,
+            int nLen) {
+        int nOutPos1 = nOutPos;
+        int nC = nInPos + nLen;
 
-		while (nInPos < nC)
-		{
-			BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 0);
-			BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 4);
+        while (nInPos < nC) {
+            BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 0);
+            BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 4);
 
-			encrypt(m_blockBuf);
+            encrypt(m_blockBuf);
 
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
-		}
-	}
+            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+        }
+    }
 
 	///////////////////////////////////////////////////////////////////////////
 
@@ -414,27 +412,26 @@ public class BlowfishCBC extends BlowfishECB
 
 	///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(long[], int, long[], int, int)
-	 */
-	public void encrypt(
-		long[] inBuf,
-		int nInPos,
-		long[] outBuf,
-		int nOutPos,
-		int nLen)
-	{
-		int nC = nInPos + nLen;
+    /**
+     * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(long[], int, long[], int, int)
+     */
+    public void encrypt(
+            long[] inBuf,
+            int nInPos,
+            long[] outBuf,
+            int nOutPos,
+            int nLen) {
+        int nOutPos1 = nOutPos;
+        int nC = nInPos + nLen;
 
-		while (nInPos < nC)
-		{
-			BinConverter.longToByteArray(inBuf[nInPos++], m_blockBuf, 0);
+        while (nInPos < nC) {
+            BinConverter.longToByteArray(inBuf[nInPos++], m_blockBuf, 0);
 
-			encrypt(m_blockBuf);
+            encrypt(m_blockBuf);
 
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-		}
-	}
+            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+        }
+    }
 
 	///////////////////////////////////////////////////////////////////////////
 
@@ -463,113 +460,112 @@ public class BlowfishCBC extends BlowfishECB
 
 	///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(byte[], int, byte[], int, int)
-	 */
-	public int decrypt(
-		byte[] inBuf,
-		int nInPos,
-		byte[] outBuf,
-		int nOutPos,
-		int nLen)
-	{
-		nLen -= nLen % BLOCKSIZE;
+    /**
+     * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(byte[], int, byte[], int, int)
+     */
+    public int decrypt(
+            byte[] inBuf,
+            int nInPos,
+            byte[] outBuf,
+            int nOutPos,
+            int nLen) {
+        int nOutPos1 = nOutPos;
+        nLen -= nLen % BLOCKSIZE;
 
-		int nC = nInPos + nLen;
+        int nC = nInPos + nLen;
 
-		int[] pbox = m_pbox;
-		int nPBox00 = pbox[0];
-		int nPBox01 = pbox[1];
-		int nPBox02 = pbox[2];
-		int nPBox03 = pbox[3];
-		int nPBox04 = pbox[4];
-		int nPBox05 = pbox[5];
-		int nPBox06 = pbox[6];
-		int nPBox07 = pbox[7];
-		int nPBox08 = pbox[8];
-		int nPBox09 = pbox[9];
-		int nPBox10 = pbox[10];
-		int nPBox11 = pbox[11];
-		int nPBox12 = pbox[12];
-		int nPBox13 = pbox[13];
-		int nPBox14 = pbox[14];
-		int nPBox15 = pbox[15];
-		int nPBox16 = pbox[16];
-		int nPBox17 = pbox[17];
+        int[] pbox = m_pbox;
+        int nPBox00 = pbox[0];
+        int nPBox01 = pbox[1];
+        int nPBox02 = pbox[2];
+        int nPBox03 = pbox[3];
+        int nPBox04 = pbox[4];
+        int nPBox05 = pbox[5];
+        int nPBox06 = pbox[6];
+        int nPBox07 = pbox[7];
+        int nPBox08 = pbox[8];
+        int nPBox09 = pbox[9];
+        int nPBox10 = pbox[10];
+        int nPBox11 = pbox[11];
+        int nPBox12 = pbox[12];
+        int nPBox13 = pbox[13];
+        int nPBox14 = pbox[14];
+        int nPBox15 = pbox[15];
+        int nPBox16 = pbox[16];
+        int nPBox17 = pbox[17];
 
-		int[] sbox1 = m_sbox1;
-		int[] sbox2 = m_sbox2;
-		int[] sbox3 = m_sbox3;
-		int[] sbox4 = m_sbox4;
+        int[] sbox1 = m_sbox1;
+        int[] sbox2 = m_sbox2;
+        int[] sbox3 = m_sbox3;
+        int[] sbox4 = m_sbox4;
 
-		int nIVHi = m_nIVHi;
-		int nIVLo = m_nIVLo;
+        int nIVHi = m_nIVHi;
+        int nIVLo = m_nIVLo;
 
-		int nTmpHi, nTmpLo;
+        int nTmpHi, nTmpLo;
 
-		int nHi, nLo;
+        int nHi, nLo;
 
-		while (nInPos < nC)
-		{
-			nHi  =  inBuf[nInPos++] << 24;
-			nHi |= (inBuf[nInPos++] << 16) & 0x0ff0000;
-			nHi |= (inBuf[nInPos++] <<  8) & 0x000ff00;
-			nHi |=  inBuf[nInPos++]        & 0x00000ff;
+        while (nInPos < nC) {
+            nHi = inBuf[nInPos++] << 24;
+            nHi |= (inBuf[nInPos++] << 16) & 0x0ff0000;
+            nHi |= (inBuf[nInPos++] << 8) & 0x000ff00;
+            nHi |= inBuf[nInPos++] & 0x00000ff;
 
-			nLo  =  inBuf[nInPos++] << 24;
-			nLo |= (inBuf[nInPos++] << 16) & 0x0ff0000;
-			nLo |= (inBuf[nInPos++] <<  8) & 0x000ff00;
-			nLo |=  inBuf[nInPos++]        & 0x00000ff;
+            nLo = inBuf[nInPos++] << 24;
+            nLo |= (inBuf[nInPos++] << 16) & 0x0ff0000;
+            nLo |= (inBuf[nInPos++] << 8) & 0x000ff00;
+            nLo |= inBuf[nInPos++] & 0x00000ff;
 
-			// (save the current block, it will become the new IV)
-			nTmpHi = nHi;
-			nTmpLo = nLo;
+            // (save the current block, it will become the new IV)
+            nTmpHi = nHi;
+            nTmpLo = nLo;
 
-			nHi ^= nPBox17;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox16;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox15;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox14;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox13;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox12;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox11;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox10;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox09;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox08;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox07;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox06;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox05;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox04;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox03;
-			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox02;
-			nHi	^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox01;
+            nHi ^= nPBox17;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox16;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox15;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox14;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox13;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox12;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox11;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox10;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox09;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox08;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox07;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox06;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox05;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox04;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox03;
+            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox02;
+            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox01;
 
-			nLo ^= nPBox00;
+            nLo ^= nPBox00;
 
-			// extra step: unchain
+            // extra step: unchain
 
-			nHi ^= nIVLo;
-			nLo ^= nIVHi;
+            nHi ^= nIVLo;
+            nLo ^= nIVHi;
 
-			outBuf[nOutPos++] = (byte)(nLo >>> 24);
-			outBuf[nOutPos++] = (byte)(nLo >>> 16);
-			outBuf[nOutPos++] = (byte)(nLo >>>  8);
-			outBuf[nOutPos++] = (byte) nLo;
+            outBuf[nOutPos1++] = (byte) (nLo >>> 24);
+            outBuf[nOutPos1++] = (byte) (nLo >>> 16);
+            outBuf[nOutPos1++] = (byte) (nLo >>> 8);
+            outBuf[nOutPos1++] = (byte) nLo;
 
-			outBuf[nOutPos++] = (byte)(nHi >>> 24);
-			outBuf[nOutPos++] = (byte)(nHi >>> 16);
-			outBuf[nOutPos++] = (byte)(nHi >>>  8);
-			outBuf[nOutPos++] = (byte) nHi;
+            outBuf[nOutPos1++] = (byte) (nHi >>> 24);
+            outBuf[nOutPos1++] = (byte) (nHi >>> 16);
+            outBuf[nOutPos1++] = (byte) (nHi >>> 8);
+            outBuf[nOutPos1++] = (byte) nHi;
 
-			// (now set the new IV)
-			nIVHi = nTmpHi;
-			nIVLo = nTmpLo;
-		}
+            // (now set the new IV)
+            nIVHi = nTmpHi;
+            nIVLo = nTmpLo;
+        }
 
-		m_nIVHi = nIVHi;
-		m_nIVLo = nIVLo;
+        m_nIVHi = nIVHi;
+        m_nIVLo = nIVLo;
 
-		return nLen;
-	}
+        return nLen;
+    }
 
 	///////////////////////////////////////////////////////////////////////////
 
@@ -598,29 +594,28 @@ public class BlowfishCBC extends BlowfishECB
 
 	///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(int[], int, int[], int, int)
-	 */
-	public void decrypt(
-		int[] inBuf,
-		int nInPos,
-		int[] outBuf,
-		int nOutPos,
-		int nLen)
-	{
-		int nC = nInPos + nLen;
+    /**
+     * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(int[], int, int[], int, int)
+     */
+    public void decrypt(
+            int[] inBuf,
+            int nInPos,
+            int[] outBuf,
+            int nOutPos,
+            int nLen) {
+        int nOutPos1 = nOutPos;
+        int nC = nInPos + nLen;
 
-		while (nInPos < nC)
-		{
-			BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 0);
-			BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 4);
+        while (nInPos < nC) {
+            BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 0);
+            BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 4);
 
-			decrypt(m_blockBuf);
+            decrypt(m_blockBuf);
 
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
-		}
-	}
+            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+        }
+    }
 
 	///////////////////////////////////////////////////////////////////////////
 
@@ -650,27 +645,26 @@ public class BlowfishCBC extends BlowfishECB
 
 	///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(long[], int, long[], int, int)
-	 */
-	public void decrypt(
-		long[] inBuf,
-		int nInPos,
-		long[] outBuf,
-		int nOutPos,
-		int nLen)
-	{
-		int nC = nInPos + nLen;
+    /**
+     * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(long[], int, long[], int, int)
+     */
+    public void decrypt(
+            long[] inBuf,
+            int nInPos,
+            long[] outBuf,
+            int nOutPos,
+            int nLen) {
+        int nOutPos1 = nOutPos;
+        int nC = nInPos + nLen;
 
-		while (nInPos < nC)
-		{
-			BinConverter.longToByteArray(inBuf[nInPos++], m_blockBuf, 0);
+        while (nInPos < nC) {
+            BinConverter.longToByteArray(inBuf[nInPos++], m_blockBuf, 0);
 
-			decrypt(m_blockBuf);
+            decrypt(m_blockBuf);
 
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-		}
-	}
+            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+        }
+    }
 
 	///////////////////////////////////////////////////////////////////////////
 

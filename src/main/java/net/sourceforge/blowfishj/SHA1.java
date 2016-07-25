@@ -310,16 +310,16 @@ public class SHA1
 
 	/**
 	 * Adds a portion of a byte array to the digest.
+	 *
 	 * @param data the data to add
 	 */
 	public void update(
-		byte[] data,
-		int nOfs,
-		int nLen)
-	{
-		for (int nEnd = nOfs + nLen; nOfs < nEnd; nOfs++)
-		{
-			update(data[nOfs]);
+			byte[] data,
+			int nOfs,
+			int nLen) {
+		int nOfs1 = nOfs;
+		for (int nEnd = nOfs1 + nLen; nOfs1 < nEnd; nOfs1++) {
+			update(data[nOfs1]);
 		}
 	}
 
