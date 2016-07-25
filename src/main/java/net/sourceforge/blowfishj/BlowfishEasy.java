@@ -54,7 +54,7 @@ public class BlowfishEasy
 	 * new method!</b>
 	 */
 	public BlowfishEasy(
-		String sPassword)
+			CharSequence sPassword)
 	{
 		int nI, nC;
 		SHA1 sh = null;
@@ -152,8 +152,8 @@ public class BlowfishEasy
 	// internal routine for string encryption
 
 	private String encStr(
-		String sPlainText,
-		long lNewCBCIV)
+			CharSequence sPlainText,
+			long lNewCBCIV)
 	{
 		int nI, nPos, nStrLen;
 		char cActChar;

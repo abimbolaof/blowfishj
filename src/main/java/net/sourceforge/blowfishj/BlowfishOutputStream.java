@@ -117,8 +117,8 @@ public class BlowfishOutputStream extends OutputStream
 	 * original key material it is highly recommended not to use it anymore
 	 */
 	public BlowfishOutputStream(
-		String sPassPhrase,
-		OutputStream os) throws IOException
+            CharSequence sPassPhrase,
+            OutputStream os) throws IOException
 	{
 		int nI, nC;
 		byte[] key;

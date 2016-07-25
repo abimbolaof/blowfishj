@@ -252,11 +252,11 @@ public class BinConverter
 	 * @return number of extracted bytes
 	 */
 	public final static int hexStrToBytes(
-		String sHex,
-		byte[] data,
-		int nSrcOfs,
-		int nDstOfs,
-		int nLen)
+			CharSequence sHex,
+			byte[] data,
+			int nSrcOfs,
+			int nDstOfs,
+			int nLen)
 	{
 		int nI, nJ, nStrLen, nAvailBytes, nDstOfsBak;
 		byte bActByte;

@@ -332,7 +332,7 @@ public class SHA1
 	 * want to try update(sData.getBytes()) instead
 	 */
 	public void update(
-		String sData)
+            CharSequence sData)
 	{
 		for (int nI = 0, nC = sData.length(); nI < nC; nI++)
 		{

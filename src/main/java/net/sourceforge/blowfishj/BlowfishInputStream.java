@@ -172,8 +172,8 @@ public class BlowfishInputStream extends InputStream
 	 * original key material it is highly recommended not to use it anymore
 	 */
 	public BlowfishInputStream(
-		String sPassPhrase,
-		InputStream is) throws IOException
+			CharSequence sPassPhrase,
+			InputStream is) throws IOException
 	{
 		int nI, nC;
 		byte[] key;
