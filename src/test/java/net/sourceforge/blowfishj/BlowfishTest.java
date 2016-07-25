@@ -18,6 +18,8 @@
 package net.sourceforge.blowfishj;
 
 import junit.framework.TestCase;
+import net.sourceforge.blowfishj.crypt.BlowfishCBC;
+import net.sourceforge.blowfishj.crypt.BlowfishECB;
 
 import java.util.Arrays;
 
@@ -274,6 +276,7 @@ public class BlowfishTest extends TestCase
 
 	
 	private static byte[] KEYSETUPBUG_K0 = { 0, 1, 2 };
+
 	private static byte[] KEYSETUPBUG_K1 = { 1, 2 };
 	
 	public void testKeySetupBug()

@@ -77,7 +77,7 @@ public class BinConverter
 					(buf[nOfs + 1] & 0x0ff) << 16 |
 					(buf[nOfs + 2] & 0x0ff) <<  8 |
 					buf[nOfs + 3] & 0x0ff) << 32 |
-					(long) (buf[nOfs + 4]          << 24 |
+					(buf[nOfs + 4]          << 24 |
                             (buf[nOfs + 5] & 0x0ff) << 16 |
                             (buf[nOfs + 6] & 0x0ff) <<  8 |
                             buf[nOfs + 7] & 0x0ff) & 0x0ffffffffL;
@@ -124,7 +124,7 @@ public class BinConverter
 		int nOfs)
 	{
 		return (long) buf[nOfs    ] << 32 |
-				(long) buf[nOfs + 1] & 0x0ffffffffL;
+				buf[nOfs + 1] & 0x0ffffffffL;
 	}
 
 
@@ -157,7 +157,7 @@ public class BinConverter
 		int nHi)
 	{
 		return (long) nHi << 32 |
-				(long) nLo & 0x00000000ffffffffL;
+				nLo & 0x00000000ffffffffL;
 	}
 
 

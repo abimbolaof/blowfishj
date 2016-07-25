@@ -15,7 +15,10 @@
  * limitations under the License.
  */
 
-package net.sourceforge.blowfishj;
+package net.sourceforge.blowfishj.streams;
+
+import net.sourceforge.blowfishj.crypt.BlowfishCBC;
+import net.sourceforge.blowfishj.SHA1;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -175,7 +178,7 @@ public class BlowfishInputStream extends InputStream
 					fillBuffer();
 				}
 			} else {
-				int result = (int) m_buf[m_nBufPos] & 0x0ff;
+				int result = m_buf[m_nBufPos] & 0x0ff;
 				m_nBufPos++;
 				return result;
 			}

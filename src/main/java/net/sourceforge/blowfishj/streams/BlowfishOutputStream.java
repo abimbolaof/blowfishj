@@ -15,7 +15,10 @@
  * limitations under the License.
  */
 
-package net.sourceforge.blowfishj;
+package net.sourceforge.blowfishj.streams;
+
+import net.sourceforge.blowfishj.crypt.BlowfishCBC;
+import net.sourceforge.blowfishj.SHA1;
 
 import java.io.IOException;
 import java.io.InputStream;

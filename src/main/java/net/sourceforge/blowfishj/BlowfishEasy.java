@@ -17,6 +17,9 @@
 
 package net.sourceforge.blowfishj;
 
+import net.sourceforge.blowfishj.crypt.BlowfishCBC;
+import net.sourceforge.blowfishj.crypt.BlowfishECB;
+
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -29,9 +32,7 @@ public class BlowfishEasy
 {
 	private BlowfishCBC m_bfc;
 
-
-
-	private static SecureRandom _srnd;
+    private static SecureRandom _srnd;
 
 	static
 	{

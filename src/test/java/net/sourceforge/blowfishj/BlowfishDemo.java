@@ -17,6 +17,11 @@
 
 package net.sourceforge.blowfishj;
 
+import net.sourceforge.blowfishj.crypt.BlowfishCBC;
+import net.sourceforge.blowfishj.crypt.BlowfishECB;
+import net.sourceforge.blowfishj.streams.BlowfishInputStream;
+import net.sourceforge.blowfishj.streams.BlowfishOutputStream;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -266,7 +271,7 @@ public class BlowfishDemo
 		double dRate = dAmount * 1000 / dTime;
 		long lRate = (long) dRate;
 
-		System.out.println(+ lRate + " bytes/sec");
+		System.out.println(lRate + " bytes/sec");
 
 		bfe.cleanUp();
 		bfc.cleanUp();

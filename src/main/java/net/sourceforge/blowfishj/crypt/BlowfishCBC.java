@@ -15,7 +15,9 @@
  * limitations under the License.
  */
 
-package net.sourceforge.blowfishj;
+package net.sourceforge.blowfishj.crypt;
+
+import net.sourceforge.blowfishj.BinConverter;
 
 /**
  * Implementation of the Blowfish encryption algorithm in CBC mode.

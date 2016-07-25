@@ -15,7 +15,9 @@
  * limitations under the License.
  */
 
-package net.sourceforge.blowfishj;
+package net.sourceforge.blowfishj.crypt;
+
+import net.sourceforge.blowfishj.BinConverter;
 
 /**
  * Implementation of the Blowfish encryption algorithm in ECB mode.
@@ -83,7 +85,7 @@ public class BlowfishECB
 		{
 			for (int nJ = 0; nJ < 4; nJ++)
 			{
-				nBuild = nBuild << 8 | (int) key[nOfs] & 0x0ff;
+				nBuild = nBuild << 8 | key[nOfs] & 0x0ff;
 
 				++nOfs;
 				if (nOfs == nEnd)

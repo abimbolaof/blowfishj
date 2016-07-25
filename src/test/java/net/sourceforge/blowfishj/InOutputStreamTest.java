@@ -18,6 +18,9 @@
 package net.sourceforge.blowfishj;
 
 import junit.framework.TestCase;
+import net.sourceforge.blowfishj.crypt.BlowfishCBC;
+import net.sourceforge.blowfishj.streams.BlowfishInputStream;
+import net.sourceforge.blowfishj.streams.BlowfishOutputStream;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

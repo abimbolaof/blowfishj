@@ -18,6 +18,7 @@
 package net.sourceforge.blowfishj;
 
 import junit.framework.TestCase;
+import net.sourceforge.blowfishj.crypt.BlowfishECB;
 
 /**
  * Tests the official vectors from the Counterpane website.
