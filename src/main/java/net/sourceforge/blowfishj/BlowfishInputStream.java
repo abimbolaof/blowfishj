@@ -168,24 +168,17 @@ public class BlowfishInputStream extends InputStream
 	 */
 	public int read() throws IOException
 	{
-		for (;;)
-		{
+		while (true) {
 			// out of (buffered) data?
-			if  (m_nBufCount <= m_nBufPos)
-			{
+			if (m_nBufCount <= m_nBufPos) {
 				// eos?
 
-				if (m_bfc == null)
-				{
+				if (m_bfc == null) {
 					return -1;
-				}
-				else
-				{
+				} else {
 					fillBuffer();
 				}
-			}
-			else
-			{
+			} else {
 				int result = (int) m_buf[m_nBufPos] & 0x0ff;
 				m_nBufPos++;
 				return result;

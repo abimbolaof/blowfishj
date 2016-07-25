@@ -58,7 +58,7 @@ public class BlowfishDemo
 	 * @param args (command line) parameters
 	 */
 	public static void main(
-		String args[])
+			String[] args)
 	{
 		int nI;
 		int nRest;
@@ -158,32 +158,28 @@ public class BlowfishDemo
 
 		nRest = nMsgSize & 7;
 
-		if (nRest != 0)
-		{
+		if (nRest == 0) {
+			msgBuf = new byte[nMsgSize];
+
+			System.arraycopy(tempBuf, 0, msgBuf, 0, nMsgSize);
+		} else {
 			msgBuf = new byte[(nMsgSize & ~7) + 8];
 
 			System.arraycopy(tempBuf, 0, msgBuf, 0, nMsgSize);
 
-			for (nI = nMsgSize; nI < msgBuf.length; nI++)
-			{
+			for (nI = nMsgSize; nI < msgBuf.length; nI++) {
 				// pad with spaces; zeros are a better solution when you need
 				// to actually strip of the padding data later on (in our case
 				// it wouldn't be printable though)
-				msgBuf[nI] = ' ';	
+				msgBuf[nI] = ' ';
 			}
 
 			System.out.println(
-				"message with "
-					+ nMsgSize
-					+ " bytes aligned to "
-					+ msgBuf.length
-					+ " bytes");
-		}
-		else
-		{
-			msgBuf = new byte[nMsgSize];
-
-			System.arraycopy(tempBuf, 0, msgBuf, 0, nMsgSize);
+					"message with "
+							+ nMsgSize
+							+ " bytes aligned to "
+							+ msgBuf.length
+							+ " bytes");
 		}
 
 		System.out.println(
@@ -286,7 +282,7 @@ public class BlowfishDemo
 		{
 			bfc.encrypt(tempBuf, 0, tempBuf, 0, tempBuf.length);
 
-			if ((nI % (TESTLOOPS / 40)) == 0)
+			if (nI % (TESTLOOPS / 40) == 0)
 			{
 				System.out.print("#");
 				System.out.flush();

@@ -84,12 +84,8 @@ public class BlowfishTests extends TestCase
 
 		testbf2.decrypt(tv_t2, 0, tv_t2, 0, tv_t2.length);
 
-		if (tv_t2[0] != tv_p2[0] || tv_t2[1] != tv_p2[1])
-		{
-			return false;
-		}
+		return !(tv_t2[0] != tv_p2[0] || tv_t2[1] != tv_p2[1]);
 
-		return true;
 	}
 
 	public void testByteArrayHandling()
