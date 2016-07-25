@@ -85,7 +85,8 @@ public class BlowfishECB
 			{
 				nBuild = (nBuild << 8) | (((int) key[nOfs]) & 0x0ff);
 
-				if (++nOfs == nEnd)
+				++nOfs;
+				if (nOfs == nEnd)
 				{
 					nOfs = nOfsBak;
 				}
@@ -105,36 +106,46 @@ public class BlowfishECB
 		for (nI = 0; nI < PBOX_ENTRIES;)
 		{
 			encryptPrv(m_blockBuf, 0, m_blockBuf, 0, BLOCKSIZE);
-			m_pbox[nI++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-			m_pbox[nI++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			m_pbox[nI] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			nI++;
+			m_pbox[nI] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			nI++;
 		}
 
 		for (nI = 0; nI < SBOX_ENTRIES;)
 		{
 			encryptPrv(m_blockBuf, 0, m_blockBuf, 0, BLOCKSIZE);
-			m_sbox1[nI++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-			m_sbox1[nI++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			m_sbox1[nI] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			nI++;
+			m_sbox1[nI] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			nI++;
 		}
 
 		for (nI = 0; nI < SBOX_ENTRIES;)
 		{
 			encryptPrv(m_blockBuf, 0, m_blockBuf, 0, BLOCKSIZE);
-			m_sbox2[nI++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-			m_sbox2[nI++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			m_sbox2[nI] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			nI++;
+			m_sbox2[nI] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			nI++;
 		}
 
 		for (nI = 0; nI < SBOX_ENTRIES;)
 		{
 			encryptPrv(m_blockBuf, 0, m_blockBuf, 0, BLOCKSIZE);
-			m_sbox3[nI++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-			m_sbox3[nI++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			m_sbox3[nI] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			nI++;
+			m_sbox3[nI] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			nI++;
 		}
 
 		for (nI = 0; nI < SBOX_ENTRIES;)
 		{
 			encryptPrv(m_blockBuf, 0, m_blockBuf, 0, BLOCKSIZE);
-			m_sbox4[nI++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-			m_sbox4[nI++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			m_sbox4[nI] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			nI++;
+			m_sbox4[nI] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			nI++;
 		}
 
 		// (determined on demand only)
@@ -404,8 +415,9 @@ public class BlowfishECB
             outBuf[nOutPos1++] = (byte) (nHi >>> 24);
             outBuf[nOutPos1++] = (byte) (nHi >>> 16);
             outBuf[nOutPos1++] = (byte) (nHi >>> 8);
-            outBuf[nOutPos1++] = (byte) nHi;
-        }
+            outBuf[nOutPos1] = (byte) nHi;
+			nOutPos1++;
+		}
 
         return nLen;
     }
@@ -482,13 +494,17 @@ public class BlowfishECB
 
 		while (nInPos < nC)
 		{
-			BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 0);
-			BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 4);
+			BinConverter.intToByteArray(inBuf[nInPos], m_blockBuf, 0);
+			nInPos++;
+			BinConverter.intToByteArray(inBuf[nInPos], m_blockBuf, 4);
+			nInPos++;
 
 			encrypt(m_blockBuf);
 
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			outBuf[nOutPos] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			nOutPos++;
+			outBuf[nOutPos] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			nOutPos++;
 		}
 	}
 
@@ -544,11 +560,13 @@ public class BlowfishECB
 
 		while (nInPos < nC)
 		{
-			BinConverter.longToByteArray(inBuf[nInPos++], m_blockBuf, 0);
+			BinConverter.longToByteArray(inBuf[nInPos], m_blockBuf, 0);
+			nInPos++;
 
 			encrypt(m_blockBuf);
 
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			outBuf[nOutPos] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			nOutPos++;
 		}
 	}
 
@@ -635,15 +653,23 @@ public class BlowfishECB
 
 		while (nInPos < nC)
 		{
-			nHi  =  inBuf[nInPos++] << 24;
-			nHi |= (inBuf[nInPos++] << 16) & 0x0ff0000;
-			nHi |= (inBuf[nInPos++] <<  8) & 0x000ff00;
-			nHi |=  inBuf[nInPos++]        & 0x00000ff;
+			nHi  =  inBuf[nInPos] << 24;
+			nInPos++;
+			nHi |= (inBuf[nInPos] << 16) & 0x0ff0000;
+			nInPos++;
+			nHi |= (inBuf[nInPos] <<  8) & 0x000ff00;
+			nInPos++;
+			nHi |=  inBuf[nInPos]        & 0x00000ff;
+			nInPos++;
 
-			nLo  =  inBuf[nInPos++] << 24;
-			nLo |= (inBuf[nInPos++] << 16) & 0x0ff0000;
-			nLo |= (inBuf[nInPos++] <<  8) & 0x000ff00;
-			nLo |=  inBuf[nInPos++]        & 0x00000ff;
+			nLo  =  inBuf[nInPos] << 24;
+			nInPos++;
+			nLo |= (inBuf[nInPos] << 16) & 0x0ff0000;
+			nInPos++;
+			nLo |= (inBuf[nInPos] <<  8) & 0x000ff00;
+			nInPos++;
+			nLo |=  inBuf[nInPos]        & 0x00000ff;
+			nInPos++;
 
 			nHi ^= nPBox17;
 			nLo	^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox16;
@@ -665,15 +691,23 @@ public class BlowfishECB
 
 			nLo ^= nPBox00;
 
-			outBuf[nOutPos++] = (byte)(nLo >>> 24);
-			outBuf[nOutPos++] = (byte)(nLo >>> 16);
-			outBuf[nOutPos++] = (byte)(nLo >>> 8);
-			outBuf[nOutPos++] = (byte) nLo;
+			outBuf[nOutPos] = (byte)(nLo >>> 24);
+			nOutPos++;
+			outBuf[nOutPos] = (byte)(nLo >>> 16);
+			nOutPos++;
+			outBuf[nOutPos] = (byte)(nLo >>> 8);
+			nOutPos++;
+			outBuf[nOutPos] = (byte) nLo;
+			nOutPos++;
 
-			outBuf[nOutPos++] = (byte)(nHi >>> 24);
-			outBuf[nOutPos++] = (byte)(nHi >>> 16);
-			outBuf[nOutPos++] = (byte)(nHi >>> 8);
-			outBuf[nOutPos++] = (byte) nHi;
+			outBuf[nOutPos] = (byte)(nHi >>> 24);
+			nOutPos++;
+			outBuf[nOutPos] = (byte)(nHi >>> 16);
+			nOutPos++;
+			outBuf[nOutPos] = (byte)(nHi >>> 8);
+			nOutPos++;
+			outBuf[nOutPos] = (byte) nHi;
+			nOutPos++;
 		}
 
 		return nLen;
@@ -729,13 +763,17 @@ public class BlowfishECB
 
 		while (nInPos < nC)
 		{
-			BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 0);
-			BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 4);
+			BinConverter.intToByteArray(inBuf[nInPos], m_blockBuf, 0);
+			nInPos++;
+			BinConverter.intToByteArray(inBuf[nInPos], m_blockBuf, 4);
+			nInPos++;
 
 			decrypt(m_blockBuf);
 
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			outBuf[nOutPos] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			nOutPos++;
+			outBuf[nOutPos] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			nOutPos++;
 		}
 	}
 
@@ -789,11 +827,13 @@ public class BlowfishECB
 	{
 		while (nInPos < nInPos + nLen)
 		{
-			BinConverter.longToByteArray(inBuf[nInPos++], m_blockBuf, 0);
+			BinConverter.longToByteArray(inBuf[nInPos], m_blockBuf, 0);
+			nInPos++;
 
 			decrypt(m_blockBuf);
 
-			outBuf[nOutPos++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			outBuf[nOutPos] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			nOutPos++;
 		}
 	}
 

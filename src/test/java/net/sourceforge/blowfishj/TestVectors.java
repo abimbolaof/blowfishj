@@ -42,11 +42,14 @@ public class TestVectors extends TestCase
 
 		while (nI < TEST_DATA.length)
 		{
-			lKey = TEST_DATA[nI++];
-			lPlain = TEST_DATA[nI++];
-			lCipher = TEST_DATA[nI++];
+			lKey = TEST_DATA[nI];
+            nI++;
+            lPlain = TEST_DATA[nI];
+            nI++;
+            lCipher = TEST_DATA[nI];
+            nI++;
 
-			for (nJ = 7; nJ >= 0; nJ--)
+            for (nJ = 7; nJ >= 0; nJ--)
 			{
 				key[nJ] = (byte) (lKey & 0x0ff);
 				lKey >>>= 8;

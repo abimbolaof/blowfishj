@@ -232,9 +232,12 @@ public class BinConverter
 
 		while (nOfs < nC)
 		{
-			sbuf.setCharAt(nPos++, HEXTAB[(data[nOfs  ] >> 4) & 0x0f]);
-			sbuf.setCharAt(nPos++, HEXTAB[ data[nOfs++]       & 0x0f]);
-		}
+			sbuf.setCharAt(nPos, HEXTAB[(data[nOfs  ] >> 4) & 0x0f]);
+            nPos++;
+            sbuf.setCharAt(nPos, HEXTAB[ data[nOfs]       & 0x0f]);
+            nPos++;
+            nOfs++;
+        }
 		return sbuf.toString();
 	}
 
@@ -290,9 +293,10 @@ public class BinConverter
 			for (nJ = 0; nJ < 2; nJ++)
 			{
 				bActByte <<= 4;
-				char cActChar = sHex.charAt(nSrcOfs++);
+				char cActChar = sHex.charAt(nSrcOfs);
+                nSrcOfs++;
 
-				if ((cActChar >= 'a') && (cActChar <= 'f'))
+                if ((cActChar >= 'a') && (cActChar <= 'f'))
 				{
 					bActByte |= (byte) (cActChar - 'a') + 10;
 				}
@@ -310,8 +314,9 @@ public class BinConverter
 			}
 			if (blConvertOK)
 			{
-				data[nDstOfs++] = bActByte;
-			}
+				data[nDstOfs] = bActByte;
+                nDstOfs++;
+            }
 		}
 
 		return (nDstOfs - nDstOfsBak);
@@ -354,10 +359,11 @@ public class BinConverter
 		while (0 < nLen)
 		{
 			sbuf.setCharAt(
-				nSBufPos++,
+                    nSBufPos,
 				(char)((data[nOfs    ] << 8)
 					|  (data[nOfs + 1] & 0x0ff)));
-			nOfs += 2;
+            nSBufPos++;
+            nOfs += 2;
 			nLen -= 2;
 		}
 

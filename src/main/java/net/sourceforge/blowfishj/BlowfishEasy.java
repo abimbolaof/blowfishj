@@ -169,14 +169,17 @@ public class BlowfishEasy
 		for (nI = 0; nI < nStrLen; nI++)
 		{
 			cActChar = sPlainText.charAt(nI);
-			buf[nPos++] = (byte)((cActChar >> 8) & 0x0ff);
-			buf[nPos++] = (byte) (cActChar & 0x0ff);
+			buf[nPos] = (byte)((cActChar >> 8) & 0x0ff);
+			nPos++;
+			buf[nPos] = (byte) (cActChar & 0x0ff);
+			nPos++;
 		}
 
 		bPadVal = (byte) (buf.length - (nStrLen << 1));
 		while (nPos < buf.length)
 		{
-			buf[nPos++] = bPadVal;
+			buf[nPos] = bPadVal;
+			nPos++;
 		}
 
 		m_bfc.setCBCIV(lNewCBCIV);

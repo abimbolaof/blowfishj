@@ -320,9 +320,10 @@ public class BlowfishCBC extends BlowfishECB
             outBuf[nOutPos1++] = (byte) (nHi >>> 24);
             outBuf[nOutPos1++] = (byte) (nHi >>> 16);
             outBuf[nOutPos1++] = (byte) (nHi >>> 8);
-            outBuf[nOutPos1++] = (byte) nHi;
+            outBuf[nOutPos1] = (byte) nHi;
+			nOutPos1++;
 
-            // (the encrypted block becomes the new IV)
+			// (the encrypted block becomes the new IV)
 
             nIVHi = nLo;
             nIVLo = nHi;
@@ -380,8 +381,9 @@ public class BlowfishCBC extends BlowfishECB
             encrypt(m_blockBuf);
 
             outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
-        }
+            outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			nOutPos1++;
+		}
     }
 
 	///////////////////////////////////////////////////////////////////////////
@@ -429,8 +431,9 @@ public class BlowfishCBC extends BlowfishECB
 
             encrypt(m_blockBuf);
 
-            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-        }
+            outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			nOutPos1++;
+		}
     }
 
 	///////////////////////////////////////////////////////////////////////////
@@ -554,9 +557,10 @@ public class BlowfishCBC extends BlowfishECB
             outBuf[nOutPos1++] = (byte) (nHi >>> 24);
             outBuf[nOutPos1++] = (byte) (nHi >>> 16);
             outBuf[nOutPos1++] = (byte) (nHi >>> 8);
-            outBuf[nOutPos1++] = (byte) nHi;
+            outBuf[nOutPos1] = (byte) nHi;
+			nOutPos1++;
 
-            // (now set the new IV)
+			// (now set the new IV)
             nIVHi = nTmpHi;
             nIVLo = nTmpLo;
         }
@@ -613,8 +617,9 @@ public class BlowfishCBC extends BlowfishECB
             decrypt(m_blockBuf);
 
             outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 4);
-        }
+            outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 4);
+			nOutPos1++;
+		}
     }
 
 	///////////////////////////////////////////////////////////////////////////
@@ -662,8 +667,9 @@ public class BlowfishCBC extends BlowfishECB
 
             decrypt(m_blockBuf);
 
-            outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
-        }
+            outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 0);
+			nOutPos1++;
+		}
     }
 
 	///////////////////////////////////////////////////////////////////////////
