@@ -164,6 +164,7 @@ public class BlowfishInputStream extends InputStream
 	/**
 	 * @see InputStream#read()
 	 */
+	@Override
 	public int read() throws IOException
 	{
 		while (true) {
@@ -189,6 +190,7 @@ public class BlowfishInputStream extends InputStream
 	/**
 	 * @see InputStream#close()
 	 */
+	@Override
 	public void close() throws IOException
 	{
 		if (m_is != null)

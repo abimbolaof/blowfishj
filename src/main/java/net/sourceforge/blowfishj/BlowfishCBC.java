@@ -141,7 +141,8 @@ public class BlowfishCBC extends BlowfishECB
 	/**
 	 * see net.sourceforge.blowfishj.BlowfishECB#cleanUp()
 	 */
-	public void cleanUp()
+	@Override
+    public void cleanUp()
 	{
 		m_nIVHi = m_nIVLo = 0;
 		super.cleanUp();
@@ -151,6 +152,7 @@ public class BlowfishCBC extends BlowfishECB
     /**
      * @see BlowfishECB#encrypt(byte[], int, byte[], int, int)
      */
+    @Override
     public int encrypt(
             byte[] inBuf,
             int nInPos,
@@ -255,6 +257,7 @@ public class BlowfishCBC extends BlowfishECB
     /**
      * @see BlowfishECB#encrypt(int[], int, int[], int, int)
      */
+    @Override
     public void encrypt(
             int[] inBuf,
             int nInPos,
@@ -280,6 +283,7 @@ public class BlowfishCBC extends BlowfishECB
     /**
      * @see BlowfishECB#encrypt(long[], int, long[], int, int)
      */
+    @Override
     public void encrypt(
             long[] inBuf,
             int nInPos,
@@ -303,6 +307,7 @@ public class BlowfishCBC extends BlowfishECB
     /**
      * @see BlowfishECB#decrypt(byte[], int, byte[], int, int)
      */
+    @Override
     public int decrypt(
             byte[] inBuf,
             int nInPos,
@@ -408,6 +413,7 @@ public class BlowfishCBC extends BlowfishECB
     /**
      * @see BlowfishECB#decrypt(int[], int, int[], int, int)
      */
+    @Override
     public void decrypt(
             int[] inBuf,
             int nInPos,
@@ -433,6 +439,7 @@ public class BlowfishCBC extends BlowfishECB
     /**
      * @see BlowfishECB#decrypt(long[], int, long[], int, int)
      */
+    @Override
     public void decrypt(
             long[] inBuf,
             int nInPos,

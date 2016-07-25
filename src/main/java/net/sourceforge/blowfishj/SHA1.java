@@ -310,6 +310,7 @@ public class SHA1
 	/**
 	 * Finalizes the digest.
 	 */
+	@Override
 	public void finalize()
 	{
 		int nI;

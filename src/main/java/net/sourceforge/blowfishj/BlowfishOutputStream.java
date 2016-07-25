@@ -107,7 +107,8 @@ public class BlowfishOutputStream extends OutputStream
 	/**
 	 * @see OutputStream#write(int)
 	 */
-	public void write(
+	@Override
+    public void write(
 		int nByte) throws IOException
 	{
 		// if buffer isn't full, just store the input
@@ -142,7 +143,8 @@ public class BlowfishOutputStream extends OutputStream
 	/**
 	 * @see InputStream#close()
 	 */
-	public void close() throws IOException
+	@Override
+    public void close() throws IOException
 	{
 
 		if (m_os == null)
@@ -191,7 +193,8 @@ public class BlowfishOutputStream extends OutputStream
 	/**
 	 * @see OutputStream#flush()
 	 */
-	public void flush() throws IOException
+	@Override
+    public void flush() throws IOException
 	{
 		m_os.flush();
 	}
