@@ -198,8 +198,9 @@ public class BlowfishECB
 			m_sbox1[nI] = m_sbox2[nI] = m_sbox3[nI] = m_sbox4[nI] = 0;
 		}
 
-		for (nI = 0, nC = m_blockBuf.length; nI < nC; nI++)
+		for (nI = 0, nC = m_blockBuf.length; nI < nC; nI++) {
 			m_blockBuf[nI] = 0;
+		}
 
 		m_nWeakKey = -1;
 	}

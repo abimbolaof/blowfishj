@@ -192,8 +192,9 @@ public class BlowfishEasy
 				0,
 				BlowfishCBC.BLOCKSIZE);
 
-		if (nNumOfBytes < BlowfishCBC.BLOCKSIZE)
+		if (nNumOfBytes < BlowfishCBC.BLOCKSIZE) {
 			return null;
+		}
 
 		m_bfc.setCBCIV(cbciv, 0);
 

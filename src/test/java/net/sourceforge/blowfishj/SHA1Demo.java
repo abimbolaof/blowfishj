@@ -73,7 +73,9 @@ public class SHA1Demo {
         s = new SHA1();
 
         tohash = new byte[257];
-        for (nI = 0; nI < tohash.length; nI++) tohash[nI] = (byte) nI;
+        for (nI = 0; nI < tohash.length; nI++) {
+            tohash[nI] = (byte) nI;
+        }
 
         s.update(tohash, 0, tohash.length);
         s.finalize();
