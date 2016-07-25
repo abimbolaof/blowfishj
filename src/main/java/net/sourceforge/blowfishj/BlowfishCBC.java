@@ -149,9 +149,6 @@ public class BlowfishCBC extends BlowfishECB
 	}
 
 
-    /**
-     * @see BlowfishECB#encrypt(byte[], int, byte[], int, int)
-     */
     @Override
     public int encrypt(
             byte[] inBuf,
@@ -254,9 +251,6 @@ public class BlowfishCBC extends BlowfishECB
         return nLen;
     }
 
-    /**
-     * @see BlowfishECB#encrypt(int[], int, int[], int, int)
-     */
     @Override
     public void encrypt(
             int[] inBuf,
@@ -280,9 +274,6 @@ public class BlowfishCBC extends BlowfishECB
         }
     }
 
-    /**
-     * @see BlowfishECB#encrypt(long[], int, long[], int, int)
-     */
     @Override
     public void encrypt(
             long[] inBuf,
@@ -304,9 +295,6 @@ public class BlowfishCBC extends BlowfishECB
         }
     }
 
-    /**
-     * @see BlowfishECB#decrypt(byte[], int, byte[], int, int)
-     */
     @Override
     public int decrypt(
             byte[] inBuf,
@@ -410,9 +398,6 @@ public class BlowfishCBC extends BlowfishECB
         return nLen;
     }
 
-    /**
-     * @see BlowfishECB#decrypt(int[], int, int[], int, int)
-     */
     @Override
     public void decrypt(
             int[] inBuf,
@@ -436,9 +421,6 @@ public class BlowfishCBC extends BlowfishECB
         }
     }
 
-    /**
-     * @see BlowfishECB#decrypt(long[], int, long[], int, int)
-     */
     @Override
     public void decrypt(
             long[] inBuf,

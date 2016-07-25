@@ -161,9 +161,6 @@ public class BlowfishInputStream extends InputStream
 		init(key, nOfs, nLen, is);
 	}
 
-	/**
-	 * @see InputStream#read()
-	 */
 	@Override
 	public int read() throws IOException
 	{
@@ -187,9 +184,6 @@ public class BlowfishInputStream extends InputStream
 
 
 
-	/**
-	 * @see InputStream#close()
-	 */
 	@Override
 	public void close() throws IOException
 	{

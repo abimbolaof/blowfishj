@@ -104,9 +104,6 @@ public class BlowfishOutputStream extends OutputStream
 		init(key, nOfs, nLen, os);
 	}
 
-	/**
-	 * @see OutputStream#write(int)
-	 */
 	@Override
     public void write(
 		int nByte) throws IOException
@@ -190,9 +187,6 @@ public class BlowfishOutputStream extends OutputStream
 
 
 
-	/**
-	 * @see OutputStream#flush()
-	 */
 	@Override
     public void flush() throws IOException
 	{
