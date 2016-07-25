@@ -382,7 +382,7 @@ public class SHA1
 	{
 
 
-		StringBuffer sbuf = new StringBuffer(DIGEST_SIZE << 1);
+		StringBuilder sbuf = new StringBuilder(DIGEST_SIZE << 1);
 
 		for (int nI = 0; nI < DIGEST_SIZE; nI++)
 		{

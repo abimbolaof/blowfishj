@@ -229,7 +229,7 @@ public class BlowfishTests extends TestCase
 
 	public void testBlowfishEasy()
 	{
-		StringBuffer sbuf = new StringBuffer();
+		StringBuilder sbuf = new StringBuilder();
 
 		// test a growing string with all kinds of characters, even reaching in
 		// the Unicode space
