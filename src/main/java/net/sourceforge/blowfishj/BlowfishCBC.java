@@ -157,12 +157,11 @@ public class BlowfishCBC extends BlowfishECB
             byte[] outBuf,
             int nOutPos,
             int nLen) {
-        int nInPos1 = nInPos;
-        int nOutPos1 = nOutPos;
         // same speed tricks than in the ECB variant ...
 
         nLen -= nLen % BLOCKSIZE;
 
+        int nInPos1 = nInPos;
         int nC = nInPos1 + nLen;
 
         int[] pbox = m_pbox;
@@ -193,16 +192,14 @@ public class BlowfishCBC extends BlowfishECB
         int nIVHi = m_nIVHi;
         int nIVLo = m_nIVLo;
 
-        int nHi;
-        int nLo;
-
+        int nOutPos1 = nOutPos;
         while (nInPos1 < nC) {
-            nHi = inBuf[nInPos1++] << 24;
+            int nHi = inBuf[nInPos1++] << 24;
             nHi |= inBuf[nInPos1++] << 16 & 0x0ff0000;
             nHi |= inBuf[nInPos1++] << 8 & 0x000ff00;
             nHi |= inBuf[nInPos1++] & 0x00000ff;
 
-            nLo = inBuf[nInPos1++] << 24;
+            int nLo = inBuf[nInPos1++] << 24;
             nLo |= inBuf[nInPos1++] << 16 & 0x0ff0000;
             nLo |= inBuf[nInPos1++] << 8 & 0x000ff00;
             nLo |= inBuf[nInPos1++] & 0x00000ff;
@@ -312,10 +309,9 @@ public class BlowfishCBC extends BlowfishECB
             byte[] outBuf,
             int nOutPos,
             int nLen) {
-        int nInPos1 = nInPos;
-        int nOutPos1 = nOutPos;
         nLen -= nLen % BLOCKSIZE;
 
+        int nInPos1 = nInPos;
         int nC = nInPos1 + nLen;
 
         int[] pbox = m_pbox;
@@ -346,26 +342,21 @@ public class BlowfishCBC extends BlowfishECB
         int nIVHi = m_nIVHi;
         int nIVLo = m_nIVLo;
 
-        int nTmpHi;
-        int nTmpLo;
-
-        int nHi;
-        int nLo;
-
+        int nOutPos1 = nOutPos;
         while (nInPos1 < nC) {
-            nHi = inBuf[nInPos1++] << 24;
+            int nHi = inBuf[nInPos1++] << 24;
             nHi |= inBuf[nInPos1++] << 16 & 0x0ff0000;
             nHi |= inBuf[nInPos1++] << 8 & 0x000ff00;
             nHi |= inBuf[nInPos1++] & 0x00000ff;
 
-            nLo = inBuf[nInPos1++] << 24;
+            int nLo = inBuf[nInPos1++] << 24;
             nLo |= inBuf[nInPos1++] << 16 & 0x0ff0000;
             nLo |= inBuf[nInPos1++] << 8 & 0x000ff00;
             nLo |= inBuf[nInPos1++] & 0x00000ff;
 
             // (save the current block, it will become the new IV)
-            nTmpHi = nHi;
-            nTmpLo = nLo;
+            int nTmpHi = nHi;
+            int nTmpLo = nLo;
 
             nHi ^= nPBox17;
             nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox16;

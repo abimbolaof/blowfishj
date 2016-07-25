@@ -39,15 +39,9 @@ public class SHA1Demo {
 
     public static void main(
             String[] args) {
-        int nI;
-        byte[] tohash;
-        byte[] dg0;
-        byte[] dg1;
-        SHA1 s;
-        String sTest;
 
 
-        s = new SHA1();
+        SHA1 s = new SHA1();
 
         System.out.print("running selftest...");
 
@@ -58,11 +52,11 @@ public class SHA1Demo {
 
         System.out.println(", done.");
 
-        sTest = args.length > 0 ?
+        String sTest = args.length > 0 ?
                 args[0] :
                 "0123456789abcdefghijklmnopqrstuvwxyz";
 
-        tohash = sTest.getBytes();
+        byte[] tohash = sTest.getBytes();
         s.update(tohash, 0, tohash.length);
         s.finalize();
 
@@ -75,6 +69,7 @@ public class SHA1Demo {
         s = new SHA1();
 
         tohash = new byte[257];
+        int nI;
         for (nI = 0; nI < tohash.length; nI++) {
             tohash[nI] = (byte) nI;
         }
@@ -93,8 +88,8 @@ public class SHA1Demo {
 
         mds.update(tohash);
 
-        dg0 = s.getDigest();
-        dg1 = mds.digest();
+        byte[] dg0 = s.getDigest();
+        byte[] dg1 = mds.digest();
 
         for (nI = 0; nI < dg0.length; nI++) {
             if (dg0[nI] != dg1[nI]) {
@@ -112,19 +107,16 @@ public class SHA1Demo {
      * @return true: selftest passed / false: selftest failed
      */
     public static boolean selfTest() {
-        int nI;
-        SHA1 tester;
-        byte[] digest;
 
 
-        tester = new SHA1();
+        SHA1 tester = new SHA1();
 
         tester.update(SELFTEST_MESSAGE, 0, SELFTEST_MESSAGE.length);
         tester.finalize();
 
-        digest = tester.getDigest();
+        byte[] digest = tester.getDigest();
 
-        for (nI = 0; nI < SHA1.DIGEST_SIZE; nI++) {
+        for (int nI = 0; nI < SHA1.DIGEST_SIZE; nI++) {
             if (digest[nI] != SELFTEST_DIGEST[nI]) {
                 return false;
             }

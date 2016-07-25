@@ -379,13 +379,11 @@ public class SHA1
 	 */
 	public String toString()
 	{
-		int nI;
-		StringBuffer sbuf;
 
 
-		sbuf = new StringBuffer(DIGEST_SIZE << 1);
+		StringBuffer sbuf = new StringBuffer(DIGEST_SIZE << 1);
 
-		for (nI = 0; nI < DIGEST_SIZE; nI++)
+		for (int nI = 0; nI < DIGEST_SIZE; nI++)
 		{
 			sbuf.append(HEXTAB.charAt(m_digestBits[nI] >>> 4 & 0x0f));
 			sbuf.append(HEXTAB.charAt( m_digestBits[nI]        & 0x0f));

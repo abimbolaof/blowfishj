@@ -50,16 +50,14 @@ public class BlowfishEasy
 	public BlowfishEasy(
 		char[] passw)
 	{
-		int nI;
-		int nC;
-		SHA1 sh = null;
-		byte[] hash;
 
 
 		// hash down the password to a 160bit key, using SHA-1
 
-		sh = new SHA1();
+		SHA1 sh = new SHA1();
 
+		int nC;
+		int nI;
 		for (nI = 0, nC = passw.length; nI < nC; nI++)
 		{
 			sh.update((byte)(passw[nI] >> 8 & 0x0ff));
@@ -70,7 +68,7 @@ public class BlowfishEasy
 
 		// setup the encryptor (using a dummy IV for now)
 
-		hash = new byte[SHA1.DIGEST_SIZE];
+		byte[] hash = new byte[SHA1.DIGEST_SIZE];
 		sh.getDigest(hash, 0);
 
 		m_bfc = new BlowfishCBC(hash, 0, hash.length, 0);
@@ -122,29 +120,22 @@ public class BlowfishEasy
 			CharSequence sPlainText,
 			long lNewCBCIV)
 	{
-		int nI;
-		int nPos;
-		int nStrLen;
-		char cActChar;
-		byte bPadVal;
-		byte[] buf;
-		byte[] newCBCIV;
 
 
-		nStrLen = sPlainText.length();
-		buf = new byte[(nStrLen << 1 & ~7) + 8];
+		int nStrLen = sPlainText.length();
+		byte[] buf = new byte[(nStrLen << 1 & ~7) + 8];
 
-		nPos = 0;
-		for (nI = 0; nI < nStrLen; nI++)
+		int nPos = 0;
+		for (int nI = 0; nI < nStrLen; nI++)
 		{
-			cActChar = sPlainText.charAt(nI);
+			char cActChar = sPlainText.charAt(nI);
 			buf[nPos] = (byte)(cActChar >> 8 & 0x0ff);
 			nPos++;
 			buf[nPos] = (byte) (cActChar & 0x0ff);
 			nPos++;
 		}
 
-		bPadVal = (byte) (buf.length - (nStrLen << 1));
+		byte bPadVal = (byte) (buf.length - (nStrLen << 1));
 		while (nPos < buf.length)
 		{
 			buf[nPos] = bPadVal;
@@ -155,7 +146,7 @@ public class BlowfishEasy
 
 		m_bfc.encrypt(buf, 0, buf, 0, buf.length);
 
-		newCBCIV = new byte[BlowfishCBC.BLOCKSIZE];
+		byte[] newCBCIV = new byte[BlowfishCBC.BLOCKSIZE];
 
 		BinConverter.longToByteArray(lNewCBCIV, newCBCIV, 0);
 
@@ -173,24 +164,18 @@ public class BlowfishEasy
 	public String decryptString(
 			CharSequence sCipherText)
 	{
-		int nNumOfBytes;
-		int nPadByte;
-		int nLen;
-		byte[] buf;
-		byte[] cbciv;
 
 
-		nLen = sCipherText.length() >> 1 & ~7;
+		int nLen = sCipherText.length() >> 1 & ~7;
 
 		if (nLen < BlowfishECB.BLOCKSIZE)
 		{
 			return null;
 		}
 
-		cbciv = new byte[BlowfishCBC.BLOCKSIZE];
+		byte[] cbciv = new byte[BlowfishCBC.BLOCKSIZE];
 
-		nNumOfBytes =
-			BinConverter.hexStrToBytes(
+		int nNumOfBytes = BinConverter.hexStrToBytes(
 				sCipherText,
 				cbciv,
 				0,
@@ -209,7 +194,7 @@ public class BlowfishEasy
 			return "";
 		}
 
-		buf = new byte[nLen];
+		byte[] buf = new byte[nLen];
 
 		nNumOfBytes =
 			BinConverter.hexStrToBytes(
@@ -226,7 +211,7 @@ public class BlowfishEasy
 
 		m_bfc.decrypt(buf, 0, buf, 0, buf.length);
 
-		nPadByte = buf[buf.length - 1] & 0x0ff;
+		int nPadByte = buf[buf.length - 1] & 0x0ff;
 
 		// (try to get everything, even if the padding seem to be wrong)
 		if (nPadByte > BlowfishCBC.BLOCKSIZE)

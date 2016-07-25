@@ -45,31 +45,29 @@ public class BlowfishInputStream extends InputStream
 		int nLen,
 		InputStream is) throws IOException
 	{
-		int nI;
-		int nC;
-		int nVal;
-		SHA1 sh;
-		byte[] ckey;
 
 
-		m_nBufPos = m_nBufCount = 0;
+        m_nBufPos = m_nBufCount = 0;
 
 		m_is = new PushbackInputStream(new BufferedInputStream(is));
 
-		sh = new SHA1();
-		sh.update(key, nOfs, nLen);
+        SHA1 sh = new SHA1();
+        sh.update(key, nOfs, nLen);
 		sh.finalize();
 
-		ckey = sh.getDigest();
-		m_bfc = new BlowfishCBC(ckey, 0, ckey.length, 0);
+        byte[] ckey = sh.getDigest();
+        m_bfc = new BlowfishCBC(ckey, 0, ckey.length, 0);
 
 		m_buf = new byte[BlowfishCBC.BLOCKSIZE];
 
 		// read the IV
 
-		for (nI = 0, nC = m_buf.length; nI < nC; nI++)
+        int nC;
+        int nI;
+        for (nI = 0, nC = m_buf.length; nI < nC; nI++)
 		{
-			if ((nVal = m_is.read()) == -1)
+            int nVal;
+            if ((nVal = m_is.read()) == -1)
 			{
 				throw new IOException("truncated stream, IV is missing");
 			}

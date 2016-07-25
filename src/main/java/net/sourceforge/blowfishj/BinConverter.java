@@ -220,11 +220,10 @@ public class BinConverter
 		int nOfs,
 		int nLen)
 	{
-		StringBuffer sbuf;
 
 
-		sbuf = new StringBuffer();
-		sbuf.setLength(nLen << 1);
+        StringBuffer sbuf = new StringBuffer();
+        sbuf.setLength(nLen << 1);
 
 		int nPos = 0;
 
@@ -261,20 +260,13 @@ public class BinConverter
 			int nDstOfs,
 			int nLen)
 	{
-		int nI;
-		int nJ;
-		int nStrLen;
-		int nAvailBytes;
-		int nDstOfsBak;
-		byte bActByte;
-		boolean blConvertOK;
 
 
-		// check for correct ranges
-		nStrLen = sHex.length();
+        // check for correct ranges
+        int nStrLen = sHex.length();
 
-		nAvailBytes = nStrLen - nSrcOfs >> 1;
-		if (nAvailBytes < nLen)
+        int nAvailBytes = nStrLen - nSrcOfs >> 1;
+        if (nAvailBytes < nLen)
 		{
 			nLen = nAvailBytes;
 		}
@@ -287,14 +279,14 @@ public class BinConverter
 
 		// convert now
 
-		nDstOfsBak = nDstOfs;
+        int nDstOfsBak = nDstOfs;
 
-		for (nI = 0; nI < nLen; nI++)
+        for (int nI = 0; nI < nLen; nI++)
 		{
-			bActByte = 0;
-			blConvertOK = true;
+            byte bActByte = 0;
+            boolean blConvertOK = true;
 
-			for (nJ = 0; nJ < 2; nJ++)
+            for (int nJ = 0; nJ < 2; nJ++)
 			{
 				bActByte <<= 4;
 				char cActChar = sHex.charAt(nSrcOfs);
@@ -340,28 +332,25 @@ public class BinConverter
 		int nOfs,
 		int nLen)
 	{
-		int nAvailCapacity;
-		int nSBufPos;
-		StringBuffer sbuf;
 
 
-		// we need two bytes for every character
+        // we need two bytes for every character
 		nLen &= ~1;
 
 		// enough bytes in the buf?
-		nAvailCapacity = data.length - nOfs;
+        int nAvailCapacity = data.length - nOfs;
 
-		if (nAvailCapacity < nLen)
+        if (nAvailCapacity < nLen)
 		{
 			nLen = nAvailCapacity;
 		}
 
-		sbuf = new StringBuffer();
-		sbuf.setLength(nLen >> 1);
+        StringBuffer sbuf = new StringBuffer();
+        sbuf.setLength(nLen >> 1);
 
-		nSBufPos = 0;
+        int nSBufPos = 0;
 
-		while (nLen > 0)
+        while (nLen > 0)
 		{
 			sbuf.setCharAt(
                     nSBufPos,

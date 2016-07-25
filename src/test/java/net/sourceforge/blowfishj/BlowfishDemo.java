@@ -60,31 +60,11 @@ public class BlowfishDemo
 	public static void main(
 			String[] args)
 	{
-		int nI;
-		int nRest;
-		int nMsgSize;
-		int nLnBrkLen;
-		long lTm;
-		long lRate;
-		double dAmount;
-		double dTime;
-		double dRate;
-		byte[] testKey;
-		byte[] tempBuf;
-		byte[] cpyBuf;
-		byte[] msgBuf;
-		byte[] showIV;
-		String sEnc;
-		BlowfishECB bfe;
-		BlowfishCBC bfc;
-		BlowfishEasy bfes;
-		BlowfishInputStream bfis;
-		BlowfishOutputStream bfos;
-		ByteArrayOutputStream baos;
 
 		// create our test key
 
-		testKey = new byte[5];
+		byte[] testKey = new byte[5];
+		int nI;
 		for (nI = 0; nI < testKey.length; nI++)
 		{
 			testKey[nI] = (byte) (nI + 1);
@@ -94,13 +74,13 @@ public class BlowfishDemo
 
 		System.out.print("setting up Blowfish keys...");
 
-		bfe = new BlowfishECB(testKey, 0, testKey.length);
+		BlowfishECB bfe = new BlowfishECB(testKey, 0, testKey.length);
 
-		bfc = new BlowfishCBC(
-			testKey,
-			0,
-			testKey.length,
-			CBCIV_START);
+		BlowfishCBC bfc = new BlowfishCBC(
+				testKey,
+				0,
+				testKey.length,
+				CBCIV_START);
 
 		System.out.println(", done.");
 
@@ -127,10 +107,10 @@ public class BlowfishDemo
 		System.out.print("something to encrypt please >");
 		System.out.flush();
 
-		tempBuf = new byte[MAX_MESS_SIZE];
+		byte[] tempBuf = new byte[MAX_MESS_SIZE];
 
-		nMsgSize = 0;
-		nLnBrkLen = 0;
+		int nMsgSize = 0;
+		int nLnBrkLen = 0;
 
 		try
 		{
@@ -145,7 +125,7 @@ public class BlowfishDemo
 		{
 			// (cut off the line break)
 			nMsgSize = System.in.read(tempBuf) - nLnBrkLen;
-			cpyBuf = new byte[nMsgSize];
+			byte[] cpyBuf = new byte[nMsgSize];
 			System.arraycopy(tempBuf, 0, cpyBuf, 0, nMsgSize);
 			tempBuf = cpyBuf;
 		}
@@ -156,8 +136,9 @@ public class BlowfishDemo
 
 		// align to the next 8 byte border
 
-		nRest = nMsgSize & 7;
+		int nRest = nMsgSize & 7;
 
+		byte[] msgBuf;
 		if (nRest == 0) {
 			msgBuf = new byte[nMsgSize];
 
@@ -200,7 +181,7 @@ public class BlowfishDemo
 
 		// CBC encryption/decryption test
 
-		showIV = new byte[BlowfishCBC.BLOCKSIZE];
+		byte[] showIV = new byte[BlowfishCBC.BLOCKSIZE];
 
 		bfc.getCBCIV(showIV, 0);
 
@@ -222,8 +203,9 @@ public class BlowfishDemo
 
 		// demonstrate easy encryption
 
-		bfes = new BlowfishEasy(BFEASY_REF_PASSW.toCharArray());
+		BlowfishEasy bfes = new BlowfishEasy(BFEASY_REF_PASSW.toCharArray());
 
+		String sEnc;
 		System.out.println(sEnc = bfes.encryptString(BFEASY_REF_TEXT));
 		System.out.println(bfes.decryptString(sEnc));
 
@@ -231,11 +213,12 @@ public class BlowfishDemo
 
 		try
 		{
-			bfos = new BlowfishOutputStream(
-				XCHG_KEY,
-				0,
-				XCHG_KEY.length,
-				baos = new ByteArrayOutputStream());
+			ByteArrayOutputStream baos;
+			BlowfishOutputStream bfos = new BlowfishOutputStream(
+					XCHG_KEY,
+					0,
+					XCHG_KEY.length,
+					baos = new ByteArrayOutputStream());
 
 			for (nI = 0; nI < XCHG_DATA_SIZE; nI++)
 			{
@@ -248,11 +231,11 @@ public class BlowfishDemo
 
 			System.out.println(BinConverter.bytesToHexStr(tempBuf));
 
-			bfis = new BlowfishInputStream(
-				XCHG_KEY,
-				0,
-				XCHG_KEY.length,
-				new ByteArrayInputStream(tempBuf));
+			BlowfishInputStream bfis = new BlowfishInputStream(
+					XCHG_KEY,
+					0,
+					XCHG_KEY.length,
+					new ByteArrayInputStream(tempBuf));
 
 			for (nI = 0; nI < XCHG_DATA_SIZE; nI++)
 			{
@@ -274,7 +257,7 @@ public class BlowfishDemo
 
 		System.out.println("\nrunning benchmark (CBC)...");
 
-		lTm = System.currentTimeMillis();
+		long lTm = System.currentTimeMillis();
 
 		tempBuf = new byte[TESTBUFSIZE];
 
@@ -293,10 +276,10 @@ public class BlowfishDemo
 
 		System.out.println();
 
-		dAmount = TESTBUFSIZE * TESTLOOPS;
-		dTime = lTm;
-		dRate = dAmount * 1000 / dTime;
-		lRate = (long) dRate;
+		double dAmount = TESTBUFSIZE * TESTLOOPS;
+		double dTime = lTm;
+		double dRate = dAmount * 1000 / dTime;
+		long lRate = (long) dRate;
 
 		System.out.println(+ lRate + " bytes/sec");
 

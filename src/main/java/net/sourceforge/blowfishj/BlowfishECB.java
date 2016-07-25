@@ -65,11 +65,6 @@ public class BlowfishECB
 		int nOfs,
 		int nLen)
 	{
-		int nI;
-		int nJ;
-		int nBuild;
-		int nEnd;
-		int nOfsBak;
 
 
 		// xor the key over the p-boxes
@@ -79,13 +74,14 @@ public class BlowfishECB
 			return; // such a setup is also valid (zero key is possible)
 		}
 
-		nBuild = 0;
-		nOfsBak = nOfs;
-		nEnd = nOfs + nLen;
+		int nBuild = 0;
+		int nOfsBak = nOfs;
+		int nEnd = nOfs + nLen;
 
+		int nI;
 		for (nI = 0; nI < PBOX_ENTRIES; nI++)
 		{
-			for (nJ = 0; nJ < 4; nJ++)
+			for (int nJ = 0; nJ < 4; nJ++)
 			{
 				nBuild = nBuild << 8 | (int) key[nOfs] & 0x0ff;
 
@@ -190,7 +186,6 @@ public class BlowfishECB
 	public void cleanUp()
 	{
 		int nI;
-		int nC;
 
 
 		for (nI = 0; nI < PBOX_ENTRIES; nI++)
@@ -203,6 +198,7 @@ public class BlowfishECB
 			m_sbox1[nI] = m_sbox2[nI] = m_sbox3[nI] = m_sbox4[nI] = 0;
 		}
 
+		int nC;
 		for (nI = 0, nC = m_blockBuf.length; nI < nC; nI++) {
 			m_blockBuf[nI] = 0;
 		}
@@ -219,8 +215,6 @@ public class BlowfishECB
 	 */
 	public boolean weakKeyCheck()
 	{
-		int nI;
-		int nJ;
 
 
 		if (m_nWeakKey != -1)
@@ -231,9 +225,9 @@ public class BlowfishECB
 		// a weak key is defined to create identical entries in
 		// at least one of the s-boxes...
 
-		for (nI = 0; nI < SBOX_ENTRIES - 1; nI++)
+		for (int nI = 0; nI < SBOX_ENTRIES - 1; nI++)
 		{
-			for (nJ = nI + 1; nJ < SBOX_ENTRIES; nJ++)
+			for (int nJ = nI + 1; nJ < SBOX_ENTRIES; nJ++)
 			{
 				if (m_sbox1[nI] == m_sbox1[nJ]
 					| m_sbox2[nI] == m_sbox2[nJ]
@@ -262,10 +256,9 @@ public class BlowfishECB
 			byte[] outBuf,
 			int nOutPos,
 			int nLen) {
-		int nInPos1 = nInPos;
-		int nOutPos1 = nOutPos;
 		nLen -= nLen % BLOCKSIZE;
 
+		int nInPos1 = nInPos;
 		int nC = nInPos1 + nLen;
 
 		// preload the pboxes into local variables, this should especially
@@ -298,18 +291,16 @@ public class BlowfishECB
 		int[] sbox3 = m_sbox3;
 		int[] sbox4 = m_sbox4;
 
-		int nHi;
-		int nLo;
-
+		int nOutPos1 = nOutPos;
 		while (nInPos1 < nC) {
 			// full speed here, so we don't use BinConverter
 
-			nHi = inBuf[nInPos1++] << 24;
+			int nHi = inBuf[nInPos1++] << 24;
 			nHi |= inBuf[nInPos1++] << 16 & 0x0ff0000;
 			nHi |= inBuf[nInPos1++] << 8 & 0x000ff00;
 			nHi |= inBuf[nInPos1++] & 0x00000ff;
 
-			nLo = inBuf[nInPos1++] << 24;
+			int nLo = inBuf[nInPos1++] << 24;
 			nLo |= inBuf[nInPos1++] << 16 & 0x0ff0000;
 			nLo |= inBuf[nInPos1++] << 8 & 0x000ff00;
 			nLo |= inBuf[nInPos1++] & 0x00000ff;
@@ -481,12 +472,9 @@ public class BlowfishECB
 		int[] sbox3 = m_sbox3;
 		int[] sbox4 = m_sbox4;
 
-		int nHi;
-		int nLo;
-
 		while (nInPos < nC)
 		{
-			nHi  =  inBuf[nInPos] << 24;
+			int nHi = inBuf[nInPos] << 24;
 			nInPos++;
 			nHi |= inBuf[nInPos] << 16 & 0x0ff0000;
 			nInPos++;
@@ -495,7 +483,7 @@ public class BlowfishECB
 			nHi |=  inBuf[nInPos]        & 0x00000ff;
 			nInPos++;
 
-			nLo  =  inBuf[nInPos] << 24;
+			int nLo = inBuf[nInPos] << 24;
 			nInPos++;
 			nLo |= inBuf[nInPos] << 16 & 0x0ff0000;
 			nInPos++;

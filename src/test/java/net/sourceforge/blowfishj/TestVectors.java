@@ -27,35 +27,26 @@ public class TestVectors extends TestCase
 {
 	public void testAllVectors()
 	{
-		int nI;
-		int nJ;
-		byte[] key;
-		byte[] plain;
-		byte[] cipher;
-		byte[] testBuf;
-		long lKey;
-		long lPlain;
-		long lCipher;
-		BlowfishECB bfecb;
 
 
-		key = new byte[8];
-		plain = new byte[8];
-		cipher = new byte[8];
-		testBuf = new byte[8];
+		byte[] key = new byte[8];
+		byte[] plain = new byte[8];
+		byte[] cipher = new byte[8];
+		byte[] testBuf = new byte[8];
 
-		nI = 0;
+		int nI = 0;
 
 		while (nI < TEST_DATA.length)
 		{
-			lKey = TEST_DATA[nI];
-            nI++;
-            lPlain = TEST_DATA[nI];
-            nI++;
-            lCipher = TEST_DATA[nI];
-            nI++;
+			long lKey = TEST_DATA[nI];
+			nI++;
+			long lPlain = TEST_DATA[nI];
+			nI++;
+			long lCipher = TEST_DATA[nI];
+			nI++;
 
-            for (nJ = 7; nJ >= 0; nJ--)
+			int nJ;
+			for (nJ = 7; nJ >= 0; nJ--)
 			{
 				key[nJ] = (byte) (lKey & 0x0ff);
 				lKey >>>= 8;
@@ -65,7 +56,7 @@ public class TestVectors extends TestCase
 				lCipher >>>= 8;
 			}
 
-			bfecb = new BlowfishECB(key, 0, key.length);
+			BlowfishECB bfecb = new BlowfishECB(key, 0, key.length);
 
 			bfecb.encrypt(plain, 0, testBuf, 0, plain.length);
 

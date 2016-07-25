@@ -45,20 +45,17 @@ public class BlowfishOutputStream extends OutputStream
 		int nLen,
 		OutputStream os) throws IOException
 	{
-		byte[] ckey;
-		SHA1 sh;
-		SecureRandom srnd;
 
 
 		m_os = os;
 
 		m_nBytesInBuf = 0;
 
-		sh = new SHA1();
+		SHA1 sh = new SHA1();
 		sh.update(key, nOfs, nLen);
 		sh.finalize();
 
-		ckey = sh.getDigest();
+		byte[] ckey = sh.getDigest();
 		sh.clear();
 
 		m_bfc = new BlowfishCBC(
@@ -78,7 +75,7 @@ public class BlowfishOutputStream extends OutputStream
 		// (make sure the IV is written to output stream -- this is always the
 		// first 8 bytes written out)
 
-		srnd = new SecureRandom();
+		SecureRandom srnd = new SecureRandom();
 		srnd.nextBytes(m_bufIn);
 
 		m_os.write(m_bufIn, 0, m_bufIn.length);
@@ -145,7 +142,6 @@ public class BlowfishOutputStream extends OutputStream
 	 */
 	public void close() throws IOException
 	{
-		byte nPadVal;
 
 		if (m_os == null)
 		{
@@ -160,7 +156,7 @@ public class BlowfishOutputStream extends OutputStream
 		// block just for the pad count, then so be it. Minor correction: 8
 		// isn't the magic number, rather it's BlowfishECB.BLOCKSIZE.
 
-		nPadVal = (byte)(m_bufIn.length - m_nBytesInBuf);
+		byte nPadVal = (byte) (m_bufIn.length - m_nBytesInBuf);
 
 		while (m_nBytesInBuf < m_bufIn.length)
 		{

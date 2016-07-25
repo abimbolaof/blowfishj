@@ -41,7 +41,6 @@ public class BlowfishTests extends TestCase
 
 		int[] tv_p1 = { 0x30553228, 0x6d6f295a };
 		int[] tv_c1 = { 0x55cb3774, 0xd13ef201 };
-		int[] tv_t1 = new int[2];
 
 		// test vector #2 (offical vector by Bruce Schneier)
 		String sTestKey2 = "Who is John Galt?";
@@ -49,16 +48,13 @@ public class BlowfishTests extends TestCase
 
 		int[] tv_p2 = { 0xfedcba98, 0x76543210 };
 		int[] tv_c2 = { 0xcc91732b, 0x8022f684 };
-		int[] tv_t2 = new int[2];
-
-		BlowfishECB testbf1;
-		BlowfishECB testbf2;
 
 
 		// start the tests, check for a proper decryption, too
 
-		testbf1 = new BlowfishECB(testKey1, 0, testKey1.length);
+		BlowfishECB testbf1 = new BlowfishECB(testKey1, 0, testKey1.length);
 
+		int[] tv_t1 = new int[2];
 		testbf1.encrypt(tv_p1, 0, tv_t1, 0, tv_p1.length);
 
 		if (tv_t1[0] != tv_c1[0] || tv_t1[1] != tv_c1[1])
@@ -73,8 +69,9 @@ public class BlowfishTests extends TestCase
 			return false;
 		}
 
-		testbf2 = new BlowfishECB(testKey2, 0, testKey2.length);
+		BlowfishECB testbf2 = new BlowfishECB(testKey2, 0, testKey2.length);
 
+		int[] tv_t2 = new int[2];
 		testbf2.encrypt(tv_p2, 0, tv_t2, 0, tv_p2.length);
 
 		if (tv_t2[0] != tv_c2[0] || tv_t2[1] != tv_c2[1])
@@ -93,39 +90,29 @@ public class BlowfishTests extends TestCase
 		byte[] key = { 0x01, 0x02, 0x03, (byte)0xaa, (byte)0xee, (byte)0xff };
 
 
-		boolean blSame;
+		assertTrue(selfTest());
+		assertTrue(selfTest());
+
+		byte[] plain = new byte[256];
 		int nI;
-		int nJ;
-		BlowfishECB bfe;
-		BlowfishCBC bfc;
-		byte[] zeroIV;
-		byte[] plain;
-		byte[] plain2;
-		byte[] cipher;
-		byte[] cipherRef;
-
-
-		assertTrue(selfTest());
-		assertTrue(selfTest());
-
-		plain = new byte[256];
 		for (nI = 0; nI < plain.length; nI++)
 		{
 			plain[nI] = (byte)nI;
 		}
 
-		plain2 = new byte[257];
+		byte[] plain2 = new byte[257];
 
-		cipher = new byte[257];
+		byte[] cipher = new byte[257];
 
-		cipherRef = null;
+		byte[] cipherRef = null;
 
-		zeroIV = new byte[8];
+		byte[] zeroIV = new byte[8];
 		Arrays.fill(zeroIV, 0, zeroIV.length, (byte)0);
 
 		for (nI = 0; nI < 3; nI++)
 		{
-			bfe = bfc = null;
+			BlowfishCBC bfc;
+			BlowfishECB bfe = bfc = null;
 
 			// reset to avoid cheats
 
@@ -179,6 +166,7 @@ public class BlowfishTests extends TestCase
 			// verify that all encrypted results are equal,with the first one
 			// of each kind (ECB/CBC) setting the reference
 
+			int nJ;
 			if (cipherRef == null)
 			{
 				cipherRef = new byte[cipher.length];
@@ -195,7 +183,7 @@ public class BlowfishTests extends TestCase
 			// make sure that the decypted value is actually correct (and that
 			// we're not doing zero encryption)
 
-			blSame = true;
+			boolean blSame = true;
 
 			for (nJ = 0; nJ < plain.length; nJ++)
 			{
@@ -224,13 +212,11 @@ public class BlowfishTests extends TestCase
 
 	public void testWeakKey()
 	{
-		BlowfishECB bfe;
-		byte[] key;
 
 
-		key = (byte[])KNOWN_WEAK_KEY.clone();
+		byte[] key = (byte[]) KNOWN_WEAK_KEY.clone();
 
-		bfe = new BlowfishECB(key, 0, key.length);
+		BlowfishECB bfe = new BlowfishECB(key, 0, key.length);
 		assertTrue(bfe.weakKeyCheck());
 
 		Arrays.fill(key, 0, key.length, (byte)0);
@@ -243,36 +229,29 @@ public class BlowfishTests extends TestCase
 
 	public void testBlowfishEasy()
 	{
-		int nI;
-		int nJ;
-		String sPlain;
-		String sCipher;
-		String sPlain2;
-		String sKey;
 		StringBuffer sbuf = new StringBuffer();
-		BlowfishEasy bfes;
 
 		// test a growing string with all kinds of characters, even reaching in
 		// the Unicode space
 
-		for (nI = 0; nI < 513; nI++)
+		for (int nI = 0; nI < 513; nI++)
 		{
 			sbuf.setLength(0);
 
-			for (nJ = 0; nJ < nI; nJ++)
+			for (int nJ = 0; nJ < nI; nJ++)
 			{
 				sbuf.append((char)nJ);
 			}
 
-			sPlain = sbuf.toString();
-			sKey = sPlain + "xyz";	// (easy way to get unique keys)
+			String sPlain = sbuf.toString();
+			String sKey = sPlain + "xyz";    // (easy way to get unique keys)
 
 			// test standard encryption/decryption
 
-			bfes = new BlowfishEasy(sKey.toCharArray());
+			BlowfishEasy bfes = new BlowfishEasy(sKey.toCharArray());
 
-			sCipher = bfes.encryptString(sPlain);
-			sPlain2 = bfes.decryptString(sCipher);
+			String sCipher = bfes.encryptString(sPlain);
+			String sPlain2 = bfes.decryptString(sCipher);
 
 			assertTrue(sPlain.equals(sPlain2));
 
@@ -300,26 +279,20 @@ public class BlowfishTests extends TestCase
 	public void testKeySetupBug()
 	{
 		// verify a bug in the key setup, which was fixed in 2.13
-		
-		int nI;
-		byte[] block0;
-		byte[] block1;
-		BlowfishECB bfe0;
-		BlowfishECB bfe1;
 
-		bfe0 = new BlowfishECB(KEYSETUPBUG_K0, 1, 2);
-		bfe1 = new BlowfishECB(KEYSETUPBUG_K1, 0, 2);
-		
-		block0 = new byte[BlowfishECB.BLOCKSIZE];
-		block1 = new byte[BlowfishECB.BLOCKSIZE];
-		
+		BlowfishECB bfe0 = new BlowfishECB(KEYSETUPBUG_K0, 1, 2);
+		BlowfishECB bfe1 = new BlowfishECB(KEYSETUPBUG_K1, 0, 2);
+
+		byte[] block0 = new byte[BlowfishECB.BLOCKSIZE];
+		byte[] block1 = new byte[BlowfishECB.BLOCKSIZE];
+
 		Arrays.fill(block0, 0, block0.length, (byte)0);
 		Arrays.fill(block1, 0, block1.length, (byte)0);
 		
 		bfe0.encrypt(block0, 0, block0, 0, block0.length);
 		bfe1.encrypt(block1, 0, block1, 0, block1.length);
 		
-		for (nI = 0; nI < block0.length; nI++)
+		for (int nI = 0; nI < block0.length; nI++)
 		{
 			assertTrue(block0[nI] == block1[nI]);
 		}
