@@ -83,6 +83,7 @@ public class SHA1Demo {
             mds = MessageDigest.getInstance("SHA");
         } catch (NoSuchAlgorithmException nsae) {
             System.out.println("standard SHA-1 not available");
+            nsae.printStackTrace();
             return;
         }
 

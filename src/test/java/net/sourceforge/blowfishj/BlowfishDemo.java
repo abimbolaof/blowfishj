@@ -58,8 +58,7 @@ public class BlowfishDemo
 	 * @param args (command line) parameters
 	 */
 	public static void main(
-			String[] args)
-	{
+			String[] args) throws IOException {
 
 		// create our test key
 
@@ -109,30 +108,16 @@ public class BlowfishDemo
 
 		byte[] tempBuf = new byte[MAX_MESS_SIZE];
 
-		int nMsgSize = 0;
-		int nLnBrkLen = 0;
+		int nMsgSize;
+		int nLnBrkLen;
 
-		try
-		{
-			nLnBrkLen = System.getProperty("line.separator").length();
-		}
-		catch (Throwable err)
-		{
-		    // nothing to do
-		}
+		nLnBrkLen = System.getProperty("line.separator").length();
 
-		try
-		{
-			// (cut off the line break)
-			nMsgSize = System.in.read(tempBuf) - nLnBrkLen;
-			byte[] cpyBuf = new byte[nMsgSize];
-			System.arraycopy(tempBuf, 0, cpyBuf, 0, nMsgSize);
-			tempBuf = cpyBuf;
-		}
-		catch (IOException ioe)
-		{
-			return;
-		}
+		// (cut off the line break)
+		nMsgSize = System.in.read(tempBuf) - nLnBrkLen;
+		byte[] cpyBuf = new byte[nMsgSize];
+		System.arraycopy(tempBuf, 0, cpyBuf, 0, nMsgSize);
+		tempBuf = cpyBuf;
 
 		// align to the next 8 byte border
 
