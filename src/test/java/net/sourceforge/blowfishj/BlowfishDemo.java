@@ -21,13 +21,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import net.sourceforge.blowfishj.BinConverter;
-import net.sourceforge.blowfishj.BlowfishCBC;
-import net.sourceforge.blowfishj.BlowfishECB;
-import net.sourceforge.blowfishj.BlowfishEasy;
-import net.sourceforge.blowfishj.BlowfishInputStream;
-import net.sourceforge.blowfishj.BlowfishOutputStream;
-
 /**
  * Demonstrating the Blowfish encryption algorithm classes.
  */
@@ -79,21 +72,6 @@ public class BlowfishDemo
 		BlowfishInputStream bfis;
 		BlowfishOutputStream bfos;
 		ByteArrayOutputStream baos;
-
-
-		// first do the self test
-
-		System.out.print("running self test...");
-
-		if (!BlowfishECB.selfTest())
-		{
-			System.out.println(", FAILED");
-			return;
-		}
-
-		System.out.println(", passed.");
-
-		// now the classic examples...
 
 		// create our test key
 

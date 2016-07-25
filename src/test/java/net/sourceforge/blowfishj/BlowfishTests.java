@@ -17,18 +17,81 @@
 
 package net.sourceforge.blowfishj;
 
-import java.util.Arrays;
-
 import junit.framework.TestCase;
-import net.sourceforge.blowfishj.BlowfishCBC;
-import net.sourceforge.blowfishj.BlowfishECB;
-import net.sourceforge.blowfishj.BlowfishEasy;
+
+import java.util.Arrays;
 
 /**
  * All test cases for the blowfishj core classes.
  */
 public class BlowfishTests extends TestCase
 {
+	/**
+	 * Selftest routine, for instance to check for a valid class file loading.
+	 * @return true: selftest passed / false: selftest failed
+	 */
+	public static boolean selfTest()
+	{
+		// test vector #1 (checking for the "signed bug")
+		byte[] testKey1 =
+		{
+			(byte) 0x1c, (byte) 0x58, (byte) 0x7f, (byte) 0x1c,
+			(byte) 0x13, (byte) 0x92, (byte) 0x4f, (byte) 0xef
+		};
+
+		int[] tv_p1 = { 0x30553228, 0x6d6f295a };
+		int[] tv_c1 = { 0x55cb3774, 0xd13ef201 };
+		int[] tv_t1 = new int[2];
+
+		// test vector #2 (offical vector by Bruce Schneier)
+		String sTestKey2 = "Who is John Galt?";
+		byte[] testKey2 = sTestKey2.getBytes();
+
+		int[] tv_p2 = { 0xfedcba98, 0x76543210 };
+		int[] tv_c2 = { 0xcc91732b, 0x8022f684 };
+		int[] tv_t2 = new int[2];
+
+		BlowfishECB testbf1;
+		BlowfishECB testbf2;
+
+
+		// start the tests, check for a proper decryption, too
+
+		testbf1 = new BlowfishECB(testKey1, 0, testKey1.length);
+
+		testbf1.encrypt(tv_p1, 0, tv_t1, 0, tv_p1.length);
+
+		if ((tv_t1[0] != tv_c1[0]) || (tv_t1[1] != tv_c1[1]))
+		{
+			return false;
+		}
+
+		testbf1.decrypt(tv_t1, 0, tv_t1, 0, tv_t1.length);
+
+		if ((tv_t1[0] != tv_p1[0]) || (tv_t1[1] != tv_p1[1]))
+		{
+			return false;
+		}
+
+		testbf2 = new BlowfishECB(testKey2, 0, testKey2.length);
+
+		testbf2.encrypt(tv_p2, 0, tv_t2, 0, tv_p2.length);
+
+		if ((tv_t2[0] != tv_c2[0]) || (tv_t2[1] != tv_c2[1]))
+		{
+			return false;
+		}
+
+		testbf2.decrypt(tv_t2, 0, tv_t2, 0, tv_t2.length);
+
+		if ((tv_t2[0] != tv_p2[0]) || (tv_t2[1] != tv_p2[1]))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	public void testByteArrayHandling()
 	{
 		byte[] key = { 0x01, 0x02, 0x03, (byte)0xaa, (byte)0xee, (byte)0xff };
@@ -43,8 +106,8 @@ public class BlowfishTests extends TestCase
 		byte[] cipher, cipherRef;
 
 
-		assertTrue(BlowfishECB.selfTest());
-		assertTrue(BlowfishCBC.selfTest());
+		assertTrue(selfTest());
+		assertTrue(selfTest());
 
 		plain = new byte[256];
 		for (nI = 0; nI < plain.length; nI++)
