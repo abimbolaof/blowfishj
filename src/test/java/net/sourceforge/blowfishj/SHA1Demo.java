@@ -58,7 +58,7 @@ public class SHA1Demo {
 
         System.out.println(", done.");
 
-        sTest = (args.length > 0) ?
+        sTest = args.length > 0 ?
                 args[0] :
                 "0123456789abcdefghijklmnopqrstuvwxyz";
 

@@ -78,7 +78,7 @@ public class SHA1
 
 	static final int rol(int nValue, int nBits)
 	{
-		return ((nValue << nBits) | (nValue >>> (32 - nBits)));
+		return nValue << nBits | nValue >>> 32 - nBits;
 	}
 
 
@@ -88,8 +88,8 @@ public class SHA1
 	{
 		return
 			m_block[nI] =
-			   ((rol(m_block[nI], 24) & 0xff00ff00) |
-			    (rol(m_block[nI],  8) & 0x00ff00ff));
+					rol(m_block[nI], 24) & 0xff00ff00 |
+                            rol(m_block[nI],  8) & 0x00ff00ff;
 	}
 
 
@@ -97,21 +97,20 @@ public class SHA1
 	final int blk(
 		int nI)
 	{
-		return (
-			m_block[nI & 15] =
-				rol(
-					m_block[(nI + 13) & 15] ^
-				    m_block[(nI +  8) & 15] ^
-				    m_block[(nI +  2) & 15]	^
-				    m_block[ nI		& 15],
-					1));
+		return m_block[nI & 15] =
+            rol(
+                m_block[nI + 13 & 15] ^
+                m_block[nI +  8 & 15] ^
+                m_block[nI +  2 & 15]	^
+                m_block[ nI		& 15],
+                1);
 	}
 
 
 
 	final void r0(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
-		data[nZ] += ((data[nW] & (data[nX] ^ data[nY])) ^ data[nY])
+		data[nZ] += (data[nW] & (data[nX] ^ data[nY]) ^ data[nY])
 			+ blk0(nI)
 			+ 0x5a827999
 			+ rol(data[nV], 5);
@@ -120,7 +119,7 @@ public class SHA1
 
 	final void r1(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
-		data[nZ] += ((data[nW] & (data[nX] ^ data[nY])) ^ data[nY])
+		data[nZ] += (data[nW] & (data[nX] ^ data[nY]) ^ data[nY])
 			+ blk(nI)
 			+ 0x5a827999
 			+ rol(data[nV], 5);
@@ -139,7 +138,7 @@ public class SHA1
 	final void r3(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
 		data[nZ]
-			+= (((data[nW] | data[nX]) & data[nY]) | (data[nW] & data[nX]))
+			+= ((data[nW] | data[nX]) & data[nY] | data[nW] & data[nX])
 			+ blk(nI)
 			+ 0x8f1bbcdc
 			+ rol(data[nV], 5);
@@ -319,7 +318,7 @@ public class SHA1
 
 		for (nI = 0; nI < 8; nI++)
 		{
-			bits[nI] = (byte)((m_lCount >>> (((7 - nI) << 3))) & 0xff);
+			bits[nI] = (byte)(m_lCount >>> (7 - nI << 3) & 0xff);
 		}
 
 		update((byte)128);
@@ -336,7 +335,7 @@ public class SHA1
 		for (nI = 0; nI < 20; nI++)
 		{
 			m_digestBits[nI] =
-				(byte) ((m_state[nI >> 2] >> ((3 - (nI & 3)) << 3)) & 0xff);
+				(byte) (m_state[nI >> 2] >> (3 - (nI & 3) << 3) & 0xff);
 		}
 	}
 
@@ -388,7 +387,7 @@ public class SHA1
 
 		for (nI = 0; nI < DIGEST_SIZE; nI++)
 		{
-			sbuf.append(HEXTAB.charAt((m_digestBits[nI] >>> 4) & 0x0f));
+			sbuf.append(HEXTAB.charAt(m_digestBits[nI] >>> 4 & 0x0f));
 			sbuf.append(HEXTAB.charAt( m_digestBits[nI]        & 0x0f));
 		}
 

@@ -33,10 +33,10 @@ public class BinConverter
 		byte[] buf,
 		int nOfs)
 	{
-		return (buf[nOfs    ]          << 24)
-			| ((buf[nOfs + 1] & 0x0ff) << 16)
-			| ((buf[nOfs + 2] & 0x0ff) <<  8)
-			| ( buf[nOfs + 3] & 0x0ff);
+		return buf[nOfs    ]          << 24
+			| (buf[nOfs + 1] & 0x0ff) << 16
+			| (buf[nOfs + 2] & 0x0ff) <<  8
+			| buf[nOfs + 3] & 0x0ff;
 	}
 
 
@@ -52,9 +52,9 @@ public class BinConverter
 		byte[] buf,
 		int nOfs)
 	{
-		buf[nOfs    ] = (byte)((nValue >>> 24) & 0x0ff);
-		buf[nOfs + 1] = (byte)((nValue >>> 16) & 0x0ff);
-		buf[nOfs + 2] = (byte)((nValue >>>  8) & 0x0ff);
+		buf[nOfs    ] = (byte)(nValue >>> 24 & 0x0ff);
+		buf[nOfs + 1] = (byte)(nValue >>> 16 & 0x0ff);
+		buf[nOfs + 2] = (byte)(nValue >>>  8 & 0x0ff);
 		buf[nOfs + 3] = (byte)  nValue;
 	}
 
@@ -73,14 +73,14 @@ public class BinConverter
 		// Looks more complex - but it is faster (at least on 32bit platforms).
 
 		return
-			((long)(( buf[nOfs    ]          << 24) |
-		            ((buf[nOfs + 1] & 0x0ff) << 16) |
-		   		    ((buf[nOfs + 2] & 0x0ff) <<  8) |
-		   		    ( buf[nOfs + 3] & 0x0ff       )) << 32) |
-		    ((long)(( buf[nOfs + 4]          << 24) |
-		            ((buf[nOfs + 5] & 0x0ff) << 16) |
-		            ((buf[nOfs + 6] & 0x0ff) <<  8) |
-		            ( buf[nOfs + 7] & 0x0ff       )) & 0x0ffffffffL);
+			(long) (buf[nOfs    ]          << 24 |
+					(buf[nOfs + 1] & 0x0ff) << 16 |
+					(buf[nOfs + 2] & 0x0ff) <<  8 |
+					buf[nOfs + 3] & 0x0ff) << 32 |
+					(long) (buf[nOfs + 4]          << 24 |
+                            (buf[nOfs + 5] & 0x0ff) << 16 |
+                            (buf[nOfs + 6] & 0x0ff) <<  8 |
+                            buf[nOfs + 7] & 0x0ff) & 0x0ffffffffL;
 	}
 
 
@@ -99,15 +99,15 @@ public class BinConverter
 		int nTmp = (int)(lValue >>> 32);
 
 		buf[nOfs    ] = (byte) (nTmp >>> 24);
-		buf[nOfs + 1] = (byte)((nTmp >>> 16) & 0x0ff);
-		buf[nOfs + 2] = (byte)((nTmp >>>  8) & 0x0ff);
+		buf[nOfs + 1] = (byte)(nTmp >>> 16 & 0x0ff);
+		buf[nOfs + 2] = (byte)(nTmp >>>  8 & 0x0ff);
 		buf[nOfs + 3] = (byte)  nTmp;
 
 		nTmp = (int)lValue;
 
 		buf[nOfs + 4] = (byte) (nTmp >>> 24);
-		buf[nOfs + 5] = (byte)((nTmp >>> 16) & 0x0ff);
-		buf[nOfs + 6] = (byte)((nTmp >>>  8) & 0x0ff);
+		buf[nOfs + 5] = (byte)(nTmp >>> 16 & 0x0ff);
+		buf[nOfs + 6] = (byte)(nTmp >>>  8 & 0x0ff);
 		buf[nOfs + 7] = (byte)  nTmp;
 	}
 
@@ -123,8 +123,8 @@ public class BinConverter
 		int[] buf,
 		int nOfs)
 	{
-		return (((long) buf[nOfs    ]) << 32) |
-		       (((long) buf[nOfs + 1]) & 0x0ffffffffL);
+		return (long) buf[nOfs    ] << 32 |
+				(long) buf[nOfs + 1] & 0x0ffffffffL;
 	}
 
 
@@ -156,8 +156,8 @@ public class BinConverter
 		int nLo,
 		int nHi)
 	{
-		return (((long) nHi << 32) |
-		        ((long) nLo & 0x00000000ffffffffL));
+		return (long) nHi << 32 |
+				(long) nLo & 0x00000000ffffffffL;
 	}
 
 
@@ -232,7 +232,7 @@ public class BinConverter
 
 		while (nOfs < nC)
 		{
-			sbuf.setCharAt(nPos, HEXTAB[(data[nOfs  ] >> 4) & 0x0f]);
+			sbuf.setCharAt(nPos, HEXTAB[data[nOfs  ] >> 4 & 0x0f]);
             nPos++;
             sbuf.setCharAt(nPos, HEXTAB[ data[nOfs]       & 0x0f]);
             nPos++;
@@ -273,7 +273,7 @@ public class BinConverter
 		// check for correct ranges
 		nStrLen = sHex.length();
 
-		nAvailBytes = (nStrLen - nSrcOfs) >> 1;
+		nAvailBytes = nStrLen - nSrcOfs >> 1;
 		if (nAvailBytes < nLen)
 		{
 			nLen = nAvailBytes;
@@ -300,13 +300,13 @@ public class BinConverter
 				char cActChar = sHex.charAt(nSrcOfs);
                 nSrcOfs++;
 
-                if ((cActChar >= 'a') && (cActChar <= 'f'))
+                if (cActChar >= 'a' && cActChar <= 'f')
 				{
 					bActByte |= (byte) (cActChar - 'a') + 10;
 				}
 				else
 				{
-					if ((cActChar >= '0') && (cActChar <= '9'))
+					if (cActChar >= '0' && cActChar <= '9')
 					{
 						bActByte |= (byte) (cActChar - '0');
 					}
@@ -323,7 +323,7 @@ public class BinConverter
             }
 		}
 
-		return (nDstOfs - nDstOfsBak);
+		return nDstOfs - nDstOfsBak;
 	}
 
 
@@ -365,8 +365,8 @@ public class BinConverter
 		{
 			sbuf.setCharAt(
                     nSBufPos,
-				(char)((data[nOfs    ] << 8)
-					|  (data[nOfs + 1] & 0x0ff)));
+				(char)(data[nOfs    ] << 8
+					| data[nOfs + 1] & 0x0ff));
             nSBufPos++;
             nOfs += 2;
 			nLen -= 2;

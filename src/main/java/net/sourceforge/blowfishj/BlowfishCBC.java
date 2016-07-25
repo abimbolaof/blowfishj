@@ -198,13 +198,13 @@ public class BlowfishCBC extends BlowfishECB
 
         while (nInPos < nC) {
             nHi = inBuf[nInPos++] << 24;
-            nHi |= (inBuf[nInPos++] << 16) & 0x0ff0000;
-            nHi |= (inBuf[nInPos++] << 8) & 0x000ff00;
+            nHi |= inBuf[nInPos++] << 16 & 0x0ff0000;
+            nHi |= inBuf[nInPos++] << 8 & 0x000ff00;
             nHi |= inBuf[nInPos++] & 0x00000ff;
 
             nLo = inBuf[nInPos++] << 24;
-            nLo |= (inBuf[nInPos++] << 16) & 0x0ff0000;
-            nLo |= (inBuf[nInPos++] << 8) & 0x000ff00;
+            nLo |= inBuf[nInPos++] << 16 & 0x0ff0000;
+            nLo |= inBuf[nInPos++] << 8 & 0x000ff00;
             nLo |= inBuf[nInPos++] & 0x00000ff;
 
             // extra step: chain with IV
@@ -213,22 +213,22 @@ public class BlowfishCBC extends BlowfishECB
             nLo ^= nIVLo;
 
             nHi ^= nPBox00;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox01;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox02;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox03;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox04;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox05;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox06;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox07;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox08;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox09;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox10;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox11;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox12;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox13;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox14;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox15;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox16;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox01;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox02;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox03;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox04;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox05;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox06;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox07;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox08;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox09;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox10;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox11;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox12;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox13;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox14;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox15;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox16;
 
             nLo ^= nPBox17;
 
@@ -351,13 +351,13 @@ public class BlowfishCBC extends BlowfishECB
 
         while (nInPos < nC) {
             nHi = inBuf[nInPos++] << 24;
-            nHi |= (inBuf[nInPos++] << 16) & 0x0ff0000;
-            nHi |= (inBuf[nInPos++] << 8) & 0x000ff00;
+            nHi |= inBuf[nInPos++] << 16 & 0x0ff0000;
+            nHi |= inBuf[nInPos++] << 8 & 0x000ff00;
             nHi |= inBuf[nInPos++] & 0x00000ff;
 
             nLo = inBuf[nInPos++] << 24;
-            nLo |= (inBuf[nInPos++] << 16) & 0x0ff0000;
-            nLo |= (inBuf[nInPos++] << 8) & 0x000ff00;
+            nLo |= inBuf[nInPos++] << 16 & 0x0ff0000;
+            nLo |= inBuf[nInPos++] << 8 & 0x000ff00;
             nLo |= inBuf[nInPos++] & 0x00000ff;
 
             // (save the current block, it will become the new IV)
@@ -365,22 +365,22 @@ public class BlowfishCBC extends BlowfishECB
             nTmpLo = nLo;
 
             nHi ^= nPBox17;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox16;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox15;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox14;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox13;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox12;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox11;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox10;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox09;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox08;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox07;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox06;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox05;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox04;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox03;
-            nLo ^= (((sbox1[nHi >>> 24] + sbox2[(nHi >>> 16) & 0x0ff]) ^ sbox3[(nHi >>> 8) & 0x0ff]) + sbox4[nHi & 0x0ff]) ^ nPBox02;
-            nHi ^= (((sbox1[nLo >>> 24] + sbox2[(nLo >>> 16) & 0x0ff]) ^ sbox3[(nLo >>> 8) & 0x0ff]) + sbox4[nLo & 0x0ff]) ^ nPBox01;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox16;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox15;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox14;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox13;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox12;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox11;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox10;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox09;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox08;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox07;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox06;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox05;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox04;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox03;
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0x0ff] ^ sbox3[nHi >>> 8 & 0x0ff]) + sbox4[nHi & 0x0ff] ^ nPBox02;
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0x0ff] ^ sbox3[nLo >>> 8 & 0x0ff]) + sbox4[nLo & 0x0ff] ^ nPBox01;
 
             nLo ^= nPBox00;
 

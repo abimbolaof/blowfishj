@@ -160,7 +160,7 @@ public class BlowfishDemo
 
 		if (nRest != 0)
 		{
-			msgBuf = new byte[(nMsgSize & (~7)) + 8];
+			msgBuf = new byte[(nMsgSize & ~7) + 8];
 
 			System.arraycopy(tempBuf, 0, msgBuf, 0, nMsgSize);
 
@@ -299,7 +299,7 @@ public class BlowfishDemo
 
 		dAmount = TESTBUFSIZE * TESTLOOPS;
 		dTime = lTm;
-		dRate = (dAmount * 1000) / dTime;
+		dRate = dAmount * 1000 / dTime;
 		lRate = (long) dRate;
 
 		System.out.println(+ lRate + " bytes/sec");

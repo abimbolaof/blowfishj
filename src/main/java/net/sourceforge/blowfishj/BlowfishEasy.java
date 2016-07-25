@@ -62,7 +62,7 @@ public class BlowfishEasy
 
 		for (nI = 0, nC = passw.length; nI < nC; nI++)
 		{
-			sh.update((byte)((passw[nI] >> 8) & 0x0ff));
+			sh.update((byte)(passw[nI] >> 8 & 0x0ff));
 			sh.update((byte)( passw[nI]       & 0x0ff));
 		}
 
@@ -132,13 +132,13 @@ public class BlowfishEasy
 
 
 		nStrLen = sPlainText.length();
-		buf = new byte[((nStrLen << 1) & ~7) + 8];
+		buf = new byte[(nStrLen << 1 & ~7) + 8];
 
 		nPos = 0;
 		for (nI = 0; nI < nStrLen; nI++)
 		{
 			cActChar = sPlainText.charAt(nI);
-			buf[nPos] = (byte)((cActChar >> 8) & 0x0ff);
+			buf[nPos] = (byte)(cActChar >> 8 & 0x0ff);
 			nPos++;
 			buf[nPos] = (byte) (cActChar & 0x0ff);
 			nPos++;
@@ -180,7 +180,7 @@ public class BlowfishEasy
 		byte[] cbciv;
 
 
-		nLen = (sCipherText.length() >> 1) & ~7;
+		nLen = sCipherText.length() >> 1 & ~7;
 
 		if (nLen < BlowfishECB.BLOCKSIZE)
 		{

@@ -61,14 +61,14 @@ public class BlowfishTests extends TestCase
 
 		testbf1.encrypt(tv_p1, 0, tv_t1, 0, tv_p1.length);
 
-		if ((tv_t1[0] != tv_c1[0]) || (tv_t1[1] != tv_c1[1]))
+		if (tv_t1[0] != tv_c1[0] || tv_t1[1] != tv_c1[1])
 		{
 			return false;
 		}
 
 		testbf1.decrypt(tv_t1, 0, tv_t1, 0, tv_t1.length);
 
-		if ((tv_t1[0] != tv_p1[0]) || (tv_t1[1] != tv_p1[1]))
+		if (tv_t1[0] != tv_p1[0] || tv_t1[1] != tv_p1[1])
 		{
 			return false;
 		}
@@ -77,14 +77,14 @@ public class BlowfishTests extends TestCase
 
 		testbf2.encrypt(tv_p2, 0, tv_t2, 0, tv_p2.length);
 
-		if ((tv_t2[0] != tv_c2[0]) || (tv_t2[1] != tv_c2[1]))
+		if (tv_t2[0] != tv_c2[0] || tv_t2[1] != tv_c2[1])
 		{
 			return false;
 		}
 
 		testbf2.decrypt(tv_t2, 0, tv_t2, 0, tv_t2.length);
 
-		if ((tv_t2[0] != tv_p2[0]) || (tv_t2[1] != tv_p2[1]))
+		if (tv_t2[0] != tv_p2[0] || tv_t2[1] != tv_p2[1])
 		{
 			return false;
 		}

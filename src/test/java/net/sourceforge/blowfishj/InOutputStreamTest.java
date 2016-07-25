@@ -88,8 +88,8 @@ public class InOutputStreamTest extends TestCase
 
 				assertTrue(
 					enc.length ==
-						plain.length - (plain.length % BlowfishCBC.BLOCKSIZE) +
-						(BlowfishCBC.BLOCKSIZE * 2));
+						plain.length - plain.length % BlowfishCBC.BLOCKSIZE +
+								BlowfishCBC.BLOCKSIZE * 2);
 
 				bais = new ByteArrayInputStream(enc);
 

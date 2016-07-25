@@ -186,7 +186,7 @@ public class BlowfishInputStream extends InputStream
 			}
 			else
 			{
-				int result = (int) (m_buf[m_nBufPos]) & 0x0ff;
+				int result = (int) m_buf[m_nBufPos] & 0x0ff;
 				m_nBufPos++;
 				return result;
 			}
