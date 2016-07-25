@@ -85,7 +85,7 @@ public class BlowfishEasy
 	 * @return encrypted string in binhex format
 	 */
 	public String encryptString(
-		String sPlainText)
+			CharSequence sPlainText)
 	{
 		long lCBCIV;
 
@@ -108,8 +108,8 @@ public class BlowfishEasy
 	 * @return encrypted string in binhex format
 	 */
 	public String encryptString(
-		String sPlainText,
-		Random rndGen)
+			CharSequence sPlainText,
+			Random rndGen)
 	{
 		return encStr(sPlainText, rndGen.nextLong());
 	}
@@ -171,7 +171,7 @@ public class BlowfishEasy
 	 * @return decrypted string (null equals an error)
 	 */
 	public String decryptString(
-		String sCipherText)
+			CharSequence sCipherText)
 	{
 		int nNumOfBytes;
 		int nPadByte;
