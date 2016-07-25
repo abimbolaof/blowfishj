@@ -65,7 +65,11 @@ public class BlowfishECB
 		int nOfs,
 		int nLen)
 	{
-		int nI, nJ, nBuild, nEnd, nOfsBak;
+		int nI;
+		int nJ;
+		int nBuild;
+		int nEnd;
+		int nOfsBak;
 
 
 		// xor the key over the p-boxes
@@ -185,7 +189,8 @@ public class BlowfishECB
 	 */
 	public void cleanUp()
 	{
-		int nI, nC;
+		int nI;
+		int nC;
 
 
 		for (nI = 0; nI < PBOX_ENTRIES; nI++)
@@ -214,7 +219,8 @@ public class BlowfishECB
 	 */
 	public boolean weakKeyCheck()
 	{
-		int nI, nJ;
+		int nI;
+		int nJ;
 
 
 		if (m_nWeakKey != -1)
@@ -291,9 +297,10 @@ public class BlowfishECB
         int[] sbox3 = m_sbox3;
         int[] sbox4 = m_sbox4;
 
-        int nHi, nLo;
+        int nHi;
+		int nLo;
 
-        while (nInPos < nC) {
+		while (nInPos < nC) {
             // full speed here, so we don't use BinConverter
 
             nHi = inBuf[nInPos++] << 24;
@@ -473,7 +480,8 @@ public class BlowfishECB
 		int[] sbox3 = m_sbox3;
 		int[] sbox4 = m_sbox4;
 
-		int nHi, nLo;
+		int nHi;
+		int nLo;
 
 		while (nInPos < nC)
 		{

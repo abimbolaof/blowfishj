@@ -27,9 +27,15 @@ public class TestVectors extends TestCase
 {
 	public void testAllVectors()
 	{
-		int nI, nJ;
-		byte[] key, plain, cipher, testBuf;
-		long lKey, lPlain, lCipher;
+		int nI;
+		int nJ;
+		byte[] key;
+		byte[] plain;
+		byte[] cipher;
+		byte[] testBuf;
+		long lKey;
+		long lPlain;
+		long lCipher;
 		BlowfishECB bfecb;
 
 

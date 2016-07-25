@@ -61,10 +61,19 @@ public class BlowfishDemo
 		String args[])
 	{
 		int nI;
-		int nRest, nMsgSize, nLnBrkLen;
-		long lTm, lRate;
-		double dAmount, dTime, dRate;
-		byte[] testKey, tempBuf, cpyBuf, msgBuf, showIV;
+		int nRest;
+		int nMsgSize;
+		int nLnBrkLen;
+		long lTm;
+		long lRate;
+		double dAmount;
+		double dTime;
+		double dRate;
+		byte[] testKey;
+		byte[] tempBuf;
+		byte[] cpyBuf;
+		byte[] msgBuf;
+		byte[] showIV;
 		String sEnc;
 		BlowfishECB bfe;
 		BlowfishCBC bfc;

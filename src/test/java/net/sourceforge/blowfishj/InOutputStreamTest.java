@@ -39,13 +39,17 @@ public class InOutputStreamTest extends TestCase
 
 	public void testStreams() throws IOException
 	{
-		int nI, nJ, nS, nDec;
+		int nI;
+		int nJ;
+		int nS;
+		int nDec;
 		BlowfishInputStream bfis;
 		BlowfishOutputStream bfos;
 		ByteArrayInputStream bais;
 		ByteArrayOutputStream baos;
 		byte[] key;
-		byte[] plain, enc;
+		byte[] plain;
+		byte[] enc;
 
 
 		// many sizes, many keys

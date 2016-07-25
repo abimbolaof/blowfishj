@@ -261,7 +261,11 @@ public class BinConverter
 			int nDstOfs,
 			int nLen)
 	{
-		int nI, nJ, nStrLen, nAvailBytes, nDstOfsBak;
+		int nI;
+		int nJ;
+		int nStrLen;
+		int nAvailBytes;
+		int nDstOfsBak;
 		byte bActByte;
 		boolean blConvertOK;
 
@@ -336,7 +340,8 @@ public class BinConverter
 		int nOfs,
 		int nLen)
 	{
-		int nAvailCapacity, nSBufPos;
+		int nAvailCapacity;
+		int nSBufPos;
 		StringBuffer sbuf;
 
 

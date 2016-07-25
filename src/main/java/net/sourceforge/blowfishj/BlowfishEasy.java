@@ -50,7 +50,8 @@ public class BlowfishEasy
 	public BlowfishEasy(
 		char[] passw)
 	{
-		int nI, nC;
+		int nI;
+		int nC;
 		SHA1 sh = null;
 		byte[] hash;
 
@@ -121,7 +122,9 @@ public class BlowfishEasy
 			CharSequence sPlainText,
 			long lNewCBCIV)
 	{
-		int nI, nPos, nStrLen;
+		int nI;
+		int nPos;
+		int nStrLen;
 		char cActChar;
 		byte bPadVal;
 		byte[] buf;
@@ -170,7 +173,9 @@ public class BlowfishEasy
 	public String decryptString(
 		String sCipherText)
 	{
-		int nNumOfBytes, nPadByte, nLen;
+		int nNumOfBytes;
+		int nPadByte;
+		int nLen;
 		byte[] buf;
 		byte[] cbciv;
 

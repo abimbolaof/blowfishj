@@ -45,7 +45,9 @@ public class BlowfishInputStream extends InputStream
 		int nLen,
 		InputStream is) throws IOException
 	{
-		int nI, nC, nVal;
+		int nI;
+		int nC;
+		int nVal;
 		SHA1 sh;
 		byte[] ckey;
 
@@ -81,8 +83,9 @@ public class BlowfishInputStream extends InputStream
 
 	void fillBuffer() throws IOException
 	{
-		int nI, nC, nVal;
-
+		int nI;
+		int nC;
+		int nVal;
 
 
 		// fill the whole buffer

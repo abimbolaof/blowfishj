@@ -193,7 +193,8 @@ public class BlowfishCBC extends BlowfishECB
         int nIVHi = m_nIVHi;
         int nIVLo = m_nIVLo;
 
-        int nHi, nLo;
+        int nHi;
+        int nLo;
 
         while (nInPos < nC) {
             nHi = inBuf[nInPos++] << 24;
@@ -342,9 +343,11 @@ public class BlowfishCBC extends BlowfishECB
         int nIVHi = m_nIVHi;
         int nIVLo = m_nIVLo;
 
-        int nTmpHi, nTmpLo;
+        int nTmpHi;
+        int nTmpLo;
 
-        int nHi, nLo;
+        int nHi;
+        int nLo;
 
         while (nInPos < nC) {
             nHi = inBuf[nInPos++] << 24;

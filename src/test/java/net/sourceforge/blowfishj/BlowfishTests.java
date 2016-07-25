@@ -98,12 +98,15 @@ public class BlowfishTests extends TestCase
 
 
 		boolean blSame;
-		int nI, nJ;
+		int nI;
+		int nJ;
 		BlowfishECB bfe;
 		BlowfishCBC bfc;
 		byte[] zeroIV;
-		byte[] plain, plain2;
-		byte[] cipher, cipherRef;
+		byte[] plain;
+		byte[] plain2;
+		byte[] cipher;
+		byte[] cipherRef;
 
 
 		assertTrue(selfTest());
@@ -252,8 +255,12 @@ public class BlowfishTests extends TestCase
 
 	public void testBlowfishEasy()
 	{
-		int nI, nJ;
-		String sPlain, sCipher, sPlain2, sKey;
+		int nI;
+		int nJ;
+		String sPlain;
+		String sCipher;
+		String sPlain2;
+		String sKey;
 		StringBuffer sbuf = new StringBuffer();
 		BlowfishEasy bfes;
 
@@ -307,9 +314,11 @@ public class BlowfishTests extends TestCase
 		// verify a bug in the key setup, which was fixed in 2.13
 		
 		int nI;
-		byte[] block0, block1;
-		BlowfishECB bfe0, bfe1;
-		
+		byte[] block0;
+		byte[] block1;
+		BlowfishECB bfe0;
+		BlowfishECB bfe1;
+
 		bfe0 = new BlowfishECB(KEYSETUPBUG_K0, 1, 2);
 		bfe1 = new BlowfishECB(KEYSETUPBUG_K1, 0, 2);
 		

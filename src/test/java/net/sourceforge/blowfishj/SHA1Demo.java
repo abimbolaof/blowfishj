@@ -40,7 +40,9 @@ public class SHA1Demo {
     public static void main(
             String[] args) {
         int nI;
-        byte[] tohash, dg0, dg1;
+        byte[] tohash;
+        byte[] dg0;
+        byte[] dg1;
         net.sourceforge.blowfishj.SHA1 s;
         String sTest;
 
