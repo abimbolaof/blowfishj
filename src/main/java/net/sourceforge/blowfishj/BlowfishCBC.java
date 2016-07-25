@@ -39,21 +39,6 @@ public class BlowfishCBC extends BlowfishECB
 		return BinConverter.makeLong(m_nIVLo, m_nIVHi);
 	}
 
-
-
-	/**
-	 * Gets a copy of the current CBC IV.
-	 * @param dest where to put current CBC IV
-	 * @deprecated use getCBCIV(byte[], int) instead
-	 */
-	public void getCBCIV(
-		byte[] dest)
-	{
-		getCBCIV(dest, 0);
-	}
-
-
-
 	/**
 	 * Gets a copy of the current CBC IV.
 	 * @param dest buffer
@@ -95,23 +80,6 @@ public class BlowfishCBC extends BlowfishECB
 		m_nIVLo = BinConverter.byteArrayToInt(newCBCIV, nOfs + 4);
 	}
 
-
-
-	/**
-	 * Default constructor, uses a zero CBC IV.
-	 * @param key key material, up to MAXKEYLENGTH bytes
-	 * @deprecated use BlowfishCBC(byte[], int, int) instead
-	 */
-	public BlowfishCBC(
-		byte[] key)
-	{
-		super(key, 0, key.length);
-
-		m_nIVHi = m_nIVLo = 0;
-	}
-
-
-
 	/**
 	 * Constructor, uses a zero CBC IV.
 	 * @param key key material, up to MAXKEYLENGTH bytes
@@ -127,24 +95,6 @@ public class BlowfishCBC extends BlowfishECB
 
 		m_nIVHi = m_nIVLo = 0;
 	}
-
-
-
-	/**
-	 * Constructor to define the CBC IV.
-	 * @param key key material, up to MAXKEYLENGTH bytes
-	 * @param lInitCBCIV the CBC IV
-	 * @deprecated use BlowfishCBC(byte[], int, int, long) instead
-	 */
-	public BlowfishCBC(
-		byte[] key,
-		long lInitCBCIV)
-	{
-		super(key, 0, key.length);
-
-		setCBCIV(lInitCBCIV);
-	}
-
 
 
 	/**
@@ -164,24 +114,6 @@ public class BlowfishCBC extends BlowfishECB
 
 		setCBCIV(lInitCBCIV);
 	}
-
-
-
-	/**
-	 * Constructor to define the CBC IV.
-	 * @param key key material, up to MAXKEYLENGTH bytes
-	 * @param initCBCIV the CBC IV (array with BLOCKSIZE bytes)
-	 * @deprecated use BlowfishCBC(byte[], int, int, byte[], int) instead
-	 */
-	public BlowfishCBC(
-		byte[] key,
-		byte[] initCBCIV)
-	{
-		super(key, 0, key.length);
-
-		setCBCIV(initCBCIV, 0);
-	}
-
 
 
 	/**
@@ -322,33 +254,6 @@ public class BlowfishCBC extends BlowfishECB
         return nLen;
     }
 
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(byte[], byte[])
-	 * @deprecated use encrypt(byte[], int, byte[], int, int) instead
-	 */
-	public void encrypt(
-		byte[] inBuf,
-		byte[] outBuf)
-	{
-		encrypt(inBuf, 0, outBuf, 0, outBuf.length);
-	}
-
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(byte[])
-	 * @deprecated use encrypt(byte[], int, int) instead
-	 */
-	public void encrypt(
-		byte[] buf)
-	{
-		encrypt(buf, 0, buf, 0, buf.length);
-	}
-
-
-
     /**
      * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(int[], int, int[], int, int)
      */
@@ -365,41 +270,13 @@ public class BlowfishCBC extends BlowfishECB
             BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 0);
             BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 4);
 
-            encrypt(m_blockBuf);
+            encrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
 
             outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
             outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 4);
 			nOutPos1++;
 		}
     }
-
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(int[], int[])
-	 * @deprecated use encrypt(int[], int, int[], int, int) instead
-	 */
-	public void encrypt(
-		int[] inBuf,
-		int[] outBuf)
-	{
-		encrypt(inBuf, 0, outBuf, 0, inBuf.length);
-	}
-
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(int[])
-	 * @deprecated use encrypt(int[], int, int[], int, int) instead
-	 */
-	public void encrypt(
-		int[] buf)
-	{
-		encrypt(buf, 0, buf, 0, buf.length);
-
-	}
-
-
 
     /**
      * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(long[], int, long[], int, int)
@@ -416,39 +293,12 @@ public class BlowfishCBC extends BlowfishECB
         while (nInPos < nC) {
             BinConverter.longToByteArray(inBuf[nInPos++], m_blockBuf, 0);
 
-            encrypt(m_blockBuf);
+            encrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
 
             outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 0);
 			nOutPos1++;
 		}
     }
-
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(long[], long[])
-	 * @deprecated use encrypt(long[], int, long[], int, int) instead
-	 */
-	public void encrypt(
-		long[] inBuf,
-		long[] outBuf)
-	{
-		encrypt(inBuf, 0, outBuf, 0, inBuf.length);
-	}
-
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(long[])
-	 * @deprecated use encrypt(long[], int, long[], int, int) instead
-	 */
-	public void encrypt(
-		long[] buf)
-	{
-		encrypt(buf, 0, buf, 0, buf.length);
-	}
-
-
 
     /**
      * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(byte[], int, byte[], int, int)
@@ -558,33 +408,6 @@ public class BlowfishCBC extends BlowfishECB
         return nLen;
     }
 
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(byte[], byte[])
-	 * @deprecated use decrypt(byte[], int, byte[], int, int) instead
-	 */
-	public void decrypt(
-		byte[] inBuf,
-		byte[] outBuf)
-	{
-		decrypt(inBuf, 0, outBuf, 0, outBuf.length);
-	}
-
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(byte[])
-	 * @deprecated use encrypt(byte[], int, byte[], int, int) instead
-	 */
-	public void decrypt(
-		byte[] buf)
-	{
-		decrypt(buf, 0, buf, 0, buf.length);
-	}
-
-
-
     /**
      * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(int[], int, int[], int, int)
      */
@@ -601,41 +424,13 @@ public class BlowfishCBC extends BlowfishECB
             BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 0);
             BinConverter.intToByteArray(inBuf[nInPos++], m_blockBuf, 4);
 
-            decrypt(m_blockBuf);
+            decrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
 
             outBuf[nOutPos1++] = BinConverter.byteArrayToInt(m_blockBuf, 0);
             outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 4);
 			nOutPos1++;
 		}
     }
-
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(int[], int[])
-	 * @deprecated use decrypt(int[], int, int[], int, int) instead
-	 */
-	public void decrypt(
-		int[] inBuf,
-		int[] outBuf)
-	{
-		decrypt(inBuf, 0, outBuf, 0, inBuf.length);
-	}
-
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(int[])
-	 * @deprecated use decrypt(int[], int, int[], int, int) instead
-	 */
-	public void decrypt(
-		int[] buf)
-	{
-		decrypt(buf, 0, buf, 0, buf.length);
-
-	}
-
-
 
     /**
      * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(long[], int, long[], int, int)
@@ -652,35 +447,11 @@ public class BlowfishCBC extends BlowfishECB
         while (nInPos < nC) {
             BinConverter.longToByteArray(inBuf[nInPos++], m_blockBuf, 0);
 
-            decrypt(m_blockBuf);
+            decrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
 
             outBuf[nOutPos1] = BinConverter.byteArrayToInt(m_blockBuf, 0);
 			nOutPos1++;
 		}
     }
 
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(long[], long[])
-	 * @deprecated use decrypt(long[], int, long[], int, int) instead
-	 */
-	public void decrypt(
-		long[] inBuf,
-		long[] outBuf)
-	{
-		decrypt(inBuf, 0, outBuf, 0, inBuf.length);
-	}
-
-
-
-	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(long[])
-	 * @deprecated use decrypt(long[], int, long[], int, int) instead
-	 */
-	public void decrypt(
-		long[] buf)
-	{
-		decrypt(buf, 0, buf, 0, buf.length);
-	}
 }

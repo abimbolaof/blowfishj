@@ -43,40 +43,6 @@ public class BlowfishEasy
 		_srnd = new SecureRandom();
 	}
 
-
-
-	/**
-	 * Constructor to set up a string as the key.
-	 * @param sPassword the password
-	 * @deprecated use the BlowfishEasy(char[]) instead, since this constructor
-	 * discards the higher 8 bits of every 16bit Unicode character; <b>be
-	 * aware that this constructor will produce non-compatible results to the
-	 * new method!</b>
-	 */
-	public BlowfishEasy(
-			CharSequence sPassword)
-	{
-		int nI, nC;
-		SHA1 sh = null;
-		byte[] hash;
-
-
-		sh = new SHA1();
-
-		for (nI = 0, nC = sPassword.length(); nI < nC; nI++)
-		{
-			sh.update((byte) (sPassword.charAt(nI) & 0x0ff));
-		}
-		sh.finalize();
-
-		hash = new byte[SHA1.DIGEST_SIZE];
-		sh.getDigest(hash, 0);
-
-		m_bfc = new BlowfishCBC(hash, 0, hash.length, 0);
-	}
-
-
-
 	/**
 	 * Constructor to use string data as the key.
 	 * @param passw the password, usually gained by String.toCharArray()

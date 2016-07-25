@@ -293,21 +293,6 @@ public class SHA1
 		}
 	}
 
-
-
-	/**
-	 * Adds a byte array to the digest.
-	 * @param data the data to add
-	 * @deprecated use update(byte[], int, int) instead
-	 */
-	public void update(
-		byte[] data)
-	{
-		update(data, 0, data.length);
-	}
-
-
-
 	/**
 	 * Adds a portion of a byte array to the digest.
 	 *
@@ -322,26 +307,6 @@ public class SHA1
 			update(data[nOfs1]);
 		}
 	}
-
-
-
-	/**
-	 * Adds an ASCII string (8bit) to the digest.
-	 * @param sData the string to add
-	 * @deprecated don't use this method anymore (it's not clean), you might
-	 * want to try update(sData.getBytes()) instead
-	 */
-	public void update(
-            CharSequence sData)
-	{
-		for (int nI = 0, nC = sData.length(); nI < nC; nI++)
-		{
-			update((byte)(sData.charAt(nI) & 0x0ff));
-		}
-
-	}
-
-
 
 	/**
 	 * Finalizes the digest.
@@ -434,8 +399,8 @@ public class SHA1
 
 	// references for the selftest
 
-	private final static String SELFTEST_MESSAGE =
-		"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq";
+	private final static byte[] SELFTEST_MESSAGE =
+		"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq".getBytes();
 
 	private final static byte[] SELFTEST_DIGEST =
 	{
@@ -449,7 +414,7 @@ public class SHA1
 	 * Runs an integrity test.
 	 * @return true: selftest passed / false: selftest failed
 	 */
-	public boolean selfTest()
+	public static boolean selfTest()
 	{
 		int nI;
 		SHA1 tester;
@@ -458,7 +423,7 @@ public class SHA1
 
 		tester = new SHA1();
 
-		tester.update(SELFTEST_MESSAGE);
+		tester.update(SELFTEST_MESSAGE, 0, SELFTEST_MESSAGE.length);
 		tester.finalize();
 
 		digest = tester.getDigest();

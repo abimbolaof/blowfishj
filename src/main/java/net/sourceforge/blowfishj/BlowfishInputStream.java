@@ -160,37 +160,6 @@ public class BlowfishInputStream extends InputStream
 		init(key, nOfs, nLen, is);
 	}
 
-
-
-	/**
-	 * Constructor using a string. The ASCII character values of the string are
-	 * hashed with SHA-1, the digest is used as the final key.
-	 * @param sPassPhrase the passphrase
-	 * @param is the input stream from which bytes will be read
-	 * @exception IOException if the IV couldn't be read out
-	 * @deprecated due to the restrictions in usage and the discarding of some
-	 * original key material it is highly recommended not to use it anymore
-	 */
-	public BlowfishInputStream(
-			CharSequence sPassPhrase,
-			InputStream is) throws IOException
-	{
-		int nI, nC;
-		byte[] key;
-
-
-		key = new byte[nC = sPassPhrase.length()];
-
-		for (nI = 0; nI < nC; nI++)
-		{
-			key[nI] = (byte)(sPassPhrase.charAt(nI) & 0x0ff);
-		}
-
-		init(key, 0, nC, is);
-	}
-
-
-
 	/**
 	 * @see java.io.InputStream#read()
 	 */

@@ -239,14 +239,14 @@ public class BlowfishECB
 
 		testbf1 = new BlowfishECB(testKey1, 0, testKey1.length);
 
-		testbf1.encrypt(tv_p1, tv_t1);
+		testbf1.encrypt(tv_p1, 0, tv_t1, 0, tv_p1.length);
 
 		if ((tv_t1[0] != tv_c1[0]) || (tv_t1[1] != tv_c1[1]))
 		{
 			return false;
 		}
 
-		testbf1.decrypt(tv_t1);
+		testbf1.decrypt(tv_t1, 0, tv_t1, 0, tv_t1.length);
 
 		if ((tv_t1[0] != tv_p1[0]) || (tv_t1[1] != tv_p1[1]))
 		{
@@ -255,14 +255,14 @@ public class BlowfishECB
 
 		testbf2 = new BlowfishECB(testKey2, 0, testKey2.length);
 
-		testbf2.encrypt(tv_p2, tv_t2);
+		testbf2.encrypt(tv_p2, 0, tv_t2, 0, tv_p2.length);
 
 		if ((tv_t2[0] != tv_c2[0]) || (tv_t2[1] != tv_c2[1]))
 		{
 			return false;
 		}
 
-		testbf2.decrypt(tv_t2);
+		testbf2.decrypt(tv_t2, 0, tv_t2, 0, tv_t2.length);
 
 		if ((tv_t2[0] != tv_p2[0]) || (tv_t2[1] != tv_p2[1]))
 		{
@@ -431,37 +431,6 @@ public class BlowfishECB
 		return encryptPrv(inBuf, nInPos, outBuf, nOutPos, nLen);
 	}
 
-
-
-	/**
-	 * Encrypts a byte buffer (should be aligned to a block border)
-	 * to another buffer (of the same size or bigger).
-	 * @param inBuf buffer with plaintext data
-	 * @param outBuf buffer to get the ciphertext data
-	 * @deprecated use encrypt(byte[], int, byte[], int, int) instead
-	 */
-	public void encrypt(
-		byte[] inBuf,
-		byte[] outBuf)
-	{
-		encrypt(inBuf, 0, outBuf, 0, outBuf.length);
-	}
-
-
-
-	/**
-	 * Encrypts a byte buffer (should be aligned to a block border) to itself.
-	 * @param buf buffer to encrypt
-	 * @deprecated use encrypt(byte[], int, byte[], int, int) instead
-	 */
-	public void encrypt(
-		byte[] buf)
-	{
-		encrypt(buf, 0, buf, 0, buf.length);
-	}
-
-
-
 	/**
 	 * Encrypts an integer buffer to another integer buffer.
 	 * @param inBuf buffer with plaintext data
@@ -486,7 +455,7 @@ public class BlowfishECB
 			BinConverter.intToByteArray(inBuf[nInPos], m_blockBuf, 4);
 			nInPos++;
 
-			encrypt(m_blockBuf);
+			encrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
 
 			outBuf[nOutPos] = BinConverter.byteArrayToInt(m_blockBuf, 0);
 			nOutPos++;
@@ -494,39 +463,6 @@ public class BlowfishECB
 			nOutPos++;
 		}
 	}
-
-
-
-	/**
-	 * Encrypts an integer buffer (should be aligned to a
-	 * two integer border) to another int buffer (of the
-	 * same size or bigger).
-	 * @param inBuf buffer with ciphertext data
-	 * @param outBuf buffer to get the plaintext data
-	 * @deprecated use encrypt(int[], int, int[], int, int) instead
-	 */
-	public void encrypt(
-		int[] inBuf,
-		int[] outBuf)
-	{
-		encrypt(inBuf, 0, outBuf, 0, inBuf.length);
-	}
-
-
-
-	/**
-	 * Encrypts an integer buffer to itself.
-	 * @param buf buffer to decrypt
-	 * @deprecated use encrypt(int[], int, int[], int, int) instead
-	 */
-	public void encrypt(
-		int[] buf)
-	{
-		encrypt(buf, 0, buf, 0, buf.length);
-
-	}
-
-
 
 	/**
 	 * Encrypts an long buffer to another long buffer.
@@ -550,43 +486,12 @@ public class BlowfishECB
 			BinConverter.longToByteArray(inBuf[nInPos], m_blockBuf, 0);
 			nInPos++;
 
-			encrypt(m_blockBuf);
+			encrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
 
 			outBuf[nOutPos] = BinConverter.byteArrayToInt(m_blockBuf, 0);
 			nOutPos++;
 		}
 	}
-
-
-
-	/**
-	 * Encrypts a long buffer to another long buffer (of the same size
-	 * or bigger).
-	 * @param inBuf buffer with ciphertext data
-	 * @param outBuf buffer to get the plaintext data
-	 * @deprecated use encrypt(long[], int, long[], int, int) instead
-	 */
-	public void encrypt(
-		long[] inBuf,
-		long[] outBuf)
-	{
-		encrypt(inBuf, 0, outBuf, 0, inBuf.length);
-	}
-
-
-
-	/**
-	 * Encrypts a long buffer to itself.
-	 * @param buf buffer to decrypt
-	 * @deprecated use encrypt(long[], int, long[], int, int) instead
-	 */
-	public void encrypt(
-		long[] buf)
-	{
-		encrypt(buf, 0, buf, 0, buf.length);
-	}
-
-
 
 	/**
 	 * Decrypts a byte buffer to another buffer, extra misaligned data
@@ -700,37 +605,6 @@ public class BlowfishECB
 		return nLen;
 	}
 
-
-
-	/**
-	 * Decrypts a byte buffer (should be aligned to a block border)
-	 * to another byte buffer (of the same size or bigger).
-	 * @param inBuf buffer with ciphertext data
-	 * @param outBuf buffer to get the plaintext data
-	 * @deprecated use decrypt(byte[], int, byte[], int, int) instead
-	 */
-	public void decrypt(
-		byte[] inBuf,
-		byte[] outBuf)
-	{
-		decrypt(inBuf, 0, outBuf, 0, outBuf.length);
-	}
-
-
-
-	/**
-	 * Decrypts a byte buffer (should be aligned) to itself.
-	 * @param buf buffer to decrypt
-	 * @deprecated use decrypt(byte[], int, byte[], int, int) instead
-	 */
-	public void decrypt(
-		byte[] buf)
-	{
-		decrypt(buf, 0, buf, 0, buf.length);
-	}
-
-
-
 	/**
 	 * Decrypts an integer buffer to another integer buffer.
 	 * @param inBuf buffer with ciphertext data
@@ -755,7 +629,7 @@ public class BlowfishECB
 			BinConverter.intToByteArray(inBuf[nInPos], m_blockBuf, 4);
 			nInPos++;
 
-			decrypt(m_blockBuf);
+			decrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
 
 			outBuf[nOutPos] = BinConverter.byteArrayToInt(m_blockBuf, 0);
 			nOutPos++;
@@ -763,39 +637,6 @@ public class BlowfishECB
 			nOutPos++;
 		}
 	}
-
-
-
-	/**
-	 * Decrypts an integer buffer (should be aligned to a
-	 * two integer border) to another int buffer (of the
-	 * same size or bigger).
-	 * @param inBuf buffer with ciphertext data
-	 * @param outBuf buffer to get the plaintext data
-	 * @deprecated use decrypt(int[], int, int[], int, int) instead
-	 */
-	public void decrypt(
-		int[] inBuf,
-		int[] outBuf)
-	{
-		decrypt(inBuf, 0, outBuf, 0, inBuf.length);
-	}
-
-
-
-	/**
-	 * Decrypts an integer buffer to itself.
-	 * @param buf buffer to decrypt
-	 * @deprecated use decrypt(int[], int, int[], int, int) instead
-	 */
-	public void decrypt(
-		int[] buf)
-	{
-		decrypt(buf, 0, buf, 0, buf.length);
-
-	}
-
-
 
 	/**
 	 * Decrypts an long buffer to another long buffer.
@@ -817,43 +658,12 @@ public class BlowfishECB
 			BinConverter.longToByteArray(inBuf[nInPos], m_blockBuf, 0);
 			nInPos++;
 
-			decrypt(m_blockBuf);
+			decrypt(m_blockBuf, 0, m_blockBuf, 0, m_blockBuf.length);
 
 			outBuf[nOutPos] = BinConverter.byteArrayToInt(m_blockBuf, 0);
 			nOutPos++;
 		}
 	}
-
-
-
-	/**
-	 * Decrypts a long buffer to another long buffer (of the same size
-	 * or bigger).
-	 * @param inBuf buffer with ciphertext data
-	 * @param outBuf buffer to get the plaintext data
-	 * @deprecated use decrypt(long[], int, long[], int, int) instead
-	 */
-	public void decrypt(
-		long[] inBuf,
-		long[] outBuf)
-	{
-		decrypt(inBuf, 0, outBuf, 0, inBuf.length);
-	}
-
-
-
-	/**
-	 * Decrypts a long buffer to itself.
-	 * @param buf buffer to decrypt
-	 * @deprecated use decrypt(long[], int, long[], int, int) instead
-	 */
-	public void decrypt(
-		long[] buf)
-	{
-		decrypt(buf, 0, buf, 0, buf.length);
-	}
-
-
 
 	// Initialization data for all the boxes.
 

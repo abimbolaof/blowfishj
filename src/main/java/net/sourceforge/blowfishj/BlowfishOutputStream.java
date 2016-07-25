@@ -105,37 +105,6 @@ public class BlowfishOutputStream extends OutputStream
 		init(key, nOfs, nLen, os);
 	}
 
-
-
-	/**
-	 * Constructor using a string. The ASCII character values of the string are
-	 * hashed with SHA-1, the digest is used as the final key.
-	 * @param sPassPhrase the passphrase
-	 * @param os the output stream to which bytes will be written
-	 * @exception IOException if the IV couldn't be written
-	 * @deprecated due to the restrictions in usage and the discarding of some
-	 * original key material it is highly recommended not to use it anymore
-	 */
-	public BlowfishOutputStream(
-            CharSequence sPassPhrase,
-            OutputStream os) throws IOException
-	{
-		int nI, nC;
-		byte[] key;
-
-
-		key = new byte[nC = sPassPhrase.length()];
-
-		for (nI = 0; nI < nC; nI++)
-		{
-			key[nI] = (byte)(sPassPhrase.charAt(nI) & 0x0ff);
-		}
-
-		init(key, 0, nC, os);
-	}
-
-
-
 	/**
 	 * @see java.io.OutputStream#write(int)
 	 */
