@@ -170,7 +170,7 @@ public class BlowfishECB
 
 
 	/**
-	 * @see net.sourceforge.blowfishj.BlowfishECB#initialize(byte[], int, int)
+	 * @see BlowfishECB#initialize(byte[], int, int)
 	 */
 	public BlowfishECB(
 		byte[] key,

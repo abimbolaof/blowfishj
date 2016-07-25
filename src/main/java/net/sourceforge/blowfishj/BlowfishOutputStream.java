@@ -106,7 +106,7 @@ public class BlowfishOutputStream extends OutputStream
 	}
 
 	/**
-	 * @see java.io.OutputStream#write(int)
+	 * @see OutputStream#write(int)
 	 */
 	public void write(
 		int nByte) throws IOException
@@ -141,7 +141,7 @@ public class BlowfishOutputStream extends OutputStream
 
 
 	/**
-	 * @see java.io.InputStream#close()
+	 * @see InputStream#close()
 	 */
 	public void close() throws IOException
 	{
@@ -191,7 +191,7 @@ public class BlowfishOutputStream extends OutputStream
 
 
 	/**
-	 * @see java.io.OutputStream#flush()
+	 * @see OutputStream#flush()
 	 */
 	public void flush() throws IOException
 	{

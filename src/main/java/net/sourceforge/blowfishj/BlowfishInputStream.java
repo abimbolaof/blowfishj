@@ -164,7 +164,7 @@ public class BlowfishInputStream extends InputStream
 	}
 
 	/**
-	 * @see java.io.InputStream#read()
+	 * @see InputStream#read()
 	 */
 	public int read() throws IOException
 	{
@@ -196,7 +196,7 @@ public class BlowfishInputStream extends InputStream
 
 
 	/**
-	 * @see java.io.InputStream#close()
+	 * @see InputStream#close()
 	 */
 	public void close() throws IOException
 	{

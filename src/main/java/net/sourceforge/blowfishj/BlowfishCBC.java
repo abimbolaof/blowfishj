@@ -150,7 +150,7 @@ public class BlowfishCBC extends BlowfishECB
 
 
     /**
-     * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(byte[], int, byte[], int, int)
+     * @see BlowfishECB#encrypt(byte[], int, byte[], int, int)
      */
     public int encrypt(
             byte[] inBuf,
@@ -256,7 +256,7 @@ public class BlowfishCBC extends BlowfishECB
     }
 
     /**
-     * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(int[], int, int[], int, int)
+     * @see BlowfishECB#encrypt(int[], int, int[], int, int)
      */
     public void encrypt(
             int[] inBuf,
@@ -280,7 +280,7 @@ public class BlowfishCBC extends BlowfishECB
     }
 
     /**
-     * @see net.sourceforge.blowfishj.BlowfishECB#encrypt(long[], int, long[], int, int)
+     * @see BlowfishECB#encrypt(long[], int, long[], int, int)
      */
     public void encrypt(
             long[] inBuf,
@@ -302,7 +302,7 @@ public class BlowfishCBC extends BlowfishECB
     }
 
     /**
-     * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(byte[], int, byte[], int, int)
+     * @see BlowfishECB#decrypt(byte[], int, byte[], int, int)
      */
     public int decrypt(
             byte[] inBuf,
@@ -412,7 +412,7 @@ public class BlowfishCBC extends BlowfishECB
     }
 
     /**
-     * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(int[], int, int[], int, int)
+     * @see BlowfishECB#decrypt(int[], int, int[], int, int)
      */
     public void decrypt(
             int[] inBuf,
@@ -436,7 +436,7 @@ public class BlowfishCBC extends BlowfishECB
     }
 
     /**
-     * @see net.sourceforge.blowfishj.BlowfishECB#decrypt(long[], int, long[], int, int)
+     * @see BlowfishECB#decrypt(long[], int, long[], int, int)
      */
     public void decrypt(
             long[] inBuf,

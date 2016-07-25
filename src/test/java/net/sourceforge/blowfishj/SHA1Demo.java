@@ -43,7 +43,7 @@ public class SHA1Demo {
         byte[] tohash;
         byte[] dg0;
         byte[] dg1;
-        net.sourceforge.blowfishj.SHA1 s;
+        SHA1 s;
         String sTest;
 
 

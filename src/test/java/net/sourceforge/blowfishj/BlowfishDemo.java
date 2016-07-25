@@ -149,7 +149,7 @@ public class BlowfishDemo
 			System.arraycopy(tempBuf, 0, cpyBuf, 0, nMsgSize);
 			tempBuf = cpyBuf;
 		}
-		catch (java.io.IOException ioe)
+		catch (IOException ioe)
 		{
 			return;
 		}
