@@ -85,19 +85,6 @@ public class BlowfishCBC extends BlowfishECB
 	/**
 	 * Sets the current CBC IV (for cipher resets).
 	 * @param newCBCIV the new CBC IV
-	 * @deprecated use setCBCIV(byte[], int) instead
-	 */
-	public void setCBCIV(
-		byte[] newCBCIV)
-	{
-		setCBCIV(newCBCIV, 0);
-	}
-
-	///////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Sets the current CBC IV (for cipher resets).
-	 * @param newCBCIV the new CBC IV
 	 * @param nOfs where to start reading the IV
 	 */
 	public void setCBCIV(
@@ -118,7 +105,7 @@ public class BlowfishCBC extends BlowfishECB
 	public BlowfishCBC(
 		byte[] key)
 	{
-		super(key);
+		super(key, 0, key.length);
 
 		m_nIVHi = m_nIVLo = 0;
 	}
@@ -153,7 +140,7 @@ public class BlowfishCBC extends BlowfishECB
 		byte[] key,
 		long lInitCBCIV)
 	{
-		super(key);
+		super(key, 0, key.length);
 
 		setCBCIV(lInitCBCIV);
 	}
@@ -190,9 +177,9 @@ public class BlowfishCBC extends BlowfishECB
 		byte[] key,
 		byte[] initCBCIV)
 	{
-		super(key);
+		super(key, 0, key.length);
 
-		setCBCIV(initCBCIV);
+		setCBCIV(initCBCIV, 0);
 	}
 
 	///////////////////////////////////////////////////////////////////////////

@@ -36,7 +36,7 @@ public class BlowfishECB
 	final static int PBOX_ENTRIES = 18;
 	final static int SBOX_ENTRIES = 256;
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	// the boxes
 	final int[] m_pbox  = (int[]) pbox_init.clone();
@@ -51,7 +51,7 @@ public class BlowfishECB
 	// weak key indicator
 	int m_nWeakKey;
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 
 	/**
@@ -152,7 +152,7 @@ public class BlowfishECB
 		m_nWeakKey = -1;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * The default constructor, call initialize() afterwards to do the final
@@ -163,20 +163,7 @@ public class BlowfishECB
 		// (NOP)
 	}
 
-	///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * The default constructor, using a simple binary key.
-	 * @param key key material, up to MAXKEYLENGTH bytes
-	 * @deprecated use BlowfishECB(byte[], int, int) instead
-	 */
-	public BlowfishECB(
-		byte[] key)
-	{
-		initialize(key, 0, key.length);
-	}
-
-	///////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * @see net.sourceforge.blowfishj.BlowfishECB#initialize(byte[], int, int)
@@ -189,7 +176,7 @@ public class BlowfishECB
 		initialize(key, nOfs, nLen);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * To clear data in the boxes before an instance is freed, the
@@ -217,7 +204,7 @@ public class BlowfishECB
 		m_nWeakKey = -1;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Selftest routine, for instance to check for a valid class file loading.
@@ -250,7 +237,7 @@ public class BlowfishECB
 
 		// start the tests, check for a proper decryption, too
 
-		testbf1 = new BlowfishECB(testKey1);
+		testbf1 = new BlowfishECB(testKey1, 0, testKey1.length);
 
 		testbf1.encrypt(tv_p1, tv_t1);
 
@@ -266,7 +253,7 @@ public class BlowfishECB
 			return false;
 		}
 
-		testbf2 = new BlowfishECB(testKey2);
+		testbf2 = new BlowfishECB(testKey2, 0, testKey2.length);
 
 		testbf2.encrypt(tv_p2, tv_t2);
 
@@ -285,7 +272,7 @@ public class BlowfishECB
 		return true;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * To check if an instance actually was using a weak key,
@@ -326,7 +313,7 @@ public class BlowfishECB
 		return false;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	// thanks to Java's special inheritance rules we need to have this internal
 	// method to avoid the BlowfishCBC class to interfer ...
@@ -422,7 +409,7 @@ public class BlowfishECB
         return nLen;
     }
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Encrypts a byte buffer to another buffer, extra misaligned data
@@ -444,7 +431,7 @@ public class BlowfishECB
 		return encryptPrv(inBuf, nInPos, outBuf, nOutPos, nLen);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Encrypts a byte buffer (should be aligned to a block border)
@@ -460,7 +447,7 @@ public class BlowfishECB
 		encrypt(inBuf, 0, outBuf, 0, outBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Encrypts a byte buffer (should be aligned to a block border) to itself.
@@ -473,7 +460,7 @@ public class BlowfishECB
 		encrypt(buf, 0, buf, 0, buf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Encrypts an integer buffer to another integer buffer.
@@ -508,7 +495,7 @@ public class BlowfishECB
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Encrypts an integer buffer (should be aligned to a
@@ -525,7 +512,7 @@ public class BlowfishECB
 		encrypt(inBuf, 0, outBuf, 0, inBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Encrypts an integer buffer to itself.
@@ -539,7 +526,7 @@ public class BlowfishECB
 
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Encrypts an long buffer to another long buffer.
@@ -570,7 +557,7 @@ public class BlowfishECB
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Encrypts a long buffer to another long buffer (of the same size
@@ -586,7 +573,7 @@ public class BlowfishECB
 		encrypt(inBuf, 0, outBuf, 0, inBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Encrypts a long buffer to itself.
@@ -599,7 +586,7 @@ public class BlowfishECB
 		encrypt(buf, 0, buf, 0, buf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Decrypts a byte buffer to another buffer, extra misaligned data
@@ -713,7 +700,7 @@ public class BlowfishECB
 		return nLen;
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Decrypts a byte buffer (should be aligned to a block border)
@@ -729,7 +716,7 @@ public class BlowfishECB
 		decrypt(inBuf, 0, outBuf, 0, outBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Decrypts a byte buffer (should be aligned) to itself.
@@ -742,7 +729,7 @@ public class BlowfishECB
 		decrypt(buf, 0, buf, 0, buf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Decrypts an integer buffer to another integer buffer.
@@ -777,7 +764,7 @@ public class BlowfishECB
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Decrypts an integer buffer (should be aligned to a
@@ -794,7 +781,7 @@ public class BlowfishECB
 		decrypt(inBuf, 0, outBuf, 0, inBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Decrypts an integer buffer to itself.
@@ -808,7 +795,7 @@ public class BlowfishECB
 
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Decrypts an long buffer to another long buffer.
@@ -837,7 +824,7 @@ public class BlowfishECB
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Decrypts a long buffer to another long buffer (of the same size
@@ -853,7 +840,7 @@ public class BlowfishECB
 		decrypt(inBuf, 0, outBuf, 0, inBuf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * Decrypts a long buffer to itself.
@@ -866,7 +853,7 @@ public class BlowfishECB
 		decrypt(buf, 0, buf, 0, buf.length);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
+
 
 	// Initialization data for all the boxes.
 
