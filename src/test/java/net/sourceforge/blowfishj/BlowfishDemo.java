@@ -262,7 +262,7 @@ public class BlowfishDemo
 		}
 		catch (IOException ie)
 		{
-			System.out.println(ie);
+			ie.printStackTrace();
 		}
 
 		// benchmark
