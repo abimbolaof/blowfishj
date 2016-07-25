@@ -109,7 +109,7 @@ public class SHA1
 
 
 
-	final void r0(int data[], int nV, int nW, int nX, int nY, int nZ, int nI)
+	final void r0(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
 		data[nZ] += ((data[nW] & (data[nX] ^ data[nY])) ^ data[nY])
 			+ blk0(nI)
@@ -118,7 +118,7 @@ public class SHA1
 		data[nW] = rol(data[nW], 30);
 	}
 
-	final void r1(int data[], int nV, int nW, int nX, int nY, int nZ, int nI)
+	final void r1(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
 		data[nZ] += ((data[nW] & (data[nX] ^ data[nY])) ^ data[nY])
 			+ blk(nI)
@@ -127,7 +127,7 @@ public class SHA1
 		data[nW] = rol(data[nW], 30);
 	}
 
-	final void r2(int data[], int nV, int nW, int nX, int nY, int nZ, int nI)
+	final void r2(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
 		data[nZ] += (data[nW] ^ data[nX] ^ data[nY])
 			+ blk(nI)
@@ -136,7 +136,7 @@ public class SHA1
 		data[nW] = rol(data[nW], 30);
 	}
 
-	final void r3(int data[], int nV, int nW, int nX, int nY, int nZ, int nI)
+	final void r3(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
 		data[nZ]
 			+= (((data[nW] | data[nX]) & data[nY]) | (data[nW] & data[nX]))
@@ -146,7 +146,7 @@ public class SHA1
 		data[nW] = rol(data[nW], 30);
 	}
 
-	final void r4(int data[], int nV, int nW, int nX, int nY, int nZ, int nI)
+	final void r4(int[] data, int nV, int nW, int nX, int nY, int nZ, int nI)
 	{
 		data[nZ] += (data[nW] ^ data[nX] ^ data[nY])
 			+ blk(nI)
@@ -314,7 +314,7 @@ public class SHA1
 	public void finalize()
 	{
 		int nI;
-		byte bits[] = new byte[8];
+		byte[] bits = new byte[8];
 
 
 		for (nI = 0; nI < 8; nI++)
