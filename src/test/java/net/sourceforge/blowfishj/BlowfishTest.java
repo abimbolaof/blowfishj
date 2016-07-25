@@ -24,7 +24,7 @@ import java.util.Arrays;
 /**
  * All test cases for the blowfishj core classes.
  */
-public class BlowfishTests extends TestCase
+public class BlowfishTest extends TestCase
 {
 	/**
 	 * Selftest routine, for instance to check for a valid class file loading.

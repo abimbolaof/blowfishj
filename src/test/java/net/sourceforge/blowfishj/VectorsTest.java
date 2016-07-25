@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 /**
  * Tests the official vectors from the Counterpane website.
  */
-public class TestVectors extends TestCase
+public class VectorsTest extends TestCase
 {
 	public void testAllVectors()
 	{
