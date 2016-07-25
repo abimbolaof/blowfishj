@@ -222,8 +222,7 @@ public class BinConverter
 	{
 
 
-        StringBuilder sbuf = new StringBuilder();
-        sbuf.setLength(nLen << 1);
+        StringBuilder sbuf = new StringBuilder(nLen << 1);
 
 		int nPos = 0;
 
@@ -345,8 +344,7 @@ public class BinConverter
 			nLen = nAvailCapacity;
 		}
 
-        StringBuilder sbuf = new StringBuilder();
-        sbuf.setLength(nLen >> 1);
+        StringBuilder sbuf = new StringBuilder(nLen >> 1);
 
         int nSBufPos = 0;
 

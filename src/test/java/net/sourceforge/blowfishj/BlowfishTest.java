@@ -266,7 +266,7 @@ public class BlowfishTest extends TestCase
 
 			// negative test with wrong key
 
-			bfes = new BlowfishEasy((sKey + ".").toCharArray());
+			bfes = new BlowfishEasy((sKey + '.').toCharArray());
 			sPlain2 = bfes.decryptString(sCipher);
 
 			assertFalse(sPlain.equals(sPlain2));

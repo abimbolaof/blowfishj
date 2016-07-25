@@ -60,7 +60,7 @@ public class SHA1Demo {
         s.update(tohash, 0, tohash.length);
         s.finalize();
 
-        System.out.println("\"" + sTest + "\": " + s);
+        System.out.println('"' + sTest + "\": " + s);
 
         s.clear();
 
