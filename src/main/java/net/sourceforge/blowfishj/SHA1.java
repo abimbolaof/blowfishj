@@ -399,42 +399,4 @@ public class SHA1
 
 	// references for the selftest
 
-	private final static byte[] SELFTEST_MESSAGE =
-		"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq".getBytes();
-
-	private final static byte[] SELFTEST_DIGEST =
-	{
-		(byte)0x84, (byte)0x98, (byte)0x3e, (byte)0x44, (byte)0x1c,
-		(byte)0x3b, (byte)0xd2, (byte)0x6e, (byte)0xba, (byte)0xae,
-		(byte)0x4a, (byte)0xa1, (byte)0xf9, (byte)0x51, (byte)0x29,
-		(byte)0xe5, (byte)0xe5, (byte)0x46, (byte)0x70, (byte)0xf1
-	};
-
-	/**
-	 * Runs an integrity test.
-	 * @return true: selftest passed / false: selftest failed
-	 */
-	public static boolean selfTest()
-	{
-		int nI;
-		SHA1 tester;
-		byte[] digest;
-
-
-		tester = new SHA1();
-
-		tester.update(SELFTEST_MESSAGE, 0, SELFTEST_MESSAGE.length);
-		tester.finalize();
-
-		digest = tester.getDigest();
-
-		for (nI = 0; nI < DIGEST_SIZE; nI++)
-		{
-			if (digest[nI] != SELFTEST_DIGEST[nI])
-			{
-				return false;
-			}
-		}
-		return true;
-	}
 }

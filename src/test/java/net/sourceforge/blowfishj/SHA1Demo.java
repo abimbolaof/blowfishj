@@ -20,26 +20,28 @@ package net.sourceforge.blowfishj;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import net.sourceforge.blowfishj.SHA1;
-
 /**
-  * Simple SHA-1 test application; note that the time this package was written
-  * SHA-1 hashing wasn't included officially in the Java framework; in these
-  * days it could actually be replaced by the MessageDigest factory's
-  * capabilities.
-  */
-public class SHA1Demo
-{
-	/**
-	 * Application entry point.
-	 * @param args parameters
-	 */
+ * Simple SHA-1 test application; note that the time this package was written
+ * SHA-1 hashing wasn't included officially in the Java framework; in these
+ * days it could actually be replaced by the MessageDigest factory's
+ * capabilities.
+ */
+public class SHA1Demo {
+    private final static byte[] SELFTEST_MESSAGE =
+            "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq".getBytes();
+    private final static byte[] SELFTEST_DIGEST =
+            {
+                    (byte) 0x84, (byte) 0x98, (byte) 0x3e, (byte) 0x44, (byte) 0x1c,
+                    (byte) 0x3b, (byte) 0xd2, (byte) 0x6e, (byte) 0xba, (byte) 0xae,
+                    (byte) 0x4a, (byte) 0xa1, (byte) 0xf9, (byte) 0x51, (byte) 0x29,
+                    (byte) 0xe5, (byte) 0xe5, (byte) 0x46, (byte) 0x70, (byte) 0xf1
+            };
+
     public static void main(
-    	String[] args)
-    {
+            String[] args) {
         int nI;
-		byte[] tohash, dg0, dg1;
-		net.sourceforge.blowfishj.SHA1 s;
+        byte[] tohash, dg0, dg1;
+        net.sourceforge.blowfishj.SHA1 s;
         String sTest;
 
 
@@ -47,8 +49,7 @@ public class SHA1Demo
 
         System.out.print("running selftest...");
 
-        if (!s.selfTest())
-        {
+        if (!selfTest()) {
             System.out.println(", FAILED");
             return;
         }
@@ -56,8 +57,8 @@ public class SHA1Demo
         System.out.println(", done.");
 
         sTest = (args.length > 0) ?
-        	args[0] :
-            "0123456789abcdefghijklmnopqrstuvwxyz";
+                args[0] :
+                "0123456789abcdefghijklmnopqrstuvwxyz";
 
         tohash = sTest.getBytes();
         s.update(tohash, 0, tohash.length);
@@ -72,19 +73,16 @@ public class SHA1Demo
         s = new SHA1();
 
         tohash = new byte[257];
-        for (nI = 0; nI < tohash.length; nI++) tohash[nI] = (byte)nI;
+        for (nI = 0; nI < tohash.length; nI++) tohash[nI] = (byte) nI;
 
         s.update(tohash, 0, tohash.length);
         s.finalize();
 
         MessageDigest mds;
 
-        try
-        {
+        try {
             mds = MessageDigest.getInstance("SHA");
-        }
-        catch (NoSuchAlgorithmException nsae)
-        {
+        } catch (NoSuchAlgorithmException nsae) {
             System.out.println("standard SHA-1 not available");
             return;
         }
@@ -94,15 +92,39 @@ public class SHA1Demo
         dg0 = s.getDigest();
         dg1 = mds.digest();
 
-        for (nI = 0; nI < dg0.length; nI++)
-        {
-            if (dg0[nI] != dg1[nI])
-            {
+        for (nI = 0; nI < dg0.length; nI++) {
+            if (dg0[nI] != dg1[nI]) {
                 System.out.println("NOT compatible to the standard!");
                 return;
             }
         }
 
         System.out.println("compatibiliy test OK.");
+    }
+
+    /**
+     * Runs an integrity test.
+     *
+     * @return true: selftest passed / false: selftest failed
+     */
+    public static boolean selfTest() {
+        int nI;
+        SHA1 tester;
+        byte[] digest;
+
+
+        tester = new SHA1();
+
+        tester.update(SELFTEST_MESSAGE, 0, SELFTEST_MESSAGE.length);
+        tester.finalize();
+
+        digest = tester.getDigest();
+
+        for (nI = 0; nI < SHA1.DIGEST_SIZE; nI++) {
+            if (digest[nI] != SELFTEST_DIGEST[nI]) {
+                return false;
+            }
+        }
+        return true;
     }
 }
