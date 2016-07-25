@@ -232,9 +232,9 @@ public class BlowfishECB
 			for (int nJ = nI + 1; nJ < SBOX_ENTRIES; nJ++)
 			{
 				if (sbox1[nI] == sbox1[nJ]
-					| sbox2[nI] == sbox2[nJ]
-					| sbox3[nI] == sbox3[nJ]
-					| sbox4[nI] == sbox4[nJ])
+					|| sbox2[nI] == sbox2[nJ]
+					|| sbox3[nI] == sbox3[nJ]
+					|| sbox4[nI] == sbox4[nJ])
 				{
 					nWeakKey = 1;
 					return true;
