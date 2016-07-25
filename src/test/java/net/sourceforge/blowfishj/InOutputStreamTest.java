@@ -19,6 +19,7 @@ package net.sourceforge.blowfishj;
 
 import junit.framework.TestCase;
 import net.sourceforge.blowfishj.crypt.BlowfishCBC;
+import net.sourceforge.blowfishj.crypt.BlowfishECB;
 import net.sourceforge.blowfishj.streams.BlowfishInputStream;
 import net.sourceforge.blowfishj.streams.BlowfishOutputStream;
 
@@ -77,8 +78,8 @@ public class InOutputStreamTest extends TestCase
 
                 assertTrue(
                         enc.length ==
-                                plain.length - plain.length % BlowfishCBC.BLOCKSIZE +
-                                        BlowfishCBC.BLOCKSIZE * 2);
+                                plain.length - plain.length % BlowfishECB.BLOCKSIZE +
+                                        BlowfishECB.BLOCKSIZE * 2);
 
                 ByteArrayInputStream bais = new ByteArrayInputStream(enc);
 

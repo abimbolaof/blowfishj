@@ -19,6 +19,7 @@ package net.sourceforge.blowfishj.streams;
 
 import net.sourceforge.blowfishj.crypt.BlowfishCBC;
 import net.sourceforge.blowfishj.SHA1;
+import net.sourceforge.blowfishj.crypt.BlowfishECB;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -61,7 +62,7 @@ public class BlowfishInputStream extends InputStream
         byte[] ckey = sh.getDigest();
         m_bfc = new BlowfishCBC(ckey, 0, ckey.length, 0);
 
-		m_buf = new byte[BlowfishCBC.BLOCKSIZE];
+		m_buf = new byte[BlowfishECB.BLOCKSIZE];
 
 		// read the IV
 

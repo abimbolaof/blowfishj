@@ -147,11 +147,11 @@ public class BlowfishEasy
 
 		m_bfc.encrypt(buf, 0, buf, 0, buf.length);
 
-		byte[] newCBCIV = new byte[BlowfishCBC.BLOCKSIZE];
+		byte[] newCBCIV = new byte[BlowfishECB.BLOCKSIZE];
 
 		BinConverter.longToByteArray(lNewCBCIV, newCBCIV, 0);
 
-		return BinConverter.bytesToHexStr(newCBCIV, 0, BlowfishCBC.BLOCKSIZE)
+		return BinConverter.bytesToHexStr(newCBCIV, 0, BlowfishECB.BLOCKSIZE)
 			 + BinConverter.bytesToHexStr(buf, 0, buf.length);
 	}
 
@@ -174,22 +174,22 @@ public class BlowfishEasy
 			return null;
 		}
 
-		byte[] cbciv = new byte[BlowfishCBC.BLOCKSIZE];
+		byte[] cbciv = new byte[BlowfishECB.BLOCKSIZE];
 
 		int nNumOfBytes = BinConverter.hexStrToBytes(
 				sCipherText,
 				cbciv,
 				0,
 				0,
-				BlowfishCBC.BLOCKSIZE);
+                BlowfishECB.BLOCKSIZE);
 
-		if (nNumOfBytes < BlowfishCBC.BLOCKSIZE) {
+		if (nNumOfBytes < BlowfishECB.BLOCKSIZE) {
 			return null;
 		}
 
 		m_bfc.setCBCIV(cbciv, 0);
 
-		nLen -= BlowfishCBC.BLOCKSIZE;
+		nLen -= BlowfishECB.BLOCKSIZE;
 		if (nLen == 0)
 		{
 			return "";
@@ -201,7 +201,7 @@ public class BlowfishEasy
 			BinConverter.hexStrToBytes(
 				sCipherText,
 				buf,
-				BlowfishCBC.BLOCKSIZE << 1,
+				BlowfishECB.BLOCKSIZE << 1,
 				0,
 				nLen);
 
@@ -215,7 +215,7 @@ public class BlowfishEasy
 		int nPadByte = buf[buf.length - 1] & 0x0ff;
 
 		// (try to get everything, even if the padding seem to be wrong)
-		if (nPadByte > BlowfishCBC.BLOCKSIZE)
+		if (nPadByte > BlowfishECB.BLOCKSIZE)
 		{
 			nPadByte = 0;
 		}

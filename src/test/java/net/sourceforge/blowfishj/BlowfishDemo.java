@@ -171,7 +171,7 @@ public class BlowfishDemo
 
 		// CBC encryption/decryption test
 
-		byte[] showIV = new byte[BlowfishCBC.BLOCKSIZE];
+		byte[] showIV = new byte[BlowfishECB.BLOCKSIZE];
 
 		bfc.getCBCIV(showIV, 0);
 

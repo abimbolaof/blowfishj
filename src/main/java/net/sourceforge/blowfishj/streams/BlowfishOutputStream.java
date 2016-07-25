@@ -19,6 +19,7 @@ package net.sourceforge.blowfishj.streams;
 
 import net.sourceforge.blowfishj.crypt.BlowfishCBC;
 import net.sourceforge.blowfishj.SHA1;
+import net.sourceforge.blowfishj.crypt.BlowfishECB;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -74,8 +75,8 @@ public class BlowfishOutputStream extends OutputStream
 			ckey.length,
 			(byte)0);
 
-		m_bufIn = new byte[BlowfishCBC.BLOCKSIZE];
-		m_bufOut = new byte[BlowfishCBC.BLOCKSIZE];
+		m_bufIn = new byte[BlowfishECB.BLOCKSIZE];
+		m_bufOut = new byte[BlowfishECB.BLOCKSIZE];
 
 		// (make sure the IV is written to output stream -- this is always the
 		// first 8 bytes written out)
