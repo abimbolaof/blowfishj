@@ -38,7 +38,7 @@ public class SHA1Demo {
             };
 
     public static void main(
-            String[] args) {
+            String... args) {
 
 
         SHA1 s = new SHA1();

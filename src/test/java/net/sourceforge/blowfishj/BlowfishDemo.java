@@ -58,7 +58,7 @@ public class BlowfishDemo
 	 * @param args (command line) parameters
 	 */
 	public static void main(
-			String[] args) throws IOException {
+			String... args) throws IOException {
 
 		// create our test key
 

@@ -201,7 +201,7 @@ public class BinConverter
 	 * @return the hex string
 	 */
 	public static final String bytesToHexStr(
-		byte[] data)
+            byte... data)
 	{
 		return bytesToHexStr(data, 0, data.length);
 	}

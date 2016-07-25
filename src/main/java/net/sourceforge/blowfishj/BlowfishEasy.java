@@ -48,7 +48,7 @@ public class BlowfishEasy
 	 * @param passw the password, usually gained by String.toCharArray()
 	 */
 	public BlowfishEasy(
-		char[] passw)
+			char... passw)
 	{
 
 

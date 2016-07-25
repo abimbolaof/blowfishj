@@ -50,54 +50,51 @@ public class InOutputStreamTest extends TestCase
 
 		for (nI = 0; nI < key.length; nI += nI + 1 - (nI & 1))
 		{
-			for (int nS = 0; nS < SIZES.length; nS++)
-			{
-				byte[] plain = new byte[SIZES[nS]];
+            for (int SIZE : SIZES) {
+                byte[] plain = new byte[SIZE];
 
-				int nJ;
-				for (nJ = 0; nJ < plain.length; nJ++)
-				{
-					plain[nJ] = (byte)nJ;
-				}
+                int nJ;
+                for (nJ = 0; nJ < plain.length; nJ++) {
+                    plain[nJ] = (byte) nJ;
+                }
 
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-				BlowfishOutputStream bfos = new BlowfishOutputStream(
-						key,
-						nI,
-						key.length - nI,
-						baos);
+                BlowfishOutputStream bfos = new BlowfishOutputStream(
+                        key,
+                        nI,
+                        key.length - nI,
+                        baos);
 
-				bfos.write(plain);
-				bfos.close();
-				bfos.close();
+                bfos.write(plain);
+                bfos.close();
+                bfos.close();
 
-				byte[] enc = baos.toByteArray();
+                byte[] enc = baos.toByteArray();
 
-				assertTrue(
-					enc.length ==
-						plain.length - plain.length % BlowfishCBC.BLOCKSIZE +
-								BlowfishCBC.BLOCKSIZE * 2);
+                assertTrue(
+                        enc.length ==
+                                plain.length - plain.length % BlowfishCBC.BLOCKSIZE +
+                                        BlowfishCBC.BLOCKSIZE * 2);
 
-				ByteArrayInputStream bais = new ByteArrayInputStream(enc);
+                ByteArrayInputStream bais = new ByteArrayInputStream(enc);
 
-				BlowfishInputStream bfis = new BlowfishInputStream(
-						key,
-						nI,
-						key.length - nI,
-						bais);
+                BlowfishInputStream bfis = new BlowfishInputStream(
+                        key,
+                        nI,
+                        key.length - nI,
+                        bais);
 
-				for (nJ = 0; nJ < plain.length; nJ++)
-				{
-					int nDec;
-					assertTrue((nDec = bfis.read()) != -1);
-					assertTrue(plain[nJ] == (byte)nDec);
-				}
-				assertTrue(bfis.read() == -1);
+                for (nJ = 0; nJ < plain.length; nJ++) {
+                    int nDec;
+                    assertTrue((nDec = bfis.read()) != -1);
+                    assertTrue(plain[nJ] == (byte) nDec);
+                }
+                assertTrue(bfis.read() == -1);
 
-				bfis.close();
-				bfis.close();
-			}
+                bfis.close();
+                bfis.close();
+            }
 		}
 	}
 
