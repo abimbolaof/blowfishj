@@ -220,7 +220,7 @@ public class BlowfishTests extends TestCase
 
 
 
-	final static byte[] KNOWN_WEAK_KEY =
+	static final byte[] KNOWN_WEAK_KEY =
 	{
 		(byte)0xe4, (byte)0x19, (byte)0xbc, (byte)0xec, (byte)0x18, (byte)0x7b,
 		(byte)0x27, (byte)0x81, (byte)0x64, (byte)0x51,	(byte)0x54, (byte)0xe6,

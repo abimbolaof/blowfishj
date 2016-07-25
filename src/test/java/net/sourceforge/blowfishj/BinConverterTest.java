@@ -18,14 +18,13 @@
 package net.sourceforge.blowfishj;
 
 import junit.framework.TestCase;
-import net.sourceforge.blowfishj.BinConverter;
 
 /**
  * Test cases for the binary converters.
  */
 public class BinConverterTest extends TestCase
 {
-	final public void testByteArrayToInt()
+	public final void testByteArrayToInt()
 	{
 		byte[] dat =
 		{
@@ -38,7 +37,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	final public void testIntToByteArray()
+	public final void testIntToByteArray()
 	{
 		byte[] testb = new byte[5];
 
@@ -59,7 +58,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	final public void testByteArrayToLong()
+	public final void testByteArrayToLong()
 	{
 		byte[] dat =
 		{
@@ -74,7 +73,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	final public void testLongToByteArray()
+	public final void testLongToByteArray()
 	{
 		byte[] testb = new byte[9];
 
@@ -103,7 +102,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	final public void testIntArrayToLong()
+	public final void testIntArrayToLong()
 	{
 		int[] dat =
 		{
@@ -116,7 +115,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	final public void testLongToIntArray()
+	public final void testLongToIntArray()
 	{
 		int[] testn = new int[3];
 
@@ -133,28 +132,28 @@ public class BinConverterTest extends TestCase
 
 
 
-	final public void testMakeLong()
+	public final void testMakeLong()
 	{
 		assertTrue(BinConverter.makeLong(0x89abcdef, 0x01234567) == 0x0123456789abcdefL);
 	}
 
 
 
-	final public void testLongLo32()
+	public final void testLongLo32()
 	{
 		assertTrue(BinConverter.longLo32(0x0123456789abcdefL) == 0x89abcdef);
 	}
 
 
 
-	final public void testLongHi32()
+	public final void testLongHi32()
 	{
 		assertTrue(BinConverter.longHi32(0x0123456789abcdefL) == 0x01234567);
 	}
 
 
 
-	final public void testBytesToHexStr()
+	public final void testBytesToHexStr()
 	{
 		byte[] dat =
 		{
@@ -173,7 +172,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	final public void testhexStrToBytes()
+	public final void testhexStrToBytes()
 	{
 		byte[] testb = new byte[9];
 
@@ -199,7 +198,7 @@ public class BinConverterTest extends TestCase
 
 
 
-	final public void testByteArrayToStr()
+	public final void testByteArrayToStr()
 	{
 		byte[] testb = new byte[52];
 
@@ -210,7 +209,6 @@ public class BinConverterTest extends TestCase
 
 		}
 
-		assertTrue(BinConverter.byteArrayToStr(testb, 0, testb.length)
-			.equals("abcdefghijklmnopqrstuvwxyz"));
+		assertEquals("abcdefghijklmnopqrstuvwxyz", BinConverter.byteArrayToStr(testb, 0, testb.length));
 	}
 }

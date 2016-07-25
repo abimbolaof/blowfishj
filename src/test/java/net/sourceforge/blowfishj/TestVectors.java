@@ -73,7 +73,7 @@ public class TestVectors extends TestCase
 
 	// (the official test vectors from the Counterpane website)
 
-	final static long[] TEST_DATA =
+	static final long[] TEST_DATA =
 	{
 		0x0000000000000000L, 0x0000000000000000L, 0x4ef997456198dd78L,
 		0xffffffffffffffffL, 0xffffffffffffffffL, 0x51866fd5b85ecb8aL,

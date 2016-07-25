@@ -29,7 +29,7 @@ public class BinConverter
 	 * @param nOfs index from where to read the data
 	 * @return the 32bit integer
 	 */
-	public final static int byteArrayToInt(
+	public static final int byteArrayToInt(
 		byte[] buf,
 		int nOfs)
 	{
@@ -47,7 +47,7 @@ public class BinConverter
 	 * @param buf the target buf
 	 * @param nOfs where to place the bytes in the buf
 	 */
-	public final static void intToByteArray(
+	public static final void intToByteArray(
 		int nValue,
 		byte[] buf,
 		int nOfs)
@@ -66,7 +66,7 @@ public class BinConverter
 	 * @param nOfs index from where to read the data
 	 * @return the 64bit integer
 	 */
-	public final static long byteArrayToLong(
+	public static final long byteArrayToLong(
 		byte[] buf,
 		int nOfs)
 	{
@@ -91,7 +91,7 @@ public class BinConverter
 	 * @param buf the target buf
 	 * @param nOfs where to place the bytes in the buf
 	 */
-	public final static void longToByteArray(
+	public static final void longToByteArray(
 		long lValue,
 		byte[] buf,
 		int nOfs)
@@ -119,7 +119,7 @@ public class BinConverter
 	 * @param nOfs index from where to read the data
 	 * @return the 64bit integer
 	 */
-	public final static long intArrayToLong(
+	public static final long intArrayToLong(
 		int[] buf,
 		int nOfs)
 	{
@@ -135,7 +135,7 @@ public class BinConverter
 	 * @param buf the target buf
 	 * @param nOfs where to place the bytes in the buf
 	 */
-	public final static void longToIntArray(
+	public static final void longToIntArray(
 		long lValue,
 		int[] buf,
 		int nOfs)
@@ -152,7 +152,7 @@ public class BinConverter
 	 * @param nHi higher 32bits
 	 * @return the built long
 	 */
-	public final static long makeLong(
+	public static final long makeLong(
 		int nLo,
 		int nHi)
 	{
@@ -167,7 +167,7 @@ public class BinConverter
 	 * @param lVal the long integer
 	 * @return lower 32 bits
 	 */
-	public final static int longLo32(
+	public static final int longLo32(
 		long lVal)
 	{
 		return (int)lVal;
@@ -180,7 +180,7 @@ public class BinConverter
 	 * @param lVal the long integer
 	 * @return higher 32 bits
 	 */
-	public final static int longHi32(
+	public static final int longHi32(
 		long lVal)
 	{
 		return (int)(lVal >>> 32);
@@ -189,7 +189,7 @@ public class BinConverter
 
 
 	// our table for hex conversion
-	final static char[] HEXTAB =
+	static final char[] HEXTAB =
 	{
 		'0', '1', '2', '3',	'4', '5', '6', '7',
 		'8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
@@ -200,7 +200,7 @@ public class BinConverter
 	 * @param data the byte array
 	 * @return the hex string
 	 */
-	public final static String bytesToHexStr(
+	public static final String bytesToHexStr(
 		byte[] data)
 	{
 		return bytesToHexStr(data, 0, data.length);
@@ -215,7 +215,7 @@ public class BinConverter
 	 * @param nLen number of bytes to convert
 	 * @return the hex string
 	 */
-	public final static String bytesToHexStr(
+	public static final String bytesToHexStr(
 		byte[] data,
 		int nOfs,
 		int nLen)
@@ -254,7 +254,7 @@ public class BinConverter
 	 * @param nLen number of bytes to extract
 	 * @return number of extracted bytes
 	 */
-	public final static int hexStrToBytes(
+	public static final int hexStrToBytes(
 			CharSequence sHex,
 			byte[] data,
 			int nSrcOfs,
@@ -331,7 +331,7 @@ public class BinConverter
 	 * @param nLen number of bytes to handle
 	 * @return the string
 	 */
-	public final static String byteArrayToStr(
+	public static final String byteArrayToStr(
 		byte[] data,
 		int nOfs,
 		int nLen)

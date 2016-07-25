@@ -27,9 +27,9 @@ import java.security.NoSuchAlgorithmException;
  * capabilities.
  */
 public class SHA1Demo {
-    private final static byte[] SELFTEST_MESSAGE =
+    private static final byte[] SELFTEST_MESSAGE =
             "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq".getBytes();
-    private final static byte[] SELFTEST_DIGEST =
+    private static final byte[] SELFTEST_DIGEST =
             {
                     (byte) 0x84, (byte) 0x98, (byte) 0x3e, (byte) 0x44, (byte) 0x1c,
                     (byte) 0x3b, (byte) 0xd2, (byte) 0x6e, (byte) 0xba, (byte) 0xae,

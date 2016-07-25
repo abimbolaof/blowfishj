@@ -28,29 +28,29 @@ public class BlowfishDemo
 {
 	// max. size of message to encrypt
 
-	final static int MAX_MESS_SIZE = 64;
+	static final int MAX_MESS_SIZE = 64;
 
 	// benchmark settings
 
-	final static int TESTBUFSIZE = 100000;
-	final static int TESTLOOPS = 10000;
+	static final int TESTBUFSIZE = 100000;
+	static final int TESTLOOPS = 10000;
 
 	// BlowfishEasy reference
 
-	final static String BFEASY_REF_PASSW = "secret";
-	final static String BFEASY_REF_TEXT = "Protect me.";
+	static final String BFEASY_REF_PASSW = "secret";
+	static final String BFEASY_REF_TEXT = "Protect me.";
 
 	// startup CBC IV
 
-	final static long CBCIV_START = 0x0102030405060708L;
+	static final long CBCIV_START = 0x0102030405060708L;
 
 	// things necessary for compatibility testing
 
-	final static byte[] XCHG_KEY =
+	static final byte[] XCHG_KEY =
 	{
 		(byte)0xaa, (byte)0xbb, (byte)0xcc, 0x00, 0x42, 0x33
 	};
-	final static int XCHG_DATA_SIZE = 111;
+	static final int XCHG_DATA_SIZE = 111;
 
 
 	/**

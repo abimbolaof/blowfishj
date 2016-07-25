@@ -26,14 +26,14 @@ public class SHA1
 	/**
 	 * size of a SHA-1 digest in octets
 	 */
-	public final static int DIGEST_SIZE = 20;
+	public static final int DIGEST_SIZE = 20;
 
 
 
-	private int[] m_state;
+	private final int[] m_state;
 	private long m_lCount;
-	private byte[] m_digestBits;
-	private int[] m_block;
+	private final byte[] m_digestBits;
+	private final int[] m_block;
 	private int m_nBlockIndex;
 
 
@@ -76,7 +76,7 @@ public class SHA1
 
 
 
-	final static int rol(int nValue, int nBits)
+	static final int rol(int nValue, int nBits)
 	{
 		return ((nValue << nBits) | (nValue >>> (32 - nBits)));
 	}
@@ -372,7 +372,7 @@ public class SHA1
 
 
 	// we need this table for the following method
-	private final static String HEXTAB = "0123456789abcdef";
+	private static final String HEXTAB = "0123456789abcdef";
 
 	/**
 	 * makes a binhex string representation of the current digest
