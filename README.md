@@ -32,6 +32,7 @@ This software is open source, which means that you can use it in your own applet
 - using Git/GitHub instead of CVS/SourceForge
 - upgraded to Maven 2.x
 - upgraded to JUnit 4.12
+- little refactorings
 
 ### 2.15
 
