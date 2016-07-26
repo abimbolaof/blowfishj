@@ -1,4 +1,3 @@
-
 /*
  * Copyright 1997-2005 Markus Hahn 
  * 
@@ -22,12 +21,10 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-		VectorsTest.class,
-		BinConverterTest.class,
-		BlowfishTest.class,
-		InOutputStreamTest.class
+        VectorsTest.class,
+        BinConverterTest.class,
+        BlowfishTest.class,
+        InOutputStreamTest.class
 })
-public class AllTests
-{
-
+public class AllTests {
 }

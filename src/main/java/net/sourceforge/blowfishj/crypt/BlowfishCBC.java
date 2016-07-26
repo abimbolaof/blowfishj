@@ -1,4 +1,3 @@
-
 /*
  * Copyright 1997-2005 Markus Hahn 
  * 
@@ -22,133 +21,123 @@ import net.sourceforge.blowfishj.BinConverter;
 /**
  * Implementation of the Blowfish encryption algorithm in CBC mode.
  */
-public class BlowfishCBC extends BlowfishECB
-{
+public class BlowfishCBC extends BlowfishECB {
 
-	// the CBC IV
+    // the CBC IV
 
-	private int m_nIVLo;
-	private int m_nIVHi;
-
+    private int m_nIVLo;
+    private int m_nIVHi;
 
 
-	/**
-	 * Gets the current CBC IV.
-	 * @return current CBC IV
-	 */
-	public long getCBCIV()
-	{
-		return BinConverter.makeLong(m_nIVLo, m_nIVHi);
-	}
+    /**
+     * Constructor, uses a zero CBC IV.
+     *
+     * @param key  key material, up to MAXKEYLENGTH bytes
+     * @param nOfs where to start reading the key
+     * @param nLen size of the key in bytes
+     */
+    public BlowfishCBC(
+            byte[] key,
+            int nOfs,
+            int nLen) {
+        super(key, nOfs, nLen);
 
-	/**
-	 * Gets a copy of the current CBC IV.
-	 * @param dest buffer
-	 * @param nOfs where to start writing
-	 */
-	public void getCBCIV(
-		byte[] dest,
-		int nOfs)
-	{
-		BinConverter.intToByteArray(m_nIVHi, dest, nOfs);
-		BinConverter.intToByteArray(m_nIVLo, dest, nOfs + 4);
-	}
+        m_nIVHi = m_nIVLo = 0;
+    }
 
+    /**
+     * Constructor to define the CBC IV.
+     *
+     * @param key        key material, up to MAXKEYLENGTH bytes
+     * @param nOfs       where to start reading the key
+     * @param nLen       size of the key in bytes
+     * @param lInitCBCIV the CBC IV
+     */
+    public BlowfishCBC(
+            byte[] key,
+            int nOfs,
+            int nLen,
+            long lInitCBCIV) {
+        super(key, nOfs, nLen);
 
-
-	/**
-	 * Sets the current CBC IV (for cipher resets).
-	 * @param lNewCBCIV the new CBC IV
-	 */
-	public void setCBCIV(
-		long lNewCBCIV)
-	{
-		m_nIVHi = BinConverter.longHi32(lNewCBCIV);
-		m_nIVLo = BinConverter.longLo32(lNewCBCIV);
-	}
-
+        setCBCIV(lInitCBCIV);
+    }
 
 
-	/**
-	 * Sets the current CBC IV (for cipher resets).
-	 * @param newCBCIV the new CBC IV
-	 * @param nOfs where to start reading the IV
-	 */
-	public void setCBCIV(
-		byte[] newCBCIV,
-		int nOfs)
-	{
-		m_nIVHi = BinConverter.byteArrayToInt(newCBCIV, nOfs);
-		m_nIVLo = BinConverter.byteArrayToInt(newCBCIV, nOfs + 4);
-	}
+    /**
+     * Constructor to define the CBC IV.
+     *
+     * @param key       key material, up to MAXKEYLENGTH bytes
+     * @param nOfs      where to start reading the key
+     * @param nLen      size of the key in bytes
+     * @param initCBCIV the CBC IV
+     * @param nIVOfs    where to start reading the IV
+     */
+    public BlowfishCBC(
+            byte[] key,
+            int nOfs,
+            int nLen,
+            byte[] initCBCIV,
+            int nIVOfs) {
+        super(key, nOfs, nLen);
 
-	/**
-	 * Constructor, uses a zero CBC IV.
-	 * @param key key material, up to MAXKEYLENGTH bytes
-	 * @param nOfs where to start reading the key
-	 * @param nLen size of the key in bytes
-	 */
-	public BlowfishCBC(
-		byte[] key,
-		int nOfs,
-		int nLen)
-	{
-		super(key, nOfs, nLen);
+        setCBCIV(initCBCIV, nIVOfs);
+    }
 
-		m_nIVHi = m_nIVLo = 0;
-	}
+    /**
+     * Gets the current CBC IV.
+     *
+     * @return current CBC IV
+     */
+    public long getCBCIV() {
+        return BinConverter.makeLong(m_nIVLo, m_nIVHi);
+    }
 
+    /**
+     * Sets the current CBC IV (for cipher resets).
+     *
+     * @param lNewCBCIV the new CBC IV
+     */
+    public void setCBCIV(
+            long lNewCBCIV) {
+        m_nIVHi = BinConverter.longHi32(lNewCBCIV);
+        m_nIVLo = BinConverter.longLo32(lNewCBCIV);
+    }
 
-	/**
-	 * Constructor to define the CBC IV.
-	 * @param key key material, up to MAXKEYLENGTH bytes
-	 * @param nOfs where to start reading the key
-	 * @param nLen size of the key in bytes
-	 * @param lInitCBCIV the CBC IV
-	 */
-	public BlowfishCBC(
-		byte[] key,
-		int nOfs,
-		int nLen,
-		long lInitCBCIV)
-	{
-		super(key, nOfs, nLen);
+    /**
+     * Gets a copy of the current CBC IV.
+     *
+     * @param dest buffer
+     * @param nOfs where to start writing
+     */
+    public void getCBCIV(
+            byte[] dest,
+            int nOfs) {
+        BinConverter.intToByteArray(m_nIVHi, dest, nOfs);
+        BinConverter.intToByteArray(m_nIVLo, dest, nOfs + 4);
+    }
 
-		setCBCIV(lInitCBCIV);
-	}
+    /**
+     * Sets the current CBC IV (for cipher resets).
+     *
+     * @param newCBCIV the new CBC IV
+     * @param nOfs     where to start reading the IV
+     */
+    public void setCBCIV(
+            byte[] newCBCIV,
+            int nOfs) {
+        m_nIVHi = BinConverter.byteArrayToInt(newCBCIV, nOfs);
+        m_nIVLo = BinConverter.byteArrayToInt(newCBCIV, nOfs + 4);
+    }
 
-
-	/**
-	 * Constructor to define the CBC IV.
-	 * @param key key material, up to MAXKEYLENGTH bytes
-	 * @param nOfs where to start reading the key
-	 * @param nLen size of the key in bytes
-	 * @param initCBCIV the CBC IV
-	 * @param nIVOfs where to start reading the IV
-	 */
-	public BlowfishCBC(
-		byte[] key,
-		int nOfs,
-		int nLen,
-		byte[] initCBCIV,
-		int nIVOfs)
-	{
-		super(key, nOfs, nLen);
-
-		setCBCIV(initCBCIV, nIVOfs);
-	}
-
-
-
-	/**
-	 * see net.sourceforge.blowfishj.BlowfishECB#cleanUp()
-	 */
-	@Override
-    public void cleanUp()
-	{
-		m_nIVHi = m_nIVLo = 0;
-		super.cleanUp();
-	}
+    /**
+     * see net.sourceforge.blowfishj.BlowfishECB#cleanUp()
+     */
+    @Override
+    public void cleanUp() {
+        m_nIVHi = m_nIVLo = 0;
+        super.cleanUp();
+    }
 
 
     @Override

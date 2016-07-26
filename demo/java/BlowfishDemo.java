@@ -1,4 +1,3 @@
-
 /*
  * Copyright 1997-2005 Markus Hahn 
  * 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <prerequisites>
         <maven>3.0.4</maven>
@@ -50,8 +51,8 @@
         <connection>scm:git:https://github.com/dheid/blowfishj.git</connection>
         <developerConnection>scm:git:https://github.com/dheid/blowfishj.git</developerConnection>
         <url>http://github.com/dheid/blowfishj/tree/master</url>
-      <tag>blowfishj-2.16</tag>
-  </scm>
+        <tag>blowfishj-2.16</tag>
+    </scm>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
