@@ -105,15 +105,11 @@ public class BlowfishDemo {
         System.out.print("something to encrypt please >");
         System.out.flush();
 
-        byte[] tempBuf = new byte[MAX_MESS_SIZE];
-
-        int nMsgSize;
-        int nLnBrkLen;
-
-        nLnBrkLen = System.getProperty("line.separator").length();
+        int nLnBrkLen = System.getProperty("line.separator").length();
 
         // (cut off the line break)
-        nMsgSize = System.in.read(tempBuf) - nLnBrkLen;
+        byte[] tempBuf = new byte[MAX_MESS_SIZE];
+        int nMsgSize = System.in.read(tempBuf) - nLnBrkLen;
         byte[] cpyBuf = new byte[nMsgSize];
         System.arraycopy(tempBuf, 0, cpyBuf, 0, nMsgSize);
         tempBuf = cpyBuf;

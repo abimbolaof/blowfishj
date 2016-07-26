@@ -25,6 +25,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -99,10 +101,8 @@ public class InOutputStreamTest {
 
                 byte[] enc = baos.toByteArray();
 
-                assertTrue(
-                        enc.length ==
-                                plain.length - plain.length % BlowfishECB.BLOCKSIZE +
-                                        BlowfishECB.BLOCKSIZE * 2);
+                assertThat(enc.length, is(plain.length - plain.length % BlowfishECB.BLOCKSIZE +
+                        BlowfishECB.BLOCKSIZE * 2));
 
                 ByteArrayInputStream bais = new ByteArrayInputStream(enc);
 

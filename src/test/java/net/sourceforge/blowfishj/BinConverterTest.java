@@ -19,7 +19,8 @@ package net.sourceforge.blowfishj;
 import net.sourceforge.blowfishj.crypt.BinConverter;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -118,13 +119,13 @@ public class BinConverterTest {
 
         BinConverter.longToIntArray(0x0123456789abcdefL, testn, 0);
 
-        assertTrue(testn[0] == 0x01234567);
-        assertTrue(testn[1] == 0x89abcdef);
+        assertThat(testn[0], is(0x01234567));
+        assertThat(testn[1], is(0x89abcdef));
 
         BinConverter.longToIntArray(0x0123456789abcdefL, testn, 1);
 
-        assertTrue(testn[1] == 0x01234567);
-        assertTrue(testn[2] == 0x89abcdef);
+        assertThat(testn[1], is(0x01234567));
+        assertThat(testn[2], is(0x89abcdef));
     }
 
 
@@ -156,11 +157,11 @@ public class BinConverterTest {
 
         String sHex = "0123456789abcdef";
 
-        assertTrue(sHex.equals(BinConverter.bytesToHexStr(dat)));
+        assertThat(sHex, is(BinConverter.bytesToHexStr(dat)));
 
         sHex = "456789abcd";
 
-        assertTrue(sHex.equals(BinConverter.bytesToHexStr(dat, 2, 5)));
+        assertThat(sHex, is(BinConverter.bytesToHexStr(dat, 2, 5)));
     }
 
 
@@ -199,6 +200,6 @@ public class BinConverterTest {
 
         }
 
-        assertEquals("abcdefghijklmnopqrstuvwxyz", BinConverter.byteArrayToStr(testb, 0, testb.length));
+        assertThat("abcdefghijklmnopqrstuvwxyz", is(BinConverter.byteArrayToStr(testb, 0, testb.length)));
     }
 }

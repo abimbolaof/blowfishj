@@ -19,7 +19,8 @@ package net.sourceforge.blowfishj;
 import net.sourceforge.blowfishj.crypt.BlowfishECB;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Tests the official vectors from the Counterpane website.
@@ -100,7 +101,7 @@ public class VectorsTest {
             bfecb.encrypt(plain, 0, testBuf, 0, plain.length);
 
             for (nJ = 0; nJ < 8; nJ++) {
-                assertTrue(testBuf[nJ] == cipher[nJ]);
+                assertThat(testBuf[nJ], is(cipher[nJ]));
             }
         }
     }

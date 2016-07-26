@@ -23,6 +23,9 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -109,15 +112,12 @@ public class BlowfishTest {
             plain[nI] = (byte) nI;
         }
 
-        byte[] plain2 = new byte[257];
-
-        byte[] cipher = new byte[257];
-
-        byte[] cipherRef = null;
-
         byte[] zeroIV = new byte[8];
         Arrays.fill(zeroIV, 0, zeroIV.length, (byte) 0);
 
+        byte[] cipherRef = null;
+        byte[] cipher = new byte[257];
+        byte[] plain2 = new byte[257];
         for (nI = 0; nI < 3; nI++) {
             BlowfishCBC bfc;
             BlowfishECB bfe = bfc = null;
@@ -228,21 +228,21 @@ public class BlowfishTest {
             String sCipher = bfes.encryptString(sPlain);
             String sPlain2 = bfes.decryptString(sCipher);
 
-            assertTrue(sPlain.equals(sPlain2));
+            assertThat(sPlain, is(sPlain2));
 
             // test with reset instanced
 
             bfes = new BlowfishEasy(sKey.toCharArray());
             sPlain2 = bfes.decryptString(sCipher);
 
-            assertTrue(sPlain.equals(sPlain2));
+            assertThat(sPlain, is(sPlain2));
 
             // negative test with wrong key
 
             bfes = new BlowfishEasy((sKey + '.').toCharArray());
             sPlain2 = bfes.decryptString(sCipher);
 
-            assertFalse(sPlain.equals(sPlain2));
+            assertThat(sPlain, not(is(sPlain2)));
         }
     }
 
@@ -254,16 +254,16 @@ public class BlowfishTest {
         BlowfishECB bfe1 = new BlowfishECB(KEYSETUPBUG_K1, 0, 2);
 
         byte[] block0 = new byte[BlowfishECB.BLOCKSIZE];
-        byte[] block1 = new byte[BlowfishECB.BLOCKSIZE];
 
         Arrays.fill(block0, 0, block0.length, (byte) 0);
+        byte[] block1 = new byte[BlowfishECB.BLOCKSIZE];
         Arrays.fill(block1, 0, block1.length, (byte) 0);
 
         bfe0.encrypt(block0, 0, block0, 0, block0.length);
         bfe1.encrypt(block1, 0, block1, 0, block1.length);
 
         for (int nI = 0; nI < block0.length; nI++) {
-            assertTrue(block0[nI] == block1[nI]);
+            assertThat(block0[nI], is(block1[nI]));
         }
     }
 }
