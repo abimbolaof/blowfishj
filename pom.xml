@@ -47,8 +47,8 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git://github.com/dheid/blowfishj.git</connection>
-        <developerConnection>scm:git:ssh://github.com:dheid/blowfishj.git</developerConnection>
+        <connection>scm:git:https://github.com/dheid/blowfishj.git</connection>
+        <developerConnection>scm:git:https://github.com/dheid/blowfishj.git</developerConnection>
         <url>http://github.com/dheid/blowfishj/tree/master</url>
       <tag>blowfishj-2.16</tag>
   </scm>
