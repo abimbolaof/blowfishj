@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.dheid</groupId>
     <artifactId>blowfishj</artifactId>
-    <version>2.16-SNAPSHOT</version>
+    <version>2.16</version>
     <name>blowfishj</name>
     <description>Implementation of Blowfish for Java</description>
     <url>http://dheid.github.io/blowfishj</url>
