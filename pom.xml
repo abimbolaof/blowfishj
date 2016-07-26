@@ -13,7 +13,7 @@
     <version>2.16-SNAPSHOT</version>
     <name>blowfishj</name>
     <description>Implementation of Blowfish for Java</description>
-    <url>http://sourceforge.net/projects/blowfishj/</url>
+    <url>http://dheid.github.io/blowfishj</url>
     <inceptionYear>2004</inceptionYear>
     <licenses>
         <license>
@@ -57,7 +57,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <issueManagement>
-        <url>http://sourceforge.net/projects/blowfishj/</url>
+        <url>https://github.com/dheid/blowfishj/issues</url>
     </issueManagement>
 
     <profiles>
