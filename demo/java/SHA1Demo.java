@@ -16,6 +16,8 @@
 
 package net.sourceforge.blowfishj;
 
+import net.sourceforge.blowfishj.crypt.SHA1;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

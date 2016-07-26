@@ -18,6 +18,7 @@ package net.sourceforge.blowfishj;
 
 import net.sourceforge.blowfishj.crypt.BlowfishCBC;
 import net.sourceforge.blowfishj.crypt.BlowfishECB;
+import net.sourceforge.blowfishj.tools.BlowfishEasy;
 import org.junit.Test;
 
 import java.util.Arrays;

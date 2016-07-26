@@ -16,7 +16,7 @@
 
 package net.sourceforge.blowfishj.streams;
 
-import net.sourceforge.blowfishj.SHA1;
+import net.sourceforge.blowfishj.crypt.SHA1;
 import net.sourceforge.blowfishj.crypt.BlowfishCBC;
 import net.sourceforge.blowfishj.crypt.BlowfishECB;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sourceforge.blowfishj;
+package net.sourceforge.blowfishj.crypt;
 
 /**
  * SHA-1 message digest implementation, translated from C source code (the

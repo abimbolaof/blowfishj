@@ -16,10 +16,12 @@
 
 package net.sourceforge.blowfishj;
 
+import net.sourceforge.blowfishj.crypt.BinConverter;
 import net.sourceforge.blowfishj.crypt.BlowfishCBC;
 import net.sourceforge.blowfishj.crypt.BlowfishECB;
 import net.sourceforge.blowfishj.streams.BlowfishInputStream;
 import net.sourceforge.blowfishj.streams.BlowfishOutputStream;
+import net.sourceforge.blowfishj.tools.BlowfishEasy;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -16,6 +16,7 @@
 
 package net.sourceforge.blowfishj;
 
+import net.sourceforge.blowfishj.crypt.BinConverter;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

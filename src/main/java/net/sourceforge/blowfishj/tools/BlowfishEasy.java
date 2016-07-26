@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package net.sourceforge.blowfishj;
+package net.sourceforge.blowfishj.tools;
 
+import net.sourceforge.blowfishj.crypt.BinConverter;
 import net.sourceforge.blowfishj.crypt.BlowfishCBC;
 import net.sourceforge.blowfishj.crypt.BlowfishECB;
+import net.sourceforge.blowfishj.crypt.SHA1;
 
 import java.security.SecureRandom;
 import java.util.Random;

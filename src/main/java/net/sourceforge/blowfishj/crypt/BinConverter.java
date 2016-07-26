@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sourceforge.blowfishj;
+package net.sourceforge.blowfishj.crypt;
 
 /**
  * Some helper routines for data conversion, all data is treated in network
