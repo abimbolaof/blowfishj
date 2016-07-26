@@ -130,9 +130,6 @@ public class BlowfishTest {
 
             switch (nI) {
                 case 0:
-                    bfe = new BlowfishECB();
-                    bfe.initialize(key, 0, key.length);
-                    break;
                 case 1:
                     bfe = new BlowfishECB(key, 0, key.length);
                     break;
