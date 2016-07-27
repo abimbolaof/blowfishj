@@ -19,6 +19,7 @@ package net.sourceforge.blowfishj.crypt;
 /**
  * Implementation of the Blowfish encryption algorithm in ECB mode.
  */
+@SuppressWarnings("ALL")
 public class BlowfishECB {
     /**
      * maximum possible key length in bytes
